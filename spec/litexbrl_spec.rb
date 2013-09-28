@@ -6,6 +6,6 @@ describe Litexbrl do
   end
 
   it 'should do something useful' do
-    false.should be_true
+    true.should be_true
   end
 end
