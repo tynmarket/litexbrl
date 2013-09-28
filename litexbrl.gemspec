@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Litexbrl::VERSION
   spec.authors       = ["Takehiko Shinkura"]
   spec.email         = ["tynmarket@gmail.com"]
-  spec.description   = %q{Write a gem description}
-  spec.summary       = %q{Write a gem summary}
+  spec.description   = %q{Lightweight XBRL parser}
+  spec.summary       = %q{Lightweight XBRL parser}
   spec.homepage      = ""
   spec.license       = "MIT"
 

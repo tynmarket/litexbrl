@@ -1,6 +1,10 @@
 # Litexbrl
 
-TODO: Write a gem description
+LiteXBRlは軽量のXBRLパーサです。
+
+#### サポート
+- TDnet
+ - 短信サマリ（日本会計基準）
 
 ## Installation
 
@@ -18,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+作成中。
 
 ## Contributing
 
