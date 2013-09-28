@@ -1,4 +1,4 @@
-# Litexbrl
+# LiteXBRL
 
 LiteXBRLは軽量のXBRLパーサです。
 
