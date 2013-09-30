@@ -120,6 +120,14 @@ module LiteXBRL
         end
       end
 
+      describe ".parse_string" do
+        let(:xbrl) { Summary.parse_string(File.read("#{dir}/ja-cons-2013-q1.xbrl")) }
+
+        it do
+          expect(xbrl.year).to eq(2013)
+        end
+      end
+
     end
   end
 end

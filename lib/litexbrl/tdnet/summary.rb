@@ -16,8 +16,13 @@ module LiteXBRL
 
       class << self
         def parse(path)
-          doc = File.open(path) {|f| Nokogiri::XML(f) }
-          read(doc)
+          doc = File.open(path) {|f| Nokogiri::XML f }
+          read doc
+        end
+
+        def parse_string(str)
+          doc = Nokogiri::XML str
+          read doc
         end
 
         private
