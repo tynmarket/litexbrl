@@ -128,6 +128,31 @@ module LiteXBRL
         end
       end
 
+      describe "#attributes" do
+        let(:summary) { Summary.new }
+        let(:attr) { summary.attributes }
+
+        it do
+          summary.code = 1111
+          summary.year = 2013
+          summary.quarter = 1
+          summary.net_sales = 100
+          summary.operating_income = 10
+          summary.ordinary_income = 11
+          summary.net_income = 6
+          summary.net_income_per_share = 123.1
+
+          expect(attr[:code]).to eq(1111)
+          expect(attr[:year]).to eq(2013)
+          expect(attr[:quarter]).to eq(1)
+          expect(attr[:net_sales]).to eq(100)
+          expect(attr[:operating_income]).to eq(10)
+          expect(attr[:ordinary_income]).to eq(11)
+          expect(attr[:net_income]).to eq(6)
+          expect(attr[:net_income_per_share]).to eq(123.1)
+        end
+      end
+
     end
   end
 end

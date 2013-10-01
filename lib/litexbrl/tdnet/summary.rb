@@ -15,6 +15,7 @@ module LiteXBRL
       }
 
       class << self
+
         def parse(path)
           doc = File.open(path) {|f| Nokogiri::XML f }
           read doc
@@ -149,6 +150,20 @@ module LiteXBRL
         def find_value(doc, item, context)
           doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS).content
         end
+
+      end
+
+      def attributes
+        {
+          code: code,
+          year: year,
+          quarter: quarter,
+          net_sales: net_sales,
+          operating_income: operating_income,
+          ordinary_income: ordinary_income,
+          net_income: net_income,
+          net_income_per_share: net_income_per_share
+        }
       end
 
     end
