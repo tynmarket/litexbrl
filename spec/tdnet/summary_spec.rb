@@ -54,6 +54,17 @@ module LiteXBRL
         end
       end
 
+      describe ".find_value" do
+        context "要素が取得できない" do
+          let(:doc) { double "doc", at_xpath: nil }
+
+          it "nilを返す" do
+            val = Summary.send(:find_value, doc, nil, nil)
+            expect(val).to be_nil
+          end
+        end
+      end
+
       describe ".parse" do
         context "連結・第1四半期" do
           let(:xbrl) { Summary.parse("#{dir}/ja-cons-2013-q1.xbrl") }

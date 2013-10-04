@@ -148,7 +148,8 @@ module LiteXBRL
         # 勘定科目の値を取得します
         #
         def find_value(doc, item, context)
-          doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS).content
+          elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS)
+          elm.content if elm
         end
 
       end
