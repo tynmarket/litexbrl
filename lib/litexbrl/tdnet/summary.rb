@@ -50,7 +50,7 @@ module LiteXBRL
           # 純利益
           xbrl.net_income = to_mill(find_value(doc, "NetIncome", context[:context_duration]))
           # 1株当たり純利益
-          xbrl.net_income_per_share = find_value(doc, "NetIncomePerShare", context[:context_duration]).to_f
+          xbrl.net_income_per_share = to_f(find_value(doc, "NetIncomePerShare", context[:context_duration]))
 
           xbrl
         end

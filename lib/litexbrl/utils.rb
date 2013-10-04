@@ -62,5 +62,9 @@ module LiteXBRL
       val.to_i / (1000 * 1000)
     end
 
+    def to_f(val)
+      val.to_f if val
+    end
+
   end
 end
