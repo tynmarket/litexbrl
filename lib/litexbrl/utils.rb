@@ -59,7 +59,7 @@ module LiteXBRL
     # 単位を100万円にします
     #
     def to_mill(val)
-      val.to_i / (1000 * 1000)
+      val.to_i / (1000 * 1000) if val
     end
 
     def to_f(val)
