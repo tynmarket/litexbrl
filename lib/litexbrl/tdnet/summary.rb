@@ -145,6 +145,19 @@ module LiteXBRL
         end
 
         #
+        # 業種を取得します
+        #
+        def find_sector(doc, context)
+          # 一般商工業
+          net_sales = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='#{context}']", NS)
+          return :general if net_sales
+
+          # 銀行
+          ordinary_revenues_bk = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesBK[@contextRef='#{context}']", NS)
+          return :bank if ordinary_revenues_bk
+        end
+
+        #
         # 勘定科目の値を取得します
         #
         def find_value(doc, item, context)

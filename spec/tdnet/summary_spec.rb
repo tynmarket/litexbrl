@@ -54,6 +54,24 @@ module LiteXBRL
         end
       end
 
+      describe '.find_sector' do
+        let(:context) { 'CurrentAccumulatedQ1ConsolidatedDuration' }
+
+        context '一般商工業' do
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-cons-2013-q1.xbrl"), context)
+            expect(sector).to eq(:general)
+          end
+        end
+
+        context '銀行' do
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-bk-cons-2014-q1.xbrl"), context)
+            expect(sector).to eq(:bank)
+          end
+        end
+      end
+
       describe ".find_value" do
         context "要素が取得できない" do
           let(:doc) { double "doc", at_xpath: nil }
@@ -128,6 +146,10 @@ module LiteXBRL
             expect(xbrl.net_income).to eq(1903)
             expect(xbrl.net_income_per_share).to eq(302.11)
           end
+        end
+
+        context "業種：銀行" do
+
         end
       end
 
