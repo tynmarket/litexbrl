@@ -197,6 +197,9 @@ module LiteXBRL
           # 営業収益（Olympic、いちよし証券など）
           operating_revenues = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenues[@contextRef='#{context}']", NS)
           return :operating_revenues if operating_revenues
+
+          # 不明
+          return :general
         end
 
         #

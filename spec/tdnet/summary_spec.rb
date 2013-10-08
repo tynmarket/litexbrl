@@ -91,6 +91,15 @@ module LiteXBRL
             expect(sector).to eq(:operating_revenues)
           end
         end
+
+        context '不明' do
+          it do
+            Nokogiri::XML::Document.any_instance.stub(:at_xpath) { nil }
+
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-oprv-cons-2014-q1.xbrl"), context)
+            expect(sector).to eq(:general)
+          end
+        end
       end
 
       describe ".find_value" do
