@@ -14,6 +14,24 @@ module LiteXBRL
         'tse-t-ed' => 'http://www.xbrl.tdnet.info/jp/br/tdnet/t/ed/2007-06-30'
       }
 
+      # 売上高
+      NET_SALES = {
+        general: 'NetSales',
+        bank: 'OrdinaryRevenuesBK'
+      }
+
+      # 営業利益
+      OPERATING_INCOME = {
+        general: 'OperatingIncome',
+        bank: 'OrdinaryIncome'
+      }
+
+      # 経常利益
+      ORDINARY_INCOME = {
+        general: 'OrdinaryIncome',
+        bank: 'OrdinaryIncome'
+      }
+
       class << self
 
         def parse(path)
@@ -41,12 +59,15 @@ module LiteXBRL
           # 四半期
           xbrl.quarter = find_quarter(doc, consolidation, context)
 
+          # 業種
+          sector = find_sector(doc, context[:context_duration])
+
           # 売上高
-          xbrl.net_sales = to_mill(find_value(doc, "NetSales", context[:context_duration]))
+          xbrl.net_sales = to_mill(find_value(doc, NET_SALES[sector], context[:context_duration]))
           # 営業利益
-          xbrl.operating_income = to_mill(find_value(doc, "OperatingIncome", context[:context_duration]))
+          xbrl.operating_income = to_mill(find_value(doc, OPERATING_INCOME[sector], context[:context_duration]))
           # 経常利益
-          xbrl.ordinary_income = to_mill(find_value(doc, "OrdinaryIncome", context[:context_duration]))
+          xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[sector], context[:context_duration]))
           # 純利益
           xbrl.net_income = to_mill(find_value(doc, "NetIncome", context[:context_duration]))
           # 1株当たり純利益

@@ -149,7 +149,19 @@ module LiteXBRL
         end
 
         context "業種：銀行" do
+          let(:xbrl) { Summary.parse("#{dir}/ja-bk-cons-2014-q1.xbrl") }
 
+          it do
+            expect(xbrl.code).to eq('8361')
+            expect(xbrl.year).to eq(2014)
+            expect(xbrl.quarter).to eq(1)
+
+            expect(xbrl.net_sales).to eq(28278)
+            expect(xbrl.operating_income).to eq(5079)
+            expect(xbrl.ordinary_income).to eq(5079)
+            expect(xbrl.net_income).to eq(4521)
+            expect(xbrl.net_income_per_share).to eq(12.82)
+          end
         end
       end
 
