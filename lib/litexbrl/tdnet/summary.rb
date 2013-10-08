@@ -17,19 +17,22 @@ module LiteXBRL
       # 売上高
       NET_SALES = {
         general: 'NetSales',
-        bank: 'OrdinaryRevenuesBK'
+        bank: 'OrdinaryRevenuesBK',
+        insurance: 'OrdinaryRevenuesIN'
       }
 
       # 営業利益
       OPERATING_INCOME = {
         general: 'OperatingIncome',
-        bank: 'OrdinaryIncome'
+        bank: 'OrdinaryIncome',
+        insurance: 'OrdinaryIncome'
       }
 
       # 経常利益
       ORDINARY_INCOME = {
         general: 'OrdinaryIncome',
-        bank: 'OrdinaryIncome'
+        bank: 'OrdinaryIncome',
+        insurance: 'OrdinaryIncome'
       }
 
       class << self
@@ -176,6 +179,10 @@ module LiteXBRL
           # 銀行
           ordinary_revenues_bk = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesBK[@contextRef='#{context}']", NS)
           return :bank if ordinary_revenues_bk
+
+          # 保険
+          ordinary_revenues_in = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesIN[@contextRef='#{context}']", NS)
+          return :insurance if ordinary_revenues_in
         end
 
         #
