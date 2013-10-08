@@ -71,6 +71,13 @@ module LiteXBRL
           end
         end
 
+        context '証券'do
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-se-cons-2014-q1.xbrl"), context)
+            expect(sector).to eq(:securities)
+          end
+        end
+
         context '保険'do
           it do
             sector = Summary.send(:find_sector, doc("#{dir}/ja-in-cons-2014-q1.xbrl"), context)
@@ -168,6 +175,22 @@ module LiteXBRL
             expect(xbrl.ordinary_income).to eq(5079)
             expect(xbrl.net_income).to eq(4521)
             expect(xbrl.net_income_per_share).to eq(12.82)
+          end
+        end
+
+        context '業種：証券' do
+          let(:xbrl) { Summary.parse("#{dir}/ja-se-cons-2014-q1.xbrl") }
+
+          it do
+            expect(xbrl.code).to eq('8601')
+            expect(xbrl.year).to eq(2014)
+            expect(xbrl.quarter).to eq(1)
+
+            expect(xbrl.net_sales).to eq(183082)
+            expect(xbrl.operating_income).to eq(62307)
+            expect(xbrl.ordinary_income).to eq(65087)
+            expect(xbrl.net_income).to eq(57297)
+            expect(xbrl.net_income_per_share).to eq(33.72)
           end
         end
 
