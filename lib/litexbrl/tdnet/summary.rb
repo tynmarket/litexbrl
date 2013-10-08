@@ -19,7 +19,8 @@ module LiteXBRL
         general: 'NetSales',
         bank: 'OrdinaryRevenuesBK',
         securities: 'OperatingRevenuesSE',
-        insurance: 'OrdinaryRevenuesIN'
+        insurance: 'OrdinaryRevenuesIN',
+        operating_revenues: 'OperatingRevenues'
       }
 
       # 営業利益
@@ -27,7 +28,8 @@ module LiteXBRL
         general: 'OperatingIncome',
         bank: 'OrdinaryIncome',
         securities: 'OperatingIncome',
-        insurance: 'OrdinaryIncome'
+        insurance: 'OrdinaryIncome',
+        operating_revenues: 'OperatingIncome'
       }
 
       # 経常利益
@@ -35,7 +37,8 @@ module LiteXBRL
         general: 'OrdinaryIncome',
         bank: 'OrdinaryIncome',
         securities: 'OrdinaryIncome',
-        insurance: 'OrdinaryIncome'
+        insurance: 'OrdinaryIncome',
+        operating_revenues: 'OrdinaryIncome'
       }
 
       class << self
@@ -190,6 +193,10 @@ module LiteXBRL
           # 保険
           ordinary_revenues_in = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesIN[@contextRef='#{context}']", NS)
           return :insurance if ordinary_revenues_in
+
+          # 営業収益（Olympic、いちよし証券など）
+          operating_revenues = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenues[@contextRef='#{context}']", NS)
+          return :operating_revenues if operating_revenues
         end
 
         #
