@@ -16,38 +16,53 @@ module LiteXBRL
 
       # 売上高
       NET_SALES = {
-        general: 'NetSales',
-        bank: 'OrdinaryRevenuesBK',
-        securities: 'OperatingRevenuesSE',
-        insurance: 'OrdinaryRevenuesIN',
-        operating_revenues: 'OperatingRevenues',
-        operating_revenues_specific: 'OperatingRevenuesSpecific',
-        gross_operating_revenues: 'GrossOperatingRevenues',
-        net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
+        jp: {
+          general: 'NetSales',
+          bank: 'OrdinaryRevenuesBK',
+          securities: 'OperatingRevenuesSE',
+          insurance: 'OrdinaryRevenuesIN',
+          operating_revenues: 'OperatingRevenues',
+          operating_revenues_specific: 'OperatingRevenuesSpecific',
+          gross_operating_revenues: 'GrossOperatingRevenues',
+          net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
+        },
+        us: {
+
+        }
       }
 
       # 営業利益
       OPERATING_INCOME = {
-        general: 'OperatingIncome',
-        bank: 'OrdinaryIncome',
-        securities: 'OperatingIncome',
-        insurance: 'OrdinaryIncome',
-        operating_revenues: 'OperatingIncome',
-        operating_revenues_specific: 'OperatingIncome',
-        gross_operating_revenues: 'OperatingIncome',
-        net_sales_construction: 'OperatingIncome'
+        jp: {
+          general: 'OperatingIncome',
+          bank: 'OrdinaryIncome',
+          securities: 'OperatingIncome',
+          insurance: 'OrdinaryIncome',
+          operating_revenues: 'OperatingIncome',
+          operating_revenues_specific: 'OperatingIncome',
+          gross_operating_revenues: 'OperatingIncome',
+          net_sales_construction: 'OperatingIncome'
+        },
+        us: {
+
+        }
       }
 
       # 経常利益
       ORDINARY_INCOME = {
-        general: 'OrdinaryIncome',
-        bank: 'OrdinaryIncome',
-        securities: 'OrdinaryIncome',
-        insurance: 'OrdinaryIncome',
-        operating_revenues: 'OrdinaryIncome',
-        operating_revenues_specific: 'OrdinaryIncome',
-        gross_operating_revenues: 'OrdinaryIncome',
-        net_sales_construction: 'OrdinaryIncome'
+        jp: {
+          general: 'OrdinaryIncome',
+          bank: 'OrdinaryIncome',
+          securities: 'OrdinaryIncome',
+          insurance: 'OrdinaryIncome',
+          operating_revenues: 'OrdinaryIncome',
+          operating_revenues_specific: 'OrdinaryIncome',
+          gross_operating_revenues: 'OrdinaryIncome',
+          net_sales_construction: 'OrdinaryIncome'
+        },
+        us: {
+
+        }
       }
 
       class << self
@@ -77,15 +92,17 @@ module LiteXBRL
           # 四半期
           xbrl.quarter = find_quarter(doc, consolidation, context)
 
+          # 会計基準
+          accounting_base = find_accounting_base(doc)
           # 業種
           sector = find_sector(doc, context[:context_duration])
 
           # 売上高
-          xbrl.net_sales = to_mill(find_value(doc, NET_SALES[sector], context[:context_duration]))
+          xbrl.net_sales = to_mill(find_value(doc, NET_SALES[accounting_base][sector], context[:context_duration]))
           # 営業利益
-          xbrl.operating_income = to_mill(find_value(doc, OPERATING_INCOME[sector], context[:context_duration]))
+          xbrl.operating_income = to_mill(find_value(doc, OPERATING_INCOME[accounting_base][sector], context[:context_duration]))
           # 経常利益
-          xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[sector], context[:context_duration]))
+          xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[accounting_base][sector], context[:context_duration]))
           # 純利益
           xbrl.net_income = to_mill(find_value(doc, "NetIncome", context[:context_duration]))
           # 1株当たり純利益
