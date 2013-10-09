@@ -22,6 +22,7 @@ module LiteXBRL
         insurance: 'OrdinaryRevenuesIN',
         operating_revenues: 'OperatingRevenues',
         operating_revenues_specific: 'OperatingRevenuesSpecific',
+        gross_operating_revenues: 'GrossOperatingRevenues',
         net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
       }
 
@@ -33,6 +34,7 @@ module LiteXBRL
         insurance: 'OrdinaryIncome',
         operating_revenues: 'OperatingIncome',
         operating_revenues_specific: 'OperatingIncome',
+        gross_operating_revenues: 'OperatingIncome',
         net_sales_construction: 'OperatingIncome'
       }
 
@@ -44,6 +46,7 @@ module LiteXBRL
         insurance: 'OrdinaryIncome',
         operating_revenues: 'OrdinaryIncome',
         operating_revenues_specific: 'OrdinaryIncome',
+        gross_operating_revenues: 'OrdinaryIncome',
         net_sales_construction: 'OrdinaryIncome'
       }
 
@@ -207,6 +210,10 @@ module LiteXBRL
           # 営業収入（ミニストップ、メッセージなど）
           operating_revenues_specific = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
           return :operating_revenues_specific if operating_revenues_specific
+
+          # 営業総収入
+          gross_operating_revenues = doc.at_xpath("//xbrli:xbrl/tse-t-ed:GrossOperatingRevenues[@contextRef='#{context}']", NS)
+          return :gross_operating_revenues if gross_operating_revenues
 
           # 完成工事高（熊谷組など）
           net_sales_construction = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)

@@ -99,6 +99,15 @@ module LiteXBRL
           end
         end
 
+        context '営業総収入' do
+          let(:context) { 'CurrentYearConsolidatedDuration' }
+
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-goprv-cons-2013-q4.xbrl"), context)
+            expect(sector).to eq(:gross_operating_revenues)
+          end
+        end
+
         context '完成工事高' do
           let(:context) { 'CurrentYearConsolidatedDuration' }
 
@@ -271,6 +280,22 @@ module LiteXBRL
             expect(xbrl.ordinary_income).to eq(563)
             expect(xbrl.net_income).to eq(113)
             expect(xbrl.net_income_per_share).to eq(3.92)
+          end
+        end
+
+        context '業種：営業総収入' do
+          let(:xbrl) { Summary.parse("#{dir}/ja-goprv-cons-2013-q4.xbrl") }
+
+          it do
+            expect(xbrl.code).to eq('8028')
+            expect(xbrl.year).to eq(2013)
+            expect(xbrl.quarter).to eq(4)
+
+            expect(xbrl.net_sales).to eq(334087)
+            expect(xbrl.operating_income).to eq(43107)
+            expect(xbrl.ordinary_income).to eq(45410)
+            expect(xbrl.net_income).to eq(25020)
+            expect(xbrl.net_income_per_share).to eq(263.57)
           end
         end
 
