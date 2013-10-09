@@ -92,6 +92,13 @@ module LiteXBRL
           end
         end
 
+        context '営業収入' do
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-oprvsp-cons-2014-q1.xbrl"), context)
+            expect(sector).to eq(:operating_revenues_specific)
+          end
+        end
+
         context '不明' do
           it do
             Nokogiri::XML::Document.any_instance.stub(:at_xpath) { nil }
@@ -239,6 +246,22 @@ module LiteXBRL
             expect(xbrl.ordinary_income).to eq(101)
             expect(xbrl.net_income).to eq(89)
             expect(xbrl.net_income_per_share).to eq(3.88)
+          end
+        end
+
+        context '業種：営業収入' do
+          let(:xbrl) { Summary.parse("#{dir}/ja-oprvsp-cons-2014-q1.xbrl") }
+
+          it do
+            expect(xbrl.code).to eq('9946')
+            expect(xbrl.year).to eq(2014)
+            expect(xbrl.quarter).to eq(1)
+
+            expect(xbrl.net_sales).to eq(33307)
+            expect(xbrl.operating_income).to eq(240)
+            expect(xbrl.ordinary_income).to eq(563)
+            expect(xbrl.net_income).to eq(113)
+            expect(xbrl.net_income_per_share).to eq(3.92)
           end
         end
       end
