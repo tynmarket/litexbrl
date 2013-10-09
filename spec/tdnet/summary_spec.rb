@@ -54,6 +54,22 @@ module LiteXBRL
         end
       end
 
+      describe '.find_accounting_base' do
+        context '日本会計基準' do
+          it do
+            accounting_base = Summary.send(:find_accounting_base, doc("#{dir}/ja-cons-2013-q1.xbrl"))
+            expect(accounting_base).to eq(:jp)
+          end
+        end
+
+        context '米国会計基準' do
+          it do
+            accounting_base = Summary.send(:find_accounting_base, doc("#{dir}/us-cons-2014-q1.xbrl"))
+            expect(accounting_base).to eq(:us)
+          end
+        end
+      end
+
       describe '.find_sector' do
         let(:context) { 'CurrentAccumulatedQ1ConsolidatedDuration' }
 

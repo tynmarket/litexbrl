@@ -184,6 +184,20 @@ module LiteXBRL
         end
 
         #
+        # 会計基準を取得します
+        #
+        def find_accounting_base(doc)
+          namespace = doc.namespaces.keys.find {|ns| ns.start_with? 'xmlns:tdnet' }
+
+          case namespace
+          when /.+jpsm.+/
+            :jp
+          when /.+ussm.+/
+            :us
+          end
+        end
+
+        #
         # 業種を取得します
         #
         def find_sector(doc, context)
