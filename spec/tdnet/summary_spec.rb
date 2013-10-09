@@ -264,6 +264,22 @@ module LiteXBRL
             expect(xbrl.net_income_per_share).to eq(3.92)
           end
         end
+
+        context '業種：完成工事高' do
+          let(:xbrl) { Summary.parse("#{dir}/ja-nsco-cons-2013-q4.xbrl") }
+
+          it do
+            expect(xbrl.code).to eq('1861')
+            expect(xbrl.year).to eq(2013)
+            expect(xbrl.quarter).to eq(4)
+
+            expect(xbrl.net_sales).to eq(260753)
+            expect(xbrl.operating_income).to eq(-1167)
+            expect(xbrl.ordinary_income).to eq(65)
+            expect(xbrl.net_income).to eq(-1083)
+            expect(xbrl.net_income_per_share).to eq(-5.91)
+          end
+        end
       end
 
       describe ".parse_string" do

@@ -21,7 +21,8 @@ module LiteXBRL
         securities: 'OperatingRevenuesSE',
         insurance: 'OrdinaryRevenuesIN',
         operating_revenues: 'OperatingRevenues',
-        operating_revenues_specific: 'OperatingRevenuesSpecific'
+        operating_revenues_specific: 'OperatingRevenuesSpecific',
+        net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
       }
 
       # 営業利益
@@ -31,7 +32,8 @@ module LiteXBRL
         securities: 'OperatingIncome',
         insurance: 'OrdinaryIncome',
         operating_revenues: 'OperatingIncome',
-        operating_revenues_specific: 'OperatingIncome'
+        operating_revenues_specific: 'OperatingIncome',
+        net_sales_construction: 'OperatingIncome'
       }
 
       # 経常利益
@@ -41,7 +43,8 @@ module LiteXBRL
         securities: 'OrdinaryIncome',
         insurance: 'OrdinaryIncome',
         operating_revenues: 'OrdinaryIncome',
-        operating_revenues_specific: 'OrdinaryIncome'
+        operating_revenues_specific: 'OrdinaryIncome',
+        net_sales_construction: 'OrdinaryIncome'
       }
 
       class << self
@@ -204,6 +207,10 @@ module LiteXBRL
           # 営業収入（ミニストップ、メッセージなど）
           operating_revenues_specific = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
           return :operating_revenues_specific if operating_revenues_specific
+
+          # 完成工事高
+          net_sales_construction = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)
+          return :net_sales_construction if net_sales_construction
 
           # 不明
           return :general
