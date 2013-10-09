@@ -208,7 +208,7 @@ module LiteXBRL
           operating_revenues_specific = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
           return :operating_revenues_specific if operating_revenues_specific
 
-          # 完成工事高
+          # 完成工事高（熊谷組など）
           net_sales_construction = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)
           return :net_sales_construction if net_sales_construction
 

@@ -99,6 +99,15 @@ module LiteXBRL
           end
         end
 
+        context '完成工事高' do
+          let(:context) { 'CurrentYearConsolidatedDuration' }
+
+          it do
+            sector = Summary.send(:find_sector, doc("#{dir}/ja-nsco-cons-2013-q4.xbrl"), context)
+            expect(sector).to eq(:net_sales_construction)
+          end
+        end
+
         context '不明' do
           it do
             Nokogiri::XML::Document.any_instance.stub(:at_xpath) { nil }
