@@ -26,6 +26,7 @@ module LiteXBRL
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
         us: {
+          general: 'NetSalesUS'
         }
       }
 
@@ -36,6 +37,7 @@ module LiteXBRL
           insurance: 'OrdinaryIncome'
         }),
         us: {
+          general: 'OperatingIncomeUS'
         }
       }
 
@@ -43,6 +45,23 @@ module LiteXBRL
       ORDINARY_INCOME = {
         jp: hash_with_default('OrdinaryIncome', {}),
         us: {
+          general: 'OperatingIncomeUS'
+        }
+      }
+
+      # 純利益
+      NET_INCOME = {
+        jp: hash_with_default('NetIncome', {}),
+        us: {
+
+        }
+      }
+
+      # 一株当たり純利益
+      NET_INCOME_PER_SHARE = {
+        jp: hash_with_default('NetIncomePerShare', {}),
+        us: {
+
         }
       }
 
@@ -85,9 +104,9 @@ module LiteXBRL
           # 経常利益
           xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[accounting_base][sector], context[:context_duration]))
           # 純利益
-          xbrl.net_income = to_mill(find_value(doc, "NetIncome", context[:context_duration]))
+          xbrl.net_income = to_mill(find_value(doc, NET_INCOME[accounting_base][sector], context[:context_duration]))
           # 1株当たり純利益
-          xbrl.net_income_per_share = to_f(find_value(doc, "NetIncomePerShare", context[:context_duration]))
+          xbrl.net_income_per_share = to_f(find_value(doc, NET_INCOME_PER_SHARE[accounting_base][sector], context[:context_duration]))
 
           xbrl
         end
