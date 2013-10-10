@@ -257,8 +257,12 @@ module LiteXBRL
         #
         def find_sector_us(doc, context)
           # 一般
-          net_sales_us = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesUS[@contextRef='#{context}']", NS)
-          return :general if net_sales_us
+          if doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesUS[@contextRef='#{context}']", NS)
+            :general
+          # 不明
+          else
+            :general
+          end
         end
 
         #
