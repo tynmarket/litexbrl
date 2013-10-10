@@ -359,7 +359,7 @@ module LiteXBRL
 
               expect(xbrl.net_sales).to eq(6255319)
               expect(xbrl.operating_income).to eq(663383)
-              expect(xbrl.ordinary_income).to eq(663383)
+              expect(xbrl.ordinary_income).to eq(724163)
               expect(xbrl.net_income).to eq(562194)
               expect(xbrl.net_income_per_share).to eq(177.45)
             end

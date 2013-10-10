@@ -40,7 +40,7 @@ module LiteXBRL
       # 経常利益
       ORDINARY_INCOME = {
         jp: hash_with_default('OrdinaryIncome', {}),
-        us: hash_with_default('OperatingIncomeUS', {})
+        us: hash_with_default('IncomeBeforeIncomeTaxesUS', {})
       }
 
       # 純利益
