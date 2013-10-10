@@ -263,7 +263,7 @@ module LiteXBRL
           # 一般
           if doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesUS[@contextRef='#{context}']", NS)
             :general
-          # 営業収益
+          # 営業収益（NTTなど）
           elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesUS[@contextRef='#{context}']", NS)
             :operating_revenues
           # 不明
