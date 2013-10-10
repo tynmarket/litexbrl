@@ -223,39 +223,33 @@ module LiteXBRL
         #
         def find_sector_jp(doc, context)
           # 一般商工業
-          net_sales = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='#{context}']", NS)
-          return :general if net_sales
-
+          if doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='#{context}']", NS)
+            :general
           # 銀行
-          ordinary_revenues_bk = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesBK[@contextRef='#{context}']", NS)
-          return :bank if ordinary_revenues_bk
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesBK[@contextRef='#{context}']", NS)
+            :bank
           # 証券
-          operating_revenues_in = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSE[@contextRef='#{context}']", NS)
-          return :securities if operating_revenues_in
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSE[@contextRef='#{context}']", NS)
+            :securities
           # 保険
-          ordinary_revenues_in = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesIN[@contextRef='#{context}']", NS)
-          return :insurance if ordinary_revenues_in
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesIN[@contextRef='#{context}']", NS)
+            :insurance
           # 営業収益（Olympic、いちよし証券など）
-          operating_revenues = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenues[@contextRef='#{context}']", NS)
-          return :operating_revenues if operating_revenues
-
+         elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenues[@contextRef='#{context}']", NS)
+            :operating_revenues
           # 営業収入（ミニストップ、メッセージなど）
-          operating_revenues_specific = doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
-          return :operating_revenues_specific if operating_revenues_specific
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
+            :operating_revenues_specific
           # 営業総収入
-          gross_operating_revenues = doc.at_xpath("//xbrli:xbrl/tse-t-ed:GrossOperatingRevenues[@contextRef='#{context}']", NS)
-          return :gross_operating_revenues if gross_operating_revenues
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:GrossOperatingRevenues[@contextRef='#{context}']", NS)
+            :gross_operating_revenues
           # 完成工事高（熊谷組など）
-          net_sales_construction = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)
-          return :net_sales_construction if net_sales_construction
-
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)
+            :net_sales_construction
           # 不明
-          return :general
+          else
+            :general
+          end
         end
 
         #
