@@ -16,8 +16,7 @@ module LiteXBRL
 
       # 売上高
       NET_SALES = {
-        jp: {
-          general: 'NetSales',
+        jp: hash_with_default('NetSales', {
           bank: 'OrdinaryRevenuesBK',
           securities: 'OperatingRevenuesSE',
           insurance: 'OrdinaryRevenuesIN',
@@ -25,43 +24,25 @@ module LiteXBRL
           operating_revenues_specific: 'OperatingRevenuesSpecific',
           gross_operating_revenues: 'GrossOperatingRevenues',
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
-        },
+        }),
         us: {
-
         }
       }
 
       # 営業利益
       OPERATING_INCOME = {
-        jp: {
-          general: 'OperatingIncome',
+        jp: hash_with_default('OperatingIncome', {
           bank: 'OrdinaryIncome',
-          securities: 'OperatingIncome',
-          insurance: 'OrdinaryIncome',
-          operating_revenues: 'OperatingIncome',
-          operating_revenues_specific: 'OperatingIncome',
-          gross_operating_revenues: 'OperatingIncome',
-          net_sales_construction: 'OperatingIncome'
-        },
+          insurance: 'OrdinaryIncome'
+        }),
         us: {
-
         }
       }
 
       # 経常利益
       ORDINARY_INCOME = {
-        jp: {
-          general: 'OrdinaryIncome',
-          bank: 'OrdinaryIncome',
-          securities: 'OrdinaryIncome',
-          insurance: 'OrdinaryIncome',
-          operating_revenues: 'OrdinaryIncome',
-          operating_revenues_specific: 'OrdinaryIncome',
-          gross_operating_revenues: 'OrdinaryIncome',
-          net_sales_construction: 'OrdinaryIncome'
-        },
+        jp: hash_with_default('OrdinaryIncome', {}),
         us: {
-
         }
       }
 
