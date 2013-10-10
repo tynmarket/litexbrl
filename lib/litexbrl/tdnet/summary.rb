@@ -25,7 +25,9 @@ module LiteXBRL
           gross_operating_revenues: 'GrossOperatingRevenues',
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
-        us: hash_with_default('NetSalesUS', {})
+        us: hash_with_default('NetSalesUS', {
+          operating_revenues: 'OperatingRevenuesUS'
+        })
       }
 
       # 営業利益
@@ -52,7 +54,9 @@ module LiteXBRL
       # 一株当たり純利益
       NET_INCOME_PER_SHARE = {
         jp: hash_with_default('NetIncomePerShare', {}),
-        us: hash_with_default('NetIncomePerShareUS', {})
+        us: hash_with_default('NetIncomePerShareUS', {
+          operating_revenues: 'BasicNetIncomePerShareUS'
+        })
       }
 
       class << self
@@ -259,6 +263,9 @@ module LiteXBRL
           # 一般
           if doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesUS[@contextRef='#{context}']", NS)
             :general
+          # 営業収益
+          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesUS[@contextRef='#{context}']", NS)
+            :operating_revenues
           # 不明
           else
             :general

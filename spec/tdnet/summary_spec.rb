@@ -155,6 +155,13 @@ module LiteXBRL
               expect(sector).to eq(:general)
             end
           end
+
+          context '営業収益' do
+            it do
+              sector = Summary.send(:find_sector, doc("#{dir}/us-oprv-cons-2014-q1.xbrl"), accounting_base, context)
+              expect(sector).to eq(:operating_revenues)
+            end
+          end
         end
       end
 
@@ -362,6 +369,22 @@ module LiteXBRL
               expect(xbrl.ordinary_income).to eq(724163)
               expect(xbrl.net_income).to eq(562194)
               expect(xbrl.net_income_per_share).to eq(177.45)
+            end
+          end
+
+          context '業種：営業収益' do
+            let(:xbrl) { Summary.parse("#{dir}/us-oprv-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('9432')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(2609117)
+              expect(xbrl.operating_income).to eq(348926)
+              expect(xbrl.ordinary_income).to eq(356084)
+              expect(xbrl.net_income).to eq(166717)
+              expect(xbrl.net_income_per_share).to eq(141.29)
             end
           end
         end
