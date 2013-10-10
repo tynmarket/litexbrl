@@ -1,6 +1,11 @@
 module LiteXBRL
   module Utils
 
+    def hash_with_default(default, hash)
+      hash.default = default
+      hash
+    end
+
     #
     # 証券コードを取得します
     #
