@@ -95,7 +95,7 @@ module LiteXBRL
           # 会計基準
           accounting_base = find_accounting_base(doc)
           # 業種
-          sector = find_sector(doc, context[:context_duration])
+          sector = find_sector(doc, accounting_base, context[:context_duration])
 
           # 売上高
           xbrl.net_sales = to_mill(find_value(doc, NET_SALES[accounting_base][sector], context[:context_duration]))
@@ -217,7 +217,21 @@ module LiteXBRL
         #
         # 業種を取得します
         #
-        def find_sector(doc, context)
+        def find_sector(doc, accounting_base, context)
+          case accounting_base
+          when :jp
+            find_sector_jp(doc, context)
+          when :us
+            find_sector_us(doc, context)
+          else
+            :general
+          end
+        end
+
+        #
+        # 日本会計基準の業種を取得します
+        #
+        def find_sector_jp(doc, context)
           # 一般商工業
           net_sales = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='#{context}']", NS)
           return :general if net_sales
@@ -252,6 +266,13 @@ module LiteXBRL
 
           # 不明
           return :general
+        end
+
+        #
+        # 米国会計基準の業種を取得します
+        #
+        def find_sector_us(doc, context)
+
         end
 
         #
