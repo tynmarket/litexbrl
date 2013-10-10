@@ -25,9 +25,7 @@ module LiteXBRL
           gross_operating_revenues: 'GrossOperatingRevenues',
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
-        us: {
-          general: 'NetSalesUS'
-        }
+        us: hash_with_default('NetSalesUS', {})
       }
 
       # 営業利益
@@ -36,33 +34,25 @@ module LiteXBRL
           bank: 'OrdinaryIncome',
           insurance: 'OrdinaryIncome'
         }),
-        us: {
-          general: 'OperatingIncomeUS'
-        }
+        us: hash_with_default('OperatingIncomeUS', {})
       }
 
       # 経常利益
       ORDINARY_INCOME = {
         jp: hash_with_default('OrdinaryIncome', {}),
-        us: {
-          general: 'OperatingIncomeUS'
-        }
+        us: hash_with_default('OperatingIncomeUS', {})
       }
 
       # 純利益
       NET_INCOME = {
         jp: hash_with_default('NetIncome', {}),
-        us: {
-
-        }
+        us: hash_with_default('NetIncomeUS', {})
       }
 
       # 一株当たり純利益
       NET_INCOME_PER_SHARE = {
         jp: hash_with_default('NetIncomePerShare', {}),
-        us: {
-
-        }
+        us: hash_with_default('NetIncomePerShareUS', {})
       }
 
       class << self
@@ -272,7 +262,9 @@ module LiteXBRL
         # 米国会計基準の業種を取得します
         #
         def find_sector_us(doc, context)
-
+          # 一般
+          net_sales_us = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesUS[@contextRef='#{context}']", NS)
+          return :general if net_sales_us
         end
 
         #
