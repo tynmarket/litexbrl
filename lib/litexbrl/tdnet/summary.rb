@@ -25,9 +25,9 @@ module LiteXBRL
           gross_operating_revenues: 'GrossOperatingRevenues',
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
-        us: hash_with_default('NetSalesUS', {
-          operating_revenues: 'OperatingRevenuesUS'
-        })
+        us: {
+          general: ['NetSalesUS', 'OperatingRevenuesUS']
+        }
       }
 
       # 営業利益
@@ -36,27 +36,33 @@ module LiteXBRL
           bank: 'OrdinaryIncome',
           insurance: 'OrdinaryIncome'
         }),
-        us: hash_with_default('OperatingIncomeUS', {})
+        us: {
+          general: 'OperatingIncomeUS'
+        }
       }
 
       # 経常利益
       ORDINARY_INCOME = {
         jp: hash_with_default('OrdinaryIncome', {}),
-        us: hash_with_default('IncomeBeforeIncomeTaxesUS', {})
+        us: {
+          general: 'IncomeBeforeIncomeTaxesUS'
+        }
       }
 
       # 純利益
       NET_INCOME = {
         jp: hash_with_default('NetIncome', {}),
-        us: hash_with_default('NetIncomeUS', {})
+        us: {
+          general: 'NetIncomeUS'
+        }
       }
 
       # 一株当たり純利益
       NET_INCOME_PER_SHARE = {
         jp: hash_with_default('NetIncomePerShare', {}),
-        us: hash_with_default('NetIncomePerShareUS', {
-          operating_revenues: 'BasicNetIncomePerShareUS'
-        })
+        us: {
+          general: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS']
+        }
       }
 
       class << self
@@ -212,11 +218,9 @@ module LiteXBRL
         # 業種を取得します
         #
         def find_sector(doc, accounting_base, context)
-          case accounting_base
-          when :jp
+          # 日本のみ
+          if accounting_base == :jp
             find_sector_jp(doc, context)
-          when :us
-            find_sector_us(doc, context)
           else
             :general
           end
@@ -276,8 +280,14 @@ module LiteXBRL
         # 勘定科目の値を取得します
         #
         def find_value(doc, item, context)
-          elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS)
-          elm.content if elm
+          if item.is_a? String
+            elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS)
+            elm.content if elm
+          elsif item.is_a? Array
+            xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+            elm = doc.at_xpath xpath
+            elm.content if elm
+          end
         end
 
       end

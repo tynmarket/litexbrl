@@ -146,20 +146,20 @@ module LiteXBRL
           end
         end
 
-        context '米国会計基準' do
+        context '米国会計基準（単一業種として扱う）' do
           let(:accounting_base) { :us }
 
-          context '一般' do
+          context 'NetSalesUS' do
             it do
               sector = Summary.send(:find_sector, doc("#{dir}/us-cons-2014-q1.xbrl"), accounting_base, context)
               expect(sector).to eq(:general)
             end
           end
 
-          context '営業収益' do
+          context 'OperatingRevenues' do
             it do
               sector = Summary.send(:find_sector, doc("#{dir}/us-oprv-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:operating_revenues)
+              expect(sector).to eq(:general)
             end
           end
         end
@@ -356,7 +356,7 @@ module LiteXBRL
         end
 
         context '米国会計基準' do
-          context '業種：一般' do
+          context '売上高：NetSales' do
             let(:xbrl) { Summary.parse("#{dir}/us-cons-2014-q1.xbrl") }
 
             it do
@@ -372,7 +372,7 @@ module LiteXBRL
             end
           end
 
-          context '業種：営業収益' do
+          context '売上高：OperatingRevenues' do
             let(:xbrl) { Summary.parse("#{dir}/us-oprv-cons-2014-q1.xbrl") }
 
             it do
