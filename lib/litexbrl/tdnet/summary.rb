@@ -26,7 +26,7 @@ module LiteXBRL
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
         us: {
-          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS']
+          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
         }
       }
 
@@ -37,7 +37,7 @@ module LiteXBRL
           insurance: 'OrdinaryIncome'
         }),
         us: {
-          general: ['OperatingIncomeUS', 'OperatingIncome']
+          general: [['OperatingIncomeUS', 'OperatingIncome']]
         }
       }
 
@@ -267,10 +267,20 @@ module LiteXBRL
           if item.is_a? String
             elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS)
             elm.content if elm
+          # 配列の場合、いずれかに該当するもの
           elsif item.is_a? Array
-            xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
-            elm = doc.at_xpath xpath
-            elm.content if elm
+            if item[0].is_a? String
+              xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+              elm = doc.at_xpath xpath
+              elm.content if elm
+            # 2次元配列の場合、先頭要素から優先に
+            elsif item[0].is_a? Array
+              item.each do |item|
+                xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+                elm = doc.at_xpath xpath
+                return elm.content if elm
+              end
+            end
           end
         end
 
