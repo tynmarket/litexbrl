@@ -435,6 +435,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(67.97)
             end
           end
+
+          context '経常利益：IncomeFromContinuingOperationsBeforeIncomeTaxesUS' do
+            let(:xbrl) { Summary.parse("#{dir}/us-ifco-cons-2013-q4.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('6502')
+              expect(xbrl.year).to eq(2013)
+              expect(xbrl.quarter).to eq(4)
+
+              expect(xbrl.net_sales).to eq(5800281)
+              expect(xbrl.operating_income).to eq(194316)
+              expect(xbrl.ordinary_income).to eq(155553)
+              expect(xbrl.net_income).to eq(77533)
+              expect(xbrl.net_income_per_share).to eq(18.31)
+            end
+          end
         end
       end
 

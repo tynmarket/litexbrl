@@ -45,7 +45,7 @@ module LiteXBRL
       ORDINARY_INCOME = {
         jp: hash_with_default('OrdinaryIncome', {}),
         us: {
-          general: 'IncomeBeforeIncomeTaxesUS'
+          general: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS']
         }
       }
 
