@@ -419,6 +419,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(46.65)
             end
           end
+
+          context '営業利益：OperatingIncome' do
+            let(:xbrl) { Summary.parse("#{dir}/us-bnip-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('7267')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(2834095)
+              expect(xbrl.operating_income).to eq(184963)
+              expect(xbrl.ordinary_income).to eq(172035)
+              expect(xbrl.net_income).to eq(122499)
+              expect(xbrl.net_income_per_share).to eq(67.97)
+            end
+          end
         end
       end
 
