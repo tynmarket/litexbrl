@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module LiteXBRL
   module TDnet
     class Summary

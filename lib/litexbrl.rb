@@ -1,4 +1,4 @@
-$LOAD_PATH << File.expand_path(File.dirname(__FILE__))
+require 'nokogiri'
 
 require 'litexbrl/version'
 require 'litexbrl/utils'
