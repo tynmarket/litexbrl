@@ -68,6 +68,13 @@ module LiteXBRL
             expect(accounting_base).to eq(:us)
           end
         end
+
+        context 'IFRS' do
+          it do
+            accounting_base = Summary.send(:find_accounting_base, doc("#{dir}/if-cons-2014-q1.xbrl"))
+            expect(accounting_base).to eq(:if)
+          end
+        end
       end
 
       describe '.find_sector' do

@@ -27,6 +27,9 @@ module LiteXBRL
         }),
         us: {
           general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
+        },
+        :if => {
+
         }
       }
 
@@ -38,6 +41,9 @@ module LiteXBRL
         }),
         us: {
           general: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']]
+        },
+        :if => {
+
         }
       }
 
@@ -46,6 +52,9 @@ module LiteXBRL
         jp: hash_with_default('OrdinaryIncome', {}),
         us: {
           general: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS']
+        },
+        :if => {
+
         }
       }
 
@@ -54,6 +63,9 @@ module LiteXBRL
         jp: hash_with_default('NetIncome', {}),
         us: {
           general: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS']
+        },
+        :if => {
+
         }
       }
 
@@ -62,6 +74,9 @@ module LiteXBRL
         jp: hash_with_default('NetIncomePerShare', {}),
         us: {
           general: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS']
+        },
+        :if => {
+
         }
       }
 
@@ -211,6 +226,8 @@ module LiteXBRL
             :jp
           when /.+ussm.+/
             :us
+          when /.+ifsm.+/
+            :if
           end
         end
 
