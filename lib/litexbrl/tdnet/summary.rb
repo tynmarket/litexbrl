@@ -26,7 +26,7 @@ module LiteXBRL
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
         us: {
-          general: ['NetSalesUS', 'OperatingRevenuesUS']
+          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS']
         }
       }
 

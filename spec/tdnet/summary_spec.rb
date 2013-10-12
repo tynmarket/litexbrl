@@ -387,6 +387,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(141.29)
             end
           end
+
+          context '売上高：NetSalesAndOperatingRevenuesUS' do
+            let(:xbrl) { Summary.parse("#{dir}/us-nsoprv-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('6758')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(1712712)
+              expect(xbrl.operating_income).to eq(36357)
+              expect(xbrl.ordinary_income).to eq(46253)
+              expect(xbrl.net_income).to eq(3480)
+              expect(xbrl.net_income_per_share).to eq(3.44)
+            end
+          end
         end
       end
 
