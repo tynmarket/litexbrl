@@ -37,7 +37,7 @@ module LiteXBRL
           insurance: 'OrdinaryIncome'
         }),
         us: {
-          general: 'OperatingIncomeUS'
+          general: ['OperatingIncomeUS', 'OperatingIncome']
         }
       }
 
