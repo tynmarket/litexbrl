@@ -77,107 +77,13 @@ module LiteXBRL
         end
       end
 
-      describe '.find_sector' do
-        let(:context) { 'CurrentAccumulatedQ1ConsolidatedDuration' }
-
-        context '日本会計基準' do
-          let(:accounting_base) { :jp }
-
-          context '一般商工業' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-cons-2013-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:general)
-            end
-          end
-
-          context '銀行' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-bk-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:bank)
-            end
-          end
-
-          context '証券'do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-se-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:securities)
-            end
-          end
-
-          context '保険'do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-in-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:insurance)
-            end
-          end
-
-          context '営業収益' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-oprv-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:operating_revenues)
-            end
-          end
-
-          context '営業収入' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-oprvsp-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:operating_revenues_specific)
-            end
-          end
-
-          context '営業総収入' do
-            let(:context) { 'CurrentYearConsolidatedDuration' }
-
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-goprv-cons-2013-q4.xbrl"), accounting_base, context)
-              expect(sector).to eq(:gross_operating_revenues)
-            end
-          end
-
-          context '完成工事高' do
-            let(:context) { 'CurrentYearConsolidatedDuration' }
-
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-nsco-cons-2013-q4.xbrl"), accounting_base, context)
-              expect(sector).to eq(:net_sales_construction)
-            end
-          end
-
-          context '不明' do
-            it do
-              Nokogiri::XML::Document.any_instance.stub(:at_xpath) { nil }
-
-              sector = Summary.send(:find_sector, doc("#{dir}/ja-oprv-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:general)
-            end
-          end
-        end
-
-        context '米国会計基準（単一業種として扱う）' do
-          let(:accounting_base) { :us }
-
-          context 'NetSalesUS' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/us-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:general)
-            end
-          end
-
-          context 'OperatingRevenues' do
-            it do
-              sector = Summary.send(:find_sector, doc("#{dir}/us-oprv-cons-2014-q1.xbrl"), accounting_base, context)
-              expect(sector).to eq(:general)
-            end
-          end
-        end
-      end
-
       describe ".find_value" do
         context "要素が取得できない" do
           let(:doc) { double "doc", at_xpath: nil }
+          let(:item) { ['NetSales'] }
 
           it "nilを返す" do
-            val = Summary.send(:find_value, doc, nil, nil)
+            val = Summary.send(:find_value, doc, item, nil)
             expect(val).to be_nil
           end
         end

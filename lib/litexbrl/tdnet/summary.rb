@@ -16,68 +16,38 @@ module LiteXBRL
 
       # 売上高
       NET_SALES = {
-        jp: hash_with_default('NetSales', {
-          bank: 'OrdinaryRevenuesBK',
-          securities: 'OperatingRevenuesSE',
-          insurance: 'OrdinaryRevenuesIN',
-          operating_revenues: 'OperatingRevenues',
-          operating_revenues_specific: 'OperatingRevenuesSpecific',
-          gross_operating_revenues: 'GrossOperatingRevenues',
-          net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
-        }),
-        us: {
-          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
-        },
-        :if => {
-          general: ['NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
-        }
+        jp: ['NetSales', 'OrdinaryRevenuesBK', 'OperatingRevenuesSE', 'OrdinaryRevenuesIN', 'OperatingRevenues',
+          'OperatingRevenuesSpecific', 'GrossOperatingRevenues', 'NetSalesOfCompletedConstructionContracts'],
+        us: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS'],
+        :if => ['NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
       }
 
       # 営業利益
       OPERATING_INCOME = {
-        jp: hash_with_default('OperatingIncome', {
-          bank: 'OrdinaryIncome',
-          insurance: 'OrdinaryIncome'
-        }),
-        us: {
-          general: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']]
-        },
-        :if => {
-          general: [['OperatingIncomeIFRS'], ['ProfitBeforeTaxIFRS']]
-        }
+        jp: [['OperatingIncome'], ['OrdinaryIncome']],
+        us: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']],
+        :if => [['OperatingIncomeIFRS'], ['ProfitBeforeTaxIFRS']]
       }
 
       # 経常利益
       ORDINARY_INCOME = {
-        jp: hash_with_default('OrdinaryIncome', {}),
-        us: {
-          general: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS']
-        },
-        :if => {
-          general: 'ProfitBeforeTaxIFRS'
-        }
+        jp: ['OrdinaryIncome'],
+        us: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS'],
+        :if => ['ProfitBeforeTaxIFRS']
       }
 
       # 純利益
       NET_INCOME = {
-        jp: hash_with_default('NetIncome', {}),
-        us: {
-          general: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS']
-        },
-        :if => {
-          general: 'ProfitAttributableToOwnersOfParentIFRS'
-        }
+        jp: ['NetIncome'],
+        us: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS'],
+        :if => ['ProfitAttributableToOwnersOfParentIFRS']
       }
 
       # 一株当たり純利益
       NET_INCOME_PER_SHARE = {
-        jp: hash_with_default('NetIncomePerShare', {}),
-        us: {
-          general: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS']
-        },
-        :if => {
-          general: 'BasicEarningsPerShareIFRS'
-        }
+        jp: ['NetIncomePerShare'],
+        us: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS'],
+        :if => ['BasicEarningsPerShareIFRS']
       }
 
       class << self
@@ -109,19 +79,17 @@ module LiteXBRL
 
           # 会計基準
           accounting_base = find_accounting_base(doc)
-          # 業種
-          sector = find_sector(doc, accounting_base, context[:context_duration])
 
           # 売上高
-          xbrl.net_sales = to_mill(find_value(doc, NET_SALES[accounting_base][sector], context[:context_duration]))
+          xbrl.net_sales = to_mill(find_value(doc, NET_SALES[accounting_base], context[:context_duration]))
           # 営業利益
-          xbrl.operating_income = to_mill(find_value(doc, OPERATING_INCOME[accounting_base][sector], context[:context_duration]))
+          xbrl.operating_income = to_mill(find_value(doc, OPERATING_INCOME[accounting_base], context[:context_duration]))
           # 経常利益
-          xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[accounting_base][sector], context[:context_duration]))
+          xbrl.ordinary_income = to_mill(find_value(doc, ORDINARY_INCOME[accounting_base], context[:context_duration]))
           # 純利益
-          xbrl.net_income = to_mill(find_value(doc, NET_INCOME[accounting_base][sector], context[:context_duration]))
+          xbrl.net_income = to_mill(find_value(doc, NET_INCOME[accounting_base], context[:context_duration]))
           # 1株当たり純利益
-          xbrl.net_income_per_share = to_f(find_value(doc, NET_INCOME_PER_SHARE[accounting_base][sector], context[:context_duration]))
+          xbrl.net_income_per_share = to_f(find_value(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_duration]))
 
           xbrl
         end
@@ -232,71 +200,20 @@ module LiteXBRL
         end
 
         #
-        # 業種を取得します
-        #
-        def find_sector(doc, accounting_base, context)
-          # 日本のみ
-          if accounting_base == :jp
-            find_sector_jp(doc, context)
-          else
-            :general
-          end
-        end
-
-        #
-        # 日本会計基準の業種を取得します
-        #
-        def find_sector_jp(doc, context)
-          # 一般商工業
-          if doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='#{context}']", NS)
-            :general
-          # 銀行
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesBK[@contextRef='#{context}']", NS)
-            :bank
-          # 証券
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSE[@contextRef='#{context}']", NS)
-            :securities
-          # 保険
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OrdinaryRevenuesIN[@contextRef='#{context}']", NS)
-            :insurance
-          # 営業収益（Olympic、いちよし証券など）
-         elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenues[@contextRef='#{context}']", NS)
-            :operating_revenues
-          # 営業収入（ミニストップ、メッセージなど）
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:OperatingRevenuesSpecific[@contextRef='#{context}']", NS)
-            :operating_revenues_specific
-          # 営業総収入
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:GrossOperatingRevenues[@contextRef='#{context}']", NS)
-            :gross_operating_revenues
-          # 完成工事高（熊谷組など）
-          elsif doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSalesOfCompletedConstructionContracts[@contextRef='#{context}']", NS)
-            :net_sales_construction
-          # 不明
-          else
-            :general
-          end
-        end
-
-        #
         # 勘定科目の値を取得します
         #
         def find_value(doc, item, context)
-          if item.is_a? String
-            elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']", NS)
-            elm.content if elm
           # 配列の場合、いずれかに該当するもの
-          elsif item.is_a? Array
-            if item[0].is_a? String
+          if item[0].is_a? String
+            xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+            elm = doc.at_xpath xpath
+            elm.content if elm
+          # 2次元配列の場合、先頭要素から優先に
+          elsif item[0].is_a? Array
+            item.each do |item|
               xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
               elm = doc.at_xpath xpath
-              elm.content if elm
-            # 2次元配列の場合、先頭要素から優先に
-            elsif item[0].is_a? Array
-              item.each do |item|
-                xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
-                elm = doc.at_xpath xpath
-                return elm.content if elm
-              end
+              return elm.content if elm
             end
           end
         end
