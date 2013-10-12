@@ -29,7 +29,7 @@ module LiteXBRL
           general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
         },
         :if => {
-
+          general: ['NetSalesIFRS', 'RevenueIFRS', 'SalesIFRS']
         }
       }
 
@@ -43,7 +43,7 @@ module LiteXBRL
           general: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']]
         },
         :if => {
-
+          general: 'OperatingIncomeIFRS'
         }
       }
 
@@ -54,7 +54,7 @@ module LiteXBRL
           general: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS']
         },
         :if => {
-
+          general: 'ProfitBeforeTaxIFRS'
         }
       }
 
@@ -65,7 +65,7 @@ module LiteXBRL
           general: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS']
         },
         :if => {
-
+          general: 'ProfitAttributableToOwnersOfParentIFRS'
         }
       }
 
@@ -76,7 +76,7 @@ module LiteXBRL
           general: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS']
         },
         :if => {
-
+          general: 'BasicEarningsPerShareIFRS'
         }
       }
 

@@ -507,6 +507,24 @@ module LiteXBRL
             end
           end
         end
+
+        context 'IFRS' do
+          context '売上高：NetSalesIFRS' do
+            let(:xbrl) { Summary.parse("#{dir}/if-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('5202')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(150690)
+              expect(xbrl.operating_income).to eq(-398)
+              expect(xbrl.ordinary_income).to eq(-5364)
+              expect(xbrl.net_income).to eq(-7112)
+              expect(xbrl.net_income_per_share).to eq(-7.88)
+            end
+          end
+        end
       end
 
       describe ".parse_string" do
