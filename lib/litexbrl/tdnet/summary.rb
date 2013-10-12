@@ -29,7 +29,7 @@ module LiteXBRL
           general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
         },
         :if => {
-          general: ['NetSalesIFRS']
+          general: ['NetSalesIFRS', 'OperatingRevenuesIFRS']
         }
       }
 
@@ -43,7 +43,7 @@ module LiteXBRL
           general: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']]
         },
         :if => {
-          general: 'OperatingIncomeIFRS'
+          general: [['OperatingIncomeIFRS'], ['ProfitBeforeTaxIFRS']]
         }
       }
 

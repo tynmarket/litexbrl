@@ -524,6 +524,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(-7.88)
             end
           end
+
+          context '売上高：OperatingRevenuesIFRS、営業利益：ProfitBeforeTaxIFRS' do
+            let(:xbrl) { Summary.parse("#{dir}/if-or-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('8698')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(16866)
+              expect(xbrl.operating_income).to eq(8407)
+              expect(xbrl.ordinary_income).to eq(8407)
+              expect(xbrl.net_income).to eq(5144)
+              expect(xbrl.net_income_per_share).to eq(1751.61)
+            end
+          end
         end
       end
 
