@@ -540,6 +540,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(1751.61)
             end
           end
+
+          context '売上高：SalesIFRS' do
+            let(:xbrl) { Summary.parse("#{dir}/if-sa-cons-2014-q1.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('7741')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.quarter).to eq(1)
+
+              expect(xbrl.net_sales).to eq(100425)
+              expect(xbrl.operating_income).to eq(20123)
+              expect(xbrl.ordinary_income).to eq(20123)
+              expect(xbrl.net_income).to eq(12302)
+              expect(xbrl.net_income_per_share).to eq(28.51)
+            end
+          end
         end
       end
 
