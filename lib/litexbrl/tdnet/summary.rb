@@ -26,7 +26,7 @@ module LiteXBRL
           net_sales_construction: 'NetSalesOfCompletedConstructionContracts'
         }),
         us: {
-          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS']
+          general: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS']
         }
       }
 
@@ -37,7 +37,7 @@ module LiteXBRL
           insurance: 'OrdinaryIncome'
         }),
         us: {
-          general: [['OperatingIncomeUS', 'OperatingIncome']]
+          general: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']]
         }
       }
 

@@ -404,6 +404,22 @@ module LiteXBRL
             end
           end
 
+          context '売上高：TotalRevenuesUS' do
+            let(:xbrl) { Summary.parse("#{dir}/us-tr-ibit-cons-2013-q4.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('8604')
+              expect(xbrl.year).to eq(2013)
+              expect(xbrl.quarter).to eq(4)
+
+              expect(xbrl.net_sales).to eq(2079943)
+              expect(xbrl.operating_income).to eq(237730)
+              expect(xbrl.ordinary_income).to eq(237730)
+              expect(xbrl.net_income).to eq(107234)
+              expect(xbrl.net_income_per_share).to eq(29.04)
+            end
+          end
+
           context '営業利益：OperatingIncome' do
             let(:xbrl) { Summary.parse("#{dir}/us-oi-cons-2014-q1.xbrl") }
 
@@ -433,6 +449,22 @@ module LiteXBRL
               expect(xbrl.ordinary_income).to eq(172035)
               expect(xbrl.net_income).to eq(122499)
               expect(xbrl.net_income_per_share).to eq(67.97)
+            end
+          end
+
+          context '営業利益：IncomeBeforeIncomeTaxesUS' do
+            let(:xbrl) { Summary.parse("#{dir}/us-tr-ibit-cons-2013-q4.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('8604')
+              expect(xbrl.year).to eq(2013)
+              expect(xbrl.quarter).to eq(4)
+
+              expect(xbrl.net_sales).to eq(2079943)
+              expect(xbrl.operating_income).to eq(237730)
+              expect(xbrl.ordinary_income).to eq(237730)
+              expect(xbrl.net_income).to eq(107234)
+              expect(xbrl.net_income_per_share).to eq(29.04)
             end
           end
 
