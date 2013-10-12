@@ -53,7 +53,7 @@ module LiteXBRL
       NET_INCOME = {
         jp: hash_with_default('NetIncome', {}),
         us: {
-          general: 'NetIncomeUS'
+          general: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS']
         }
       }
 

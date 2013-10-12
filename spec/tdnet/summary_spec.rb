@@ -451,6 +451,22 @@ module LiteXBRL
               expect(xbrl.net_income_per_share).to eq(18.31)
             end
           end
+
+          context '純利益：IncomeBeforeMinorityInterestUS' do
+            let(:xbrl) { Summary.parse("#{dir}/us-ibmi-cons-2013-q4.xbrl") }
+
+            it do
+              expect(xbrl.code).to eq('6981')
+              expect(xbrl.year).to eq(2013)
+              expect(xbrl.quarter).to eq(4)
+
+              expect(xbrl.net_sales).to eq(681021)
+              expect(xbrl.operating_income).to eq(58636)
+              expect(xbrl.ordinary_income).to eq(59534)
+              expect(xbrl.net_income).to eq(42386)
+              expect(xbrl.net_income_per_share).to eq(200.81)
+            end
+          end
         end
       end
 
