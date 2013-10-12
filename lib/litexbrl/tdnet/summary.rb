@@ -208,7 +208,7 @@ module LiteXBRL
             xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
             elm = doc.at_xpath xpath
             elm.content if elm
-          # 2次元配列の場合、先頭要素から優先に
+          # 2次元配列の場合、先頭の配列から優先に
           elsif item[0].is_a? Array
             item.each do |item|
               xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
