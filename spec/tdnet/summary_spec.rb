@@ -420,7 +420,7 @@ module LiteXBRL
             end
           end
 
-          context '営業利益：OperatingIncome' do
+          context '営業利益：BasicNetIncomePerShareUS' do
             let(:xbrl) { Summary.parse("#{dir}/us-bnip-cons-2014-q1.xbrl") }
 
             it do
