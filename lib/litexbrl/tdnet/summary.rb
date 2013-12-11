@@ -1,10 +1,11 @@
 module LiteXBRL
   module TDnet
     class Summary
-      extend Utils
+      include Utils
 
       attr_accessor :code, :year, :quarter,
-        :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share
+        :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share,
+        :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share
 
       # 名前空間
       NS = {
@@ -31,7 +32,7 @@ module LiteXBRL
       ORDINARY_INCOME = {
         jp: ['OrdinaryIncome'],
         us: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS'],
-        :if => ['ProfitBeforeTaxIFRS']
+        :if => ['ProfitBeforeTaxIFRS', 'ProfitBeforeIncomeTaxIFRS']
       }
 
       # 純利益
@@ -45,8 +46,27 @@ module LiteXBRL
       NET_INCOME_PER_SHARE = {
         jp: ['NetIncomePerShare'],
         us: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS'],
-        :if => ['BasicEarningsPerShareIFRS']
+        :if => ['BasicEarningsPerShareIFRS', 'BasicEarningPerShareIFRS']
       }
+
+      # 通期予想売上高
+      FORECAST_NET_SALES = create_items(NET_SALES) {|item| "Forecast#{item}" }
+
+      # 通期予想営業利益
+      FORECAST_OPERATING_INCOME = OPERATING_INCOME.each_with_object({}) do |kv, hash|
+        key, values = *kv
+        hash[key] = values.map {|values2| values2.map {|item| "Forecast#{item}" } }
+      end
+
+      # 通期予想経常利益
+      FORECAST_ORDINARY_INCOME = create_items(ORDINARY_INCOME) {|item| "Forecast#{item}" }
+
+      # 通期予想純利益
+      FORECAST_NET_INCOME = create_items(NET_INCOME) {|item| "Forecast#{item}" }
+
+      # 通期予想一株当たり純利益
+      FORECAST_NET_INCOME_PER_SHARE = create_items(NET_INCOME_PER_SHARE) {|item| "Forecast#{item}" }
+
 
       class << self
 
@@ -88,6 +108,17 @@ module LiteXBRL
           xbrl.net_income = to_mill(find_value(doc, NET_INCOME[accounting_base], context[:context_duration]))
           # 1株当たり純利益
           xbrl.net_income_per_share = to_f(find_value(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_duration]))
+
+          # 通期予想売上高
+          xbrl.forecast_net_sales = to_mill(find_value(doc, FORECAST_NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+          # 通期予想営業利益
+          xbrl.forecast_operating_income = to_mill(find_value(doc, FORECAST_OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+          # 通期予想経常利益
+          xbrl.forecast_ordinary_income = to_mill(find_value(doc, FORECAST_ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+          # 通期予想純利益
+          xbrl.forecast_net_income = to_mill(find_value(doc, FORECAST_NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+          # 通期予想1株当たり純利益
+          xbrl.forecast_net_income_per_share = to_f(find_value(doc, FORECAST_NET_INCOME_PER_SHARE[accounting_base], context[:context_forecast].call(xbrl.quarter)))
 
           xbrl
         end
@@ -150,9 +181,12 @@ module LiteXBRL
         def context_hash(consolidation, season)
           raise StandardError.new("通期・四半期が設定されていません。") unless season
 
+          year_duration = "Year#{consolidation}Duration"
+
           {
             context_duration: "Current#{season}#{consolidation}Duration",
-            context_instant: "Current#{season}#{consolidation}Instant"
+            context_instant: "Current#{season}#{consolidation}Instant",
+            context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
           }
         end
 
@@ -213,6 +247,8 @@ module LiteXBRL
               elm = doc.at_xpath xpath
               return elm.content if elm
             end
+
+            nil # 該当なし
           end
         end
 
