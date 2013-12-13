@@ -267,6 +267,19 @@ module LiteXBRL
         }
       end
 
+      def attributes_results_forecast
+        {
+          code: code,
+          year: year,
+          quarter: quarter,
+          forecast_net_sales: forecast_net_sales,
+          forecast_operating_income: forecast_operating_income,
+          forecast_ordinary_income: forecast_ordinary_income,
+          forecast_net_income: forecast_net_income,
+          forecast_net_income_per_share: forecast_net_income_per_share
+        }
+      end
+
     end
   end
 end

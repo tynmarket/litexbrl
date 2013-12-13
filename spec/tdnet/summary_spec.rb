@@ -506,10 +506,8 @@ module LiteXBRL
       end
 
       describe "#attributes" do
-        let(:summary) { Summary.new }
-        let(:attr) { summary.attributes }
-
         it do
+          summary = Summary.new
           summary.code = 1111
           summary.year = 2013
           summary.quarter = 1
@@ -519,6 +517,8 @@ module LiteXBRL
           summary.net_income = 6
           summary.net_income_per_share = 123.1
 
+          attr = summary.attributes
+
           expect(attr[:code]).to eq(1111)
           expect(attr[:year]).to eq(2013)
           expect(attr[:quarter]).to eq(1)
@@ -527,6 +527,31 @@ module LiteXBRL
           expect(attr[:ordinary_income]).to eq(11)
           expect(attr[:net_income]).to eq(6)
           expect(attr[:net_income_per_share]).to eq(123.1)
+        end
+      end
+
+      describe "#attributes_results_forecast" do
+        it do
+          summary = Summary.new
+          summary.code = 1111
+          summary.year = 2013
+          summary.quarter = 1
+          summary.forecast_net_sales = 100
+          summary.forecast_operating_income = 10
+          summary.forecast_ordinary_income = 11
+          summary.forecast_net_income = 6
+          summary.forecast_net_income_per_share = 123.1
+
+          attr = summary.attributes_results_forecast
+
+          expect(attr[:code]).to eq(1111)
+          expect(attr[:year]).to eq(2013)
+          expect(attr[:quarter]).to eq(1)
+          expect(attr[:forecast_net_sales]).to eq(100)
+          expect(attr[:forecast_operating_income]).to eq(10)
+          expect(attr[:forecast_ordinary_income]).to eq(11)
+          expect(attr[:forecast_net_income]).to eq(6)
+          expect(attr[:forecast_net_income_per_share]).to eq(123.1)
         end
       end
 
