@@ -1,0 +1,2 @@
+・find_valueとto_milを合わせる
+・ja⇒jp, if⇒ifrs
