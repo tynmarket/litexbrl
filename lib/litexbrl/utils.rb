@@ -28,12 +28,21 @@ module LiteXBRL
       end
 
       #
-      # 会計年度を取得します
+      # 決算年を取得します
       #
       def to_year(elm_end)
-        raise StandardError.new("会計年度を取得できません。") unless elm_end
+        raise StandardError.new("決算年を取得できません。") unless elm_end
 
         elm_end.content.split('-')[0].to_i
+      end
+
+      #
+      # 決算月を取得します
+      #
+      def to_month(elm_end)
+        raise StandardError.new("決算月を取得できません。") unless elm_end
+
+        elm_end.content.split('-')[1].to_i
       end
 
       #

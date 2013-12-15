@@ -36,16 +36,13 @@ module LiteXBRL
       end
 
       def attributes
-        {
-          code: code,
-          year: year,
-          quarter: quarter,
+        super.merge(
           forecast_net_sales: forecast_net_sales,
           forecast_operating_income: forecast_operating_income,
           forecast_ordinary_income: forecast_ordinary_income,
           forecast_net_income: forecast_net_income,
           forecast_net_income_per_share: forecast_net_income_per_share
-        }
+        )
       end
 
     end

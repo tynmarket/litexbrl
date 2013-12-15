@@ -97,6 +97,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(6818)
@@ -118,6 +119,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(2)
 
               expect(xbrl.net_sales).to eq(13740)
@@ -139,6 +141,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(3)
 
               expect(xbrl.net_sales).to eq(20793)
@@ -160,6 +163,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(27355)
@@ -181,6 +185,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8361')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(28278)
@@ -197,6 +202,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8601')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(183082)
@@ -213,6 +219,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8715')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(4394)
@@ -229,6 +236,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8289')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(2)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(24866)
@@ -245,6 +253,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('9946')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(2)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(33307)
@@ -261,6 +270,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8028')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(2)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(334087)
@@ -277,6 +287,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('1861')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(260753)
@@ -295,6 +306,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('7203')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(6255319)
@@ -316,6 +328,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('9432')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(2609117)
@@ -332,6 +345,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6758')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(1712712)
@@ -348,6 +362,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8604')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(2079943)
@@ -364,6 +379,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6752')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(1824515)
@@ -380,6 +396,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('7267')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(2834095)
@@ -396,6 +413,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8604')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(2079943)
@@ -412,6 +430,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6502')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(5800281)
@@ -428,6 +447,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6981')
               expect(xbrl.year).to eq(2013)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.net_sales).to eq(681021)
@@ -446,6 +466,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('5202')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(150690)
@@ -467,6 +488,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('8698')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(16866)
@@ -484,6 +506,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('7741')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
               expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.net_sales).to eq(100425)
@@ -510,6 +533,7 @@ module LiteXBRL
           summary = Summary.new
           summary.code = 1111
           summary.year = 2013
+          summary.month = 3
           summary.quarter = 1
           summary.net_sales = 100
           summary.operating_income = 10
@@ -538,6 +562,7 @@ module LiteXBRL
             summary = Summary.new
             summary.code = 1111
             summary.year = 2013
+            summary.month = 3
             summary.quarter = quarter
             summary.forecast_net_sales = 100
             summary.forecast_operating_income = 10

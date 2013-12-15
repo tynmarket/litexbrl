@@ -16,6 +16,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2012)
+              expect(xbrl.month).to eq(3)
 #              expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.forecast_net_sales).to eq(28300)
@@ -34,6 +35,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6594')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
 #              expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.forecast_net_sales).to eq(850000)
@@ -52,6 +54,7 @@ module LiteXBRL
             it do
               expect(xbrl.code).to eq('6779')
               expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(3)
 #              expect(xbrl.quarter).to eq(1)
 
               expect(xbrl.forecast_net_sales).to eq(51000)
@@ -66,20 +69,22 @@ module LiteXBRL
 
       describe "#attributes" do
         it do
-          summary = ResultsForecast.new
-          summary.code = 1111
-          summary.year = 2013
-          summary.quarter = 1
-          summary.forecast_net_sales = 100
-          summary.forecast_operating_income = 10
-          summary.forecast_ordinary_income = 11
-          summary.forecast_net_income = 6
-          summary.forecast_net_income_per_share = 123.1
+          results_forecast = ResultsForecast.new
+          results_forecast.code = 1111
+          results_forecast.year = 2013
+          results_forecast.month = 3
+          results_forecast.quarter = 1
+          results_forecast.forecast_net_sales = 100
+          results_forecast.forecast_operating_income = 10
+          results_forecast.forecast_ordinary_income = 11
+          results_forecast.forecast_net_income = 6
+          results_forecast.forecast_net_income_per_share = 123.1
 
-          attr = summary.attributes
+          attr = results_forecast.attributes
 
           expect(attr[:code]).to eq(1111)
           expect(attr[:year]).to eq(2013)
+          expect(attr[:month]).to eq(3)
           expect(attr[:quarter]).to eq(1)
           expect(attr[:forecast_net_sales]).to eq(100)
           expect(attr[:forecast_operating_income]).to eq(10)

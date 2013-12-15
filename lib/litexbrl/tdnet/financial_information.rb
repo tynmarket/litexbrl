@@ -3,7 +3,7 @@ module LiteXBRL
     class FinancialInfomration
       include Utils
 
-      attr_accessor :code, :year, :quarter
+      attr_accessor :code, :year, :month, :quarter
 
       # 名前空間
       NS = {
@@ -93,8 +93,10 @@ module LiteXBRL
 
           # 証券コード
           xbrl.code = find_securities_code(doc, consolidation)
-          # 会計年度
+          # 決算年
           xbrl.year = find_year(doc, consolidation)
+          # 決算月
+          xbrl.month = find_month(doc, consolidation)
           # 四半期
           xbrl.quarter = find_quarter(doc, consolidation, context)
 
@@ -184,11 +186,19 @@ module LiteXBRL
         end
 
         #
-        # 会計年度を取得します
+        # 決算年を取得します
         #
         def find_year(doc, consolidation)
           elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
           to_year(elm_end)
+        end
+
+        #
+        # 決算月を取得します
+        #
+        def find_month(doc, consolidation)
+          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
+          to_month(elm_end)
         end
 
         #
@@ -233,6 +243,7 @@ module LiteXBRL
         {
           code: code,
           year: year,
+          month: month,
           quarter: quarter,
         }
       end
