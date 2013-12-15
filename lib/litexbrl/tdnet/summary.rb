@@ -62,7 +62,7 @@ module LiteXBRL
       def attributes_results_forecast
         {
           code: code,
-          year: year,
+          year: quarter == 4 ? year + 1 : year,
           quarter: quarter,
           forecast_net_sales: forecast_net_sales,
           forecast_operating_income: forecast_operating_income,

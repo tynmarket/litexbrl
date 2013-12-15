@@ -531,27 +531,43 @@ module LiteXBRL
       end
 
       describe "#attributes_results_forecast" do
-        it do
-          summary = Summary.new
-          summary.code = 1111
-          summary.year = 2013
-          summary.quarter = 1
-          summary.forecast_net_sales = 100
-          summary.forecast_operating_income = 10
-          summary.forecast_ordinary_income = 11
-          summary.forecast_net_income = 6
-          summary.forecast_net_income_per_share = 123.1
+        context '第1四半期' do
+          let(:quarter) { 1 }
 
-          attr = summary.attributes_results_forecast
+          it '今期予想' do
+            summary = Summary.new
+            summary.code = 1111
+            summary.year = 2013
+            summary.quarter = quarter
+            summary.forecast_net_sales = 100
+            summary.forecast_operating_income = 10
+            summary.forecast_ordinary_income = 11
+            summary.forecast_net_income = 6
+            summary.forecast_net_income_per_share = 123.1
+            attr = summary.attributes_results_forecast
 
-          expect(attr[:code]).to eq(1111)
-          expect(attr[:year]).to eq(2013)
-          expect(attr[:quarter]).to eq(1)
-          expect(attr[:forecast_net_sales]).to eq(100)
-          expect(attr[:forecast_operating_income]).to eq(10)
-          expect(attr[:forecast_ordinary_income]).to eq(11)
-          expect(attr[:forecast_net_income]).to eq(6)
-          expect(attr[:forecast_net_income_per_share]).to eq(123.1)
+            expect(attr[:code]).to eq(1111)
+            expect(attr[:year]).to eq(2013)
+            expect(attr[:quarter]).to eq(1)
+            expect(attr[:forecast_net_sales]).to eq(100)
+            expect(attr[:forecast_operating_income]).to eq(10)
+            expect(attr[:forecast_ordinary_income]).to eq(11)
+            expect(attr[:forecast_net_income]).to eq(6)
+            expect(attr[:forecast_net_income_per_share]).to eq(123.1)
+          end
+        end
+
+        context '第4四半期' do
+          let(:quarter) { 4 }
+
+          it '来期予想' do
+            summary = Summary.new
+            summary.year = 2013
+            summary.quarter = quarter
+            attr = summary.attributes_results_forecast
+
+            expect(attr[:year]).to eq(2014)
+          end
         end
       end
 
