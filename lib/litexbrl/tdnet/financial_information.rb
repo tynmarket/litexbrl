@@ -1,6 +1,6 @@
 module LiteXBRL
   module TDnet
-    class FinancialInfomration
+    class FinancialInformation
       include Utils
 
       attr_accessor :code, :year, :month, :quarter

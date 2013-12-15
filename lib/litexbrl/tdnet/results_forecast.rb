@@ -1,6 +1,6 @@
 module LiteXBRL
   module TDnet
-    class ResultsForecast < FinancialInfomration
+    class ResultsForecast < FinancialInformation
 
       attr_accessor :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share
 
