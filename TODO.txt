@@ -3,3 +3,4 @@
 ・nilが渡された場合
 ・GEMにHP付ける
 ・RSPECのバージョン
+・contextのローカル変数化

@@ -218,18 +218,27 @@ module LiteXBRL
         end
 
         #
+        # 決算短信サマリの勘定科目の値を取得します
+        #
+        def find_value_tse_t_ed(doc, item, context)
+          find_value(doc, item, context) do |item, context|
+            "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']"
+          end
+        end
+
+        #
         # 勘定科目の値を取得します
         #
         def find_value(doc, item, context)
           # 配列の場合、いずれかに該当するもの
           if item[0].is_a? String
-            xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+            xpath = item.map {|item| yield(item, context) }.join('|')
             elm = doc.at_xpath xpath
             elm.content if elm
           # 2次元配列の場合、先頭の配列から優先に
           elsif item[0].is_a? Array
             item.each do |item|
-              xpath = item.map {|item| "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']" }.join('|')
+              xpath = item.map {|item| yield(item, context) }.join('|')
               elm = doc.at_xpath xpath
               return elm.content if elm
             end

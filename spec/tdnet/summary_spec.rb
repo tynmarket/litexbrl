@@ -77,13 +77,13 @@ module LiteXBRL
         end
       end
 
-      describe ".find_value" do
+      describe ".find_value_tse_t_ed" do
         context "要素が取得できない" do
           let(:doc) { double "doc", at_xpath: nil }
           let(:item) { ['NetSales'] }
 
           it "nilを返す" do
-            val = Summary.send(:find_value, doc, item, nil)
+            val = Summary.send(:find_value_tse_t_ed, doc, item, nil)
             expect(val).to be_nil
           end
         end
