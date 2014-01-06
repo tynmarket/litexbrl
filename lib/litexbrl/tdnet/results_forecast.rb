@@ -5,24 +5,6 @@ module LiteXBRL
       attr_accessor :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share,
         :forecast_previous_net_sales, :forecast_previous_operating_income, :forecast_previous_ordinary_income, :forecast_previous_net_income, :forecast_previous_net_income_per_share
 
-      # 修正前通期予想売上高
-      FORECAST_PREVIOUS_NET_SALES = create_items(NET_SALES) {|item| "ForecastPrevious#{item}" }
-
-      # 修正前通期予想営業利益
-      FORECAST_PREVIOUS_OPERATING_INCOME = OPERATING_INCOME.each_with_object({}) do |kv, hash|
-        key, values = *kv
-        hash[key] = values.map {|values2| values2.map {|item| "ForecastPrevious#{item}" } }
-      end
-
-      # 修正前通期予想経常利益
-      FORECAST_PREVIOUS_ORDINARY_INCOME = create_items(ORDINARY_INCOME) {|item| "ForecastPrevious#{item}" }
-
-      # 修正前通期予想純利益
-      FORECAST_PREVIOUS_NET_INCOME = create_items(NET_INCOME) {|item| "ForecastPrevious#{item}" }
-
-      # 修正前通期予想一株当たり純利益
-      FORECAST_PREVIOUS_NET_INCOME_PER_SHARE = create_items(NET_INCOME_PER_SHARE) {|item| "ForecastPrevious#{item}" }
-
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 通期予想売上高

@@ -11,13 +11,6 @@ module LiteXBRL
         hash
       end
 
-      def create_items(items)
-        items.each_with_object({}) do |kv, hash|
-          key, values = *kv
-          hash[key] = values.map {|item| yield item }
-        end
-      end
-
       #
       # 証券コードを取得します
       #
