@@ -75,6 +75,22 @@ module LiteXBRL
       end
 
       #
+      # 四半期を取得します
+      #
+      def to_quarter2(season)
+        case season
+        when "AccumulatedQ1"
+          1
+        when "AccumulatedQ2"
+          2
+        when "AccumulatedQ3"
+          3
+        when "Year"
+          4
+        end
+      end
+
+      #
       # 単位を100万円にします
       #
       def to_mill(val)
