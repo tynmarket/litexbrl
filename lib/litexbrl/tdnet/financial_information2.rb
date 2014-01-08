@@ -6,7 +6,6 @@ module LiteXBRL
 
       attr_accessor :code, :year, :month, :quarter
 
-
       class << self
         def parse(path)
           doc = File.open(path) {|f| Nokogiri::XML f }
@@ -27,128 +26,83 @@ module LiteXBRL
         end
 
         def find_base_data(doc)
-          consolidation, season = find_consolidation_and_season(doc)
+          season = find_season(doc)
+          consolidation = find_consolidation(doc, season)
           context = context_hash(consolidation, season)
 
           xbrl = new
 
           # 証券コード
-          xbrl.code = find_securities_code(doc, consolidation)
-          # 決算年
-          xbrl.year = find_year(doc, consolidation)
-          # 決算月
-          xbrl.month = find_month(doc, consolidation)
+          xbrl.code = find_securities_code(doc, season)
+          # 決算年・決算月
+          xbrl.year, xbrl.month = find_year_and_month(doc)
           # 四半期
-          xbrl.quarter = find_quarter(doc, consolidation, context)
+          xbrl.quarter = to_quarter2(season)
 
           # 会計基準
-          accounting_base = find_accounting_base(doc, context, xbrl.quarter)
+          accounting_base = find_accounting_base(doc, context)
 
           return xbrl, accounting_base, context
-        end
-
-        def find_data(doc, xbrl, accounting_base, context)
-          raise Exception.new "Override !"
-        end
-
-        def find_consolidation_and_season(doc)
-          consolidation = find_consolidation(doc)
-          season = find_season(doc, consolidation)
-
-          # 連結で取れない場合、非連結にする
-          unless season
-            consolidation = "NonConsolidated"
-            season = find_season(doc, consolidation)
-          end
-
-          return consolidation, season
-        end
-
-        #
-        # 連結・非連結を取得します
-        #
-        def find_consolidation(doc)
-          cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
-          non_cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearNonConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
-
-          if cons
-            "Consolidated"
-          elsif non_cons
-            "NonConsolidated"
-          else
-            raise StandardError.new("連結・非連結ともに該当しません。")
-          end
         end
 
         #
         # 通期・四半期を取得します
         #
-        def find_season(doc, consolidation)
-          year = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          quarter = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentQuarter#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q1 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ1#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q2 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ2#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q3 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ3#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+        def find_season(doc)
+          q1 = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentAccumulatedQ1Instant' and @name='tse-ed-t:SecuritiesCode']")
+          q2 = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentAccumulatedQ2Instant' and @name='tse-ed-t:SecuritiesCode']")
+          q3 = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentAccumulatedQ3Instant' and @name='tse-ed-t:SecuritiesCode']")
+          year = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentYearInstant' and @name='tse-ed-t:SecuritiesCode']")
 
-          if year
-            "Year"
-          elsif quarter
-            "Quarter"
-          elsif q1
+          if q1
             "AccumulatedQ1"
           elsif q2
             "AccumulatedQ2"
           elsif q3
             "AccumulatedQ3"
+          elsif year
+            "Year"
+          else
+            raise Exception.new("通期・四半期を取得出来ません。")
           end
+        end
+
+        #
+        # 連結・非連結を取得します
+        #
+        def find_consolidation(doc, season)
+          raise Exception.new "Override !"
         end
 
         #
         # contextを設定します
         #
         def context_hash(consolidation, season)
-          raise StandardError.new("通期・四半期が設定されていません。") unless season
-
-          year_duration = "Year#{consolidation}Duration"
+          year_duration = "YearDuration_#{consolidation}Member_ForecastMember"
 
           {
-            context_duration: "Current#{season}#{consolidation}Duration",
+            context_duration: "Current#{season}Duration_#{consolidation}Member_ResultMember",
             context_instant: "Current#{season}#{consolidation}Instant",
             context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
+            context_current_forecast: "CurrentYearDuration_#{consolidation}Member_CurrentMember_ForecastMember",
+            context_prev_forecast: "CurrentYearDuration_#{consolidation}Member_PreviousMember_ForecastMember",
           }
         end
 
         #
         # 証券コードを取得します
         #
-        def find_securities_code(doc, consolidation)
-          elm_code = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:entity/xbrli:identifier", NS)
+        def find_securities_code(doc, season)
+          elm_code = doc.at_xpath("//ix:nonNumeric[@contextRef='Current#{season}Instant' and @name='tse-ed-t:SecuritiesCode']")
           to_securities_code(elm_code)
         end
 
         #
-        # 決算年を取得します
+        # 決算年・決算月を取得します
         #
-        def find_year(doc, consolidation)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
-          to_year(elm_end)
-        end
-
-        #
-        # 決算月を取得します
-        #
-        def find_month(doc, consolidation)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
-          to_month(elm_end)
-        end
-
-        #
-        # 四半期を取得します
-        #
-        def find_quarter(doc, consolidation, context)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
-          elm_instant = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='#{context[:context_instant]}']/xbrli:period/xbrli:instant", NS)
-          to_quarter(elm_end, elm_instant)
+        def find_year_and_month(doc)
+          elm_end = doc.at_xpath("//xbrli:context[@id='CurrentYearDuration']/xbrli:period/xbrli:endDate")
+          return to_year(elm_end), to_month(elm_end)
         end
 
         #
@@ -161,9 +115,9 @@ module LiteXBRL
         #
         # 決算短信サマリの勘定科目の値を取得します
         #
-        def find_value_tse_t_ed(doc, item, context)
+        def find_value_tse_ed_t(doc, item, context)
           find_value(doc, item, context) do |item, context|
-            "//xbrli:xbrl/tse-t-ed:#{item}[@contextRef='#{context}']"
+            "//ix:nonFraction[@contextRef='#{context}' and @name='tse-ed-t:#{item}']"
           end
         end
 
