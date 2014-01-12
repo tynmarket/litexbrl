@@ -11,7 +11,7 @@ def dir
 end
 
 
-doc = doc('bin/1q.htm')
+#doc = doc('bin/1q.htm')
 #elm = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentAccumulatedQ1Instant' and @name='tse-ed-t:SecuritiesCode']")
 #elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentAccumulatedQ1Duration_ConsolidatedMember_ResultMember' and @name='tse-ed-t:NetSales']")
 #elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_ConsolidatedMember_ForecastMember' and @name='tse-ed-t:NetSales']")

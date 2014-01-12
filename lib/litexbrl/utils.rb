@@ -94,15 +94,19 @@ module LiteXBRL
       # 単位を100万円にします
       #
       def to_mill(val)
-        val.to_i / (1000 * 1000) if val
+        val.to_i / (1000 * 1000) if present? val
       end
 
       def to_f(val)
-        val.to_f if val
+        val.to_f if present? val
       end
 
       def percent_to_f(val)
-        (val.to_f / 100).round(3) if val
+        (val.to_f / 100).round(3) if present? val
+      end
+
+      def present?(val)
+        val && val != ""
       end
     end
 
