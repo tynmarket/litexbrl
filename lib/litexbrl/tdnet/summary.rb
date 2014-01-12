@@ -1,9 +1,7 @@
 module LiteXBRL
   module TDnet
     class Summary < FinancialInformation
-
-      attr_accessor :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share,
-        :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share
+      include SummaryAttribute
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 売上高
@@ -17,6 +15,15 @@ module LiteXBRL
         # 1株当たり純利益
         xbrl.net_income_per_share = to_f(find_value_tse_t_ed(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_duration]))
 
+        # 売上高前年比
+        xbrl.change_in_net_sales = to_f(find_value_tse_t_ed(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_duration]))
+        # 営業利益前年比
+        xbrl.change_in_operating_income = to_f(find_value_tse_t_ed(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_duration]))
+        # 経常利益前年比
+        xbrl.change_in_ordinary_income = to_f(find_value_tse_t_ed(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_duration]))
+        # 純利益前年比
+        xbrl.change_in_net_income = to_f(find_value_tse_t_ed(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_duration]))
+
         # 通期予想売上高
         xbrl.forecast_net_sales = to_mill(find_value_tse_t_ed(doc, FORECAST_NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想営業利益
@@ -27,6 +34,15 @@ module LiteXBRL
         xbrl.forecast_net_income = to_mill(find_value_tse_t_ed(doc, FORECAST_NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想1株当たり純利益
         xbrl.forecast_net_income_per_share = to_f(find_value_tse_t_ed(doc, FORECAST_NET_INCOME_PER_SHARE[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+
+        # 通期予想売上高前年比
+        xbrl.change_in_forecast_net_sales = to_f(find_value_tse_t_ed(doc, CHANGE_FORECAST_NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        # 通期予想営業利益前年比
+        xbrl.change_in_forecast_operating_income = to_f(find_value_tse_t_ed(doc, CHANGE_FORECAST_OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        # 通期予想経常利益前年比
+        xbrl.change_in_forecast_ordinary_income = to_f(find_value_tse_t_ed(doc, CHANGE_FORECAST_ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        # 通期予想純利益前年比
+        xbrl.change_in_forecast_net_income = to_f(find_value_tse_t_ed(doc, CHANGE_FORECAST_NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
 
         xbrl
       end
@@ -44,30 +60,6 @@ module LiteXBRL
         else
           :jp
         end
-      end
-
-      def attributes
-        super.merge(
-          net_sales: net_sales,
-          operating_income: operating_income,
-          ordinary_income: ordinary_income,
-          net_income: net_income,
-          net_income_per_share: net_income_per_share
-        )
-      end
-
-      def attributes_results_forecast
-        {
-          code: code,
-          year: quarter == 4 ? year + 1 : year,
-          month: month,
-          quarter: quarter,
-          forecast_net_sales: forecast_net_sales,
-          forecast_operating_income: forecast_operating_income,
-          forecast_ordinary_income: forecast_ordinary_income,
-          forecast_net_income: forecast_net_income,
-          forecast_net_income_per_share: forecast_net_income_per_share
-        }
       end
 
     end

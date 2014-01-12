@@ -143,15 +143,6 @@ module LiteXBRL
         end
       end
 
-      def attributes
-        {
-          code: code,
-          year: year,
-          month: month,
-          quarter: quarter,
-        }
-      end
-
     end
   end
 end

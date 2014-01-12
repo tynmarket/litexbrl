@@ -100,6 +100,10 @@ module LiteXBRL
       def to_f(val)
         val.to_f if val
       end
+
+      def percent_to_f(val)
+        (val.to_f / 100).round(3) if val
+      end
     end
 
   end

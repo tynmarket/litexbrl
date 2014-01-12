@@ -1,10 +1,7 @@
 module LiteXBRL
   module TDnet
     class ResultsForecast2 < FinancialInformation2
-
-      attr_accessor :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share,
-        :forecast_previous_net_sales, :forecast_previous_operating_income, :forecast_previous_ordinary_income, :forecast_previous_net_income, :forecast_previous_net_income_per_share
-
+      include ResultsForecastAttribute
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 通期予想売上高
@@ -17,6 +14,7 @@ module LiteXBRL
         xbrl.forecast_net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_current_forecast]))
         # 通期予想1株当たり純利益
         xbrl.forecast_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_current_forecast]))
+
         # 修正前通期予想売上高
         xbrl.forecast_previous_net_sales = to_mill(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想営業利益
@@ -27,6 +25,15 @@ module LiteXBRL
         xbrl.forecast_previous_net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想1株当たり純利益
         xbrl.forecast_previous_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_prev_forecast]))
+
+        # 通期予想売上高増減率
+        xbrl.change_forecast_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_current_forecast]))
+        # 通期予想営業利益増減率
+        xbrl.change_forecast_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_current_forecast]))
+        # 通期予想経常利益増減率
+        xbrl.change_forecast_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_current_forecast]))
+        # 通期予想純利益増減率
+        xbrl.change_forecast_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_current_forecast]))
 
         xbrl
       end
@@ -60,21 +67,6 @@ module LiteXBRL
         else
           raise Exception.new("会計基準を取得出来ません。")
         end
-      end
-
-      def attributes
-        super.merge(
-          forecast_net_sales: forecast_net_sales,
-          forecast_operating_income: forecast_operating_income,
-          forecast_ordinary_income: forecast_ordinary_income,
-          forecast_net_income: forecast_net_income,
-          forecast_net_income_per_share: forecast_net_income_per_share,
-          forecast_previous_net_sales: forecast_previous_net_sales,
-          forecast_previous_operating_income: forecast_previous_operating_income,
-          forecast_previous_ordinary_income: forecast_previous_ordinary_income,
-          forecast_previous_net_income: forecast_previous_net_income,
-          forecast_previous_net_income_per_share: forecast_previous_net_income_per_share
-        )
       end
 
     end

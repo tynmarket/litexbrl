@@ -17,18 +17,24 @@ module LiteXBRL
               expect(xbrl.code).to eq('4368')
               expect(xbrl.year).to eq(2012)
               expect(xbrl.month).to eq(3)
-#              expect(xbrl.quarter).to eq(4)
+              expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.forecast_net_sales).to eq(28300)
               expect(xbrl.forecast_operating_income).to eq(3850)
               expect(xbrl.forecast_ordinary_income).to eq(3700)
               expect(xbrl.forecast_net_income).to eq(2400)
               expect(xbrl.forecast_net_income_per_share).to eq(380.87)
+
               expect(xbrl.forecast_previous_net_sales).to eq(30300)
               expect(xbrl.forecast_previous_operating_income).to eq(4700)
               expect(xbrl.forecast_previous_ordinary_income).to eq(4400)
               expect(xbrl.forecast_previous_net_income).to eq(3050)
               expect(xbrl.forecast_previous_net_income_per_share).to eq(484.02)
+
+              expect(xbrl.change_forecast_net_sales).to eq(-0.066)
+              expect(xbrl.change_forecast_operating_income).to eq(-0.181)
+              expect(xbrl.change_forecast_ordinary_income).to eq(-0.159)
+              expect(xbrl.change_forecast_net_income).to eq(-0.213)
             end
           end
         end
@@ -41,7 +47,7 @@ module LiteXBRL
               expect(xbrl.code).to eq('6594')
               expect(xbrl.year).to eq(2014)
               expect(xbrl.month).to eq(3)
-#              expect(xbrl.quarter).to eq(4)
+              expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.forecast_net_sales).to eq(850000)
               expect(xbrl.forecast_operating_income).to eq(80000)
@@ -65,7 +71,7 @@ module LiteXBRL
               expect(xbrl.code).to eq('6779')
               expect(xbrl.year).to eq(2014)
               expect(xbrl.month).to eq(3)
-#              expect(xbrl.quarter).to eq(1)
+              expect(xbrl.quarter).to eq(4)
 
               expect(xbrl.forecast_net_sales).to eq(51000)
               expect(xbrl.forecast_operating_income).to eq(700)
@@ -94,11 +100,18 @@ module LiteXBRL
           results_forecast.forecast_ordinary_income = 11
           results_forecast.forecast_net_income = 6
           results_forecast.forecast_net_income_per_share = 123.1
+
           results_forecast.forecast_previous_net_sales = 90
           results_forecast.forecast_previous_operating_income = 9
           results_forecast.forecast_previous_ordinary_income = 10
           results_forecast.forecast_previous_net_income = 5
           results_forecast.forecast_previous_net_income_per_share = 113.1
+
+          results_forecast.change_forecast_net_sales = 110
+          results_forecast.change_forecast_operating_income = 20
+          results_forecast.change_forecast_ordinary_income = 21
+          results_forecast.change_forecast_net_income = 16
+
           attr = results_forecast.attributes
 
           expect(attr[:code]).to eq(1111)
@@ -110,11 +123,17 @@ module LiteXBRL
           expect(attr[:forecast_ordinary_income]).to eq(11)
           expect(attr[:forecast_net_income]).to eq(6)
           expect(attr[:forecast_net_income_per_share]).to eq(123.1)
+
           expect(attr[:forecast_previous_net_sales]).to eq(90)
           expect(attr[:forecast_previous_operating_income]).to eq(9)
           expect(attr[:forecast_previous_ordinary_income]).to eq(10)
           expect(attr[:forecast_previous_net_income]).to eq(5)
           expect(attr[:forecast_previous_net_income_per_share]).to eq(113.1)
+
+          expect(attr[:change_forecast_net_sales]).to eq(110)
+          expect(attr[:change_forecast_operating_income]).to eq(20)
+          expect(attr[:change_forecast_ordinary_income]).to eq(21)
+          expect(attr[:change_forecast_net_income]).to eq(16)
         end
       end
 

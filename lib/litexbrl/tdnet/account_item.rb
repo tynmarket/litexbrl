@@ -2,10 +2,17 @@ module LiteXBRL
   module TDnet
     module AccountItem
 
-      def self.create_items(items)
+      def self.define_item(items)
         items.each_with_object({}) do |kv, hash|
           key, values = *kv
           hash[key] = values.map {|item| yield item }
+        end
+      end
+
+      def self.define_nested_item(items)
+        items.each_with_object({}) do |kv, hash|
+          key, values = *kv
+          hash[key] = values.map {|values2| values2.map {|item| yield item } }
         end
       end
 
@@ -45,41 +52,73 @@ module LiteXBRL
         :if => ['BasicEarningsPerShareIFRS', 'BasicEarningPerShareIFRS']
       }
 
+      # 売上高前年比/通期予想売上高前年比
+      CHANGE_IN_NET_SALES = define_item(NET_SALES) {|item| "ChangeIn#{item}" }
+
+      # 営業利益前年比/通期予想営業利益前年比
+      CHANGE_IN_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "ChangeIn#{item}" }
+
+      # 経常利益前年比/通期予想経常利益前年比
+      CHANGE_IN_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "ChangeIn#{item}" }
+
+      # 純利益前年比/通期予想純利益前年比
+      CHANGE_IN_NET_INCOME = define_item(NET_INCOME) {|item| "ChangeIn#{item}" }
+
+
       # 通期予想売上高
-      FORECAST_NET_SALES = create_items(NET_SALES) {|item| "Forecast#{item}" }
+      FORECAST_NET_SALES = define_item(NET_SALES) {|item| "Forecast#{item}" }
 
       # 通期予想営業利益
-      FORECAST_OPERATING_INCOME = OPERATING_INCOME.each_with_object({}) do |kv, hash|
-        key, values = *kv
-        hash[key] = values.map {|values2| values2.map {|item| "Forecast#{item}" } }
-      end
+      FORECAST_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "Forecast#{item}" }
 
       # 通期予想経常利益
-      FORECAST_ORDINARY_INCOME = create_items(ORDINARY_INCOME) {|item| "Forecast#{item}" }
+      FORECAST_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "Forecast#{item}" }
 
       # 通期予想純利益
-      FORECAST_NET_INCOME = create_items(NET_INCOME) {|item| "Forecast#{item}" }
+      FORECAST_NET_INCOME = define_item(NET_INCOME) {|item| "Forecast#{item}" }
 
       # 通期予想一株当たり純利益
-      FORECAST_NET_INCOME_PER_SHARE = create_items(NET_INCOME_PER_SHARE) {|item| "Forecast#{item}" }
+      FORECAST_NET_INCOME_PER_SHARE = define_item(NET_INCOME_PER_SHARE) {|item| "Forecast#{item}" }
+
+      # 通期予想売上高前年比
+      CHANGE_FORECAST_NET_SALES = define_item(NET_SALES) {|item| "ChangeForecast#{item}" }
+
+      # 通期予想営業利益前年比
+      CHANGE_FORECAST_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "ChangeForecast#{item}" }
+
+      # 通期予想経常利益前年比
+      CHANGE_FORECAST_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "ChangeForecast#{item}" }
+
+      # 通期予想純利益前年比
+      CHANGE_FORECAST_NET_INCOME = define_item(NET_INCOME) {|item| "ChangeForecast#{item}" }
+
 
       # 修正前通期予想売上高
-      FORECAST_PREVIOUS_NET_SALES = create_items(NET_SALES) {|item| "ForecastPrevious#{item}" }
+      FORECAST_PREVIOUS_NET_SALES = define_item(NET_SALES) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想営業利益
-      FORECAST_PREVIOUS_OPERATING_INCOME = OPERATING_INCOME.each_with_object({}) do |kv, hash|
-        key, values = *kv
-        hash[key] = values.map {|values2| values2.map {|item| "ForecastPrevious#{item}" } }
-      end
+      FORECAST_PREVIOUS_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想経常利益
-      FORECAST_PREVIOUS_ORDINARY_INCOME = create_items(ORDINARY_INCOME) {|item| "ForecastPrevious#{item}" }
+      FORECAST_PREVIOUS_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想純利益
-      FORECAST_PREVIOUS_NET_INCOME = create_items(NET_INCOME) {|item| "ForecastPrevious#{item}" }
+      FORECAST_PREVIOUS_NET_INCOME = define_item(NET_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想一株当たり純利益
-      FORECAST_PREVIOUS_NET_INCOME_PER_SHARE = create_items(NET_INCOME_PER_SHARE) {|item| "ForecastPrevious#{item}" }
+      FORECAST_PREVIOUS_NET_INCOME_PER_SHARE = define_item(NET_INCOME_PER_SHARE) {|item| "ForecastPrevious#{item}" }
+
+      # 通期予想売上高増減率
+      CHANGE_NET_SALES = define_item(NET_SALES) {|item| "Change#{item}" }
+
+      # 通期予想営業利益増減率
+      CHANGE_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "Change#{item}" }
+
+      # 通期予想経常利益増減率
+      CHANGE_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "Change#{item}" }
+
+      # 通期予想純利益増減率
+      CHANGE_NET_INCOME = define_item(NET_INCOME) {|item| "Change#{item}" }
 
     end
   end
