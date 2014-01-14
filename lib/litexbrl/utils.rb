@@ -97,6 +97,10 @@ module LiteXBRL
         val.to_i / (1000 * 1000) if present? val
       end
 
+      def to_i(val)
+        val.delete(',').to_i if present? val
+      end
+
       def to_f(val)
         val.to_f if present? val
       end

@@ -11,6 +11,13 @@ module LiteXBRL
       end
     end
 
+    describe '.to_i' do
+      context 'val == "54,074"' do
+        let(:val) { "54,074" }
+        it { expect(self.class.to_i val).to eq(54074) }
+      end
+    end
+
     describe '.to_f' do
       context 'val == "0.02"' do
         let(:val) { "0.02" }

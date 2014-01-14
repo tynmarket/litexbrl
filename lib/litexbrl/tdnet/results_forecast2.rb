@@ -5,24 +5,24 @@ module LiteXBRL
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 通期予想売上高
-        xbrl.forecast_net_sales = to_mill(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_current_forecast]))
+        xbrl.forecast_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_current_forecast]))
         # 通期予想営業利益
-        xbrl.forecast_operating_income = to_mill(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_current_forecast]))
+        xbrl.forecast_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_current_forecast]))
         # 通期予想経常利益
-        xbrl.forecast_ordinary_income = to_mill(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_current_forecast]))
+        xbrl.forecast_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_current_forecast]))
         # 通期予想純利益
-        xbrl.forecast_net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_current_forecast]))
+        xbrl.forecast_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_current_forecast]))
         # 通期予想1株当たり純利益
         xbrl.forecast_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_current_forecast]))
 
         # 修正前通期予想売上高
-        xbrl.forecast_previous_net_sales = to_mill(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_prev_forecast]))
+        xbrl.forecast_previous_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想営業利益
-        xbrl.forecast_previous_operating_income = to_mill(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_prev_forecast]))
+        xbrl.forecast_previous_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想経常利益
-        xbrl.forecast_previous_ordinary_income = to_mill(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_prev_forecast]))
+        xbrl.forecast_previous_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想純利益
-        xbrl.forecast_previous_net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_prev_forecast]))
+        xbrl.forecast_previous_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_prev_forecast]))
         # 修正前通期予想1株当たり純利益
         xbrl.forecast_previous_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_prev_forecast]))
 

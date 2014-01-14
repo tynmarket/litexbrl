@@ -5,13 +5,13 @@ module LiteXBRL
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 売上高
-        xbrl.net_sales = to_mill(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_duration]))
+        xbrl.net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_duration]))
         # 営業利益
-        xbrl.operating_income = to_mill(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_duration]))
+        xbrl.operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_duration]))
         # 経常利益
-        xbrl.ordinary_income = to_mill(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_duration]))
+        xbrl.ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_duration]))
         # 純利益
-        xbrl.net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_duration]))
+        xbrl.net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_duration]))
         # 1株当たり純利益
         xbrl.net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_duration]))
 
@@ -25,13 +25,13 @@ module LiteXBRL
         xbrl.change_in_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_duration]))
 
         # 通期予想売上高
-        xbrl.forecast_net_sales = to_mill(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想営業利益
-        xbrl.forecast_operating_income = to_mill(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想経常利益
-        xbrl.forecast_ordinary_income = to_mill(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想純利益
-        xbrl.forecast_net_income = to_mill(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想1株当たり純利益
         xbrl.forecast_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_forecast].call(xbrl.quarter)))
 
