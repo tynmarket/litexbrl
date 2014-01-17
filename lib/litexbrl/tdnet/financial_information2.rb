@@ -129,17 +129,24 @@ module LiteXBRL
           if item[0].is_a? String
             xpath = item.map {|item| yield(item, context) }.join('|')
             elm = doc.at_xpath xpath
-            elm.content if elm
+            add_sign(elm) if elm
           # 2次元配列の場合、先頭の配列から優先に
           elsif item[0].is_a? Array
             item.each do |item|
               xpath = item.map {|item| yield(item, context) }.join('|')
               elm = doc.at_xpath xpath
-              return elm.content if elm
+              return add_sign(elm) if elm
             end
 
             nil # 該当なし
           end
+        end
+
+        #
+        # マイナスが設定されていれば付加します
+        #
+        def add_sign(elm)
+          elm.attribute('sign') ? elm.attribute('sign').content + elm.content : elm.content
         end
       end
 
