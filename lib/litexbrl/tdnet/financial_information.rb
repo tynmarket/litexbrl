@@ -119,6 +119,7 @@ module LiteXBRL
 
           {
             context_duration: "Current#{season}#{consolidation}Duration",
+            context_prior_duration: "Prior#{season}#{consolidation}Duration",
             context_instant: "Current#{season}#{consolidation}Instant",
             context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
           }

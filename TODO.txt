@@ -18,3 +18,4 @@
 ・非連結のテスト
 ・REITの取得
 ・旧TDnetでも前期の値を取得する
+・season⇒quarter
