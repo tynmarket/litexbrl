@@ -4,6 +4,8 @@ module LiteXBRL
 
       attr_accessor :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share,
         :change_in_net_sales, :change_in_operating_income, :change_in_ordinary_income, :change_in_net_income,
+        :prior_net_sales, :prior_operating_income, :prior_ordinary_income, :prior_net_income, :prior_net_income_per_share,
+        :change_in_prior_net_sales, :change_in_prior_operating_income, :change_in_prior_ordinary_income, :change_in_prior_net_income,
         :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share,
         :change_in_forecast_net_sales, :change_in_forecast_operating_income, :change_in_forecast_ordinary_income, :change_in_forecast_net_income
 
@@ -22,6 +24,15 @@ module LiteXBRL
           change_in_operating_income: change_in_operating_income,
           change_in_ordinary_income: change_in_ordinary_income,
           change_in_net_income: change_in_net_income,
+          prior_net_sales: prior_net_sales,
+          prior_operating_income: prior_operating_income,
+          prior_ordinary_income: prior_ordinary_income,
+          prior_net_income: prior_net_income,
+          prior_net_income_per_share: prior_net_income_per_share,
+          change_in_prior_net_sales: change_in_prior_net_sales,
+          change_in_prior_operating_income: change_in_prior_operating_income,
+          change_in_prior_ordinary_income: change_in_prior_ordinary_income,
+          change_in_prior_net_income: change_in_prior_net_income,
         }
       end
 

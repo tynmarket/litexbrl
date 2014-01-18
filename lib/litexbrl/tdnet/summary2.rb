@@ -24,6 +24,26 @@ module LiteXBRL
         # 純利益前年比
         xbrl.change_in_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_duration]))
 
+        # 前期売上高
+        xbrl.prior_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_prior_duration]))
+        # 前期営業利益
+        xbrl.prior_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_prior_duration]))
+        # 前期経常利益
+        xbrl.prior_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_prior_duration]))
+        # 前期純利益
+        xbrl.prior_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_prior_duration]))
+        # 前期1株当たり純利益
+        xbrl.prior_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_prior_duration]))
+
+        # 前期売上高前年比
+        xbrl.change_in_prior_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_prior_duration]))
+        # 前期営業利益前年比
+        xbrl.change_in_prior_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_prior_duration]))
+        # 前期経常利益前年比
+        xbrl.change_in_prior_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_prior_duration]))
+        # 前期純利益前年比
+        xbrl.change_in_prior_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_prior_duration]))
+
         # 通期予想売上高
         xbrl.forecast_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
         # 通期予想営業利益
