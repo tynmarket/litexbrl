@@ -61,7 +61,9 @@ module LiteXBRL
       end
 
       def self.find_accounting_base(doc, context)
-        namespace = doc.namespaces.keys.find {|ns| ns.start_with?('xmlns:tse-qced') || ns.start_with?('xmlns:tse-aced') }
+        namespace = doc.namespaces.keys.find do |ns|
+          ns.start_with?('xmlns:tse-qced') || ns.start_with?('xmlns:tse-aced') || ns.start_with?('xmlns:tse-qned')
+        end
 
         case namespace
         when /.+jpsm.+/
