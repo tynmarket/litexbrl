@@ -39,8 +39,8 @@ module LiteXBRL
       end
 
       def self.find_consolidation(doc, season)
-        cons = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember' and @name='tse-ed-t:NetSales']")
-        non_cons = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_NonConsolidatedMember_CurrentMember_ForecastMember' and @name='tse-ed-t:NetSales']")
+        cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember")
+        non_cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_NonConsolidatedMember_CurrentMember_ForecastMember")
 
         if cons
           "Consolidated"
