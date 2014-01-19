@@ -54,11 +54,17 @@ module LiteXBRL
               expect(xbrl.forecast_ordinary_income).to eq(78000)
               expect(xbrl.forecast_net_income).to eq(55000)
               expect(xbrl.forecast_net_income_per_share).to eq(404.26)
+
               expect(xbrl.forecast_previous_net_sales).to eq(820000)
               expect(xbrl.forecast_previous_operating_income).to eq(75000)
               expect(xbrl.forecast_previous_ordinary_income).to eq(73000)
               expect(xbrl.forecast_previous_net_income).to eq(53500)
               expect(xbrl.forecast_previous_net_income_per_share).to eq(398.72)
+
+              expect(xbrl.change_forecast_net_sales).to eq(0.037)
+              expect(xbrl.change_forecast_operating_income).to eq(0.067)
+              expect(xbrl.change_forecast_ordinary_income).to eq(0.068)
+              expect(xbrl.change_forecast_net_income).to eq(0.028)
             end
           end
         end
@@ -78,11 +84,17 @@ module LiteXBRL
               expect(xbrl.forecast_ordinary_income).to eq(500)
               expect(xbrl.forecast_net_income).to eq(400)
               expect(xbrl.forecast_net_income_per_share).to eq(20.38)
+
               expect(xbrl.forecast_previous_net_sales).to eq(51000)
               expect(xbrl.forecast_previous_operating_income).to eq(1500)
               expect(xbrl.forecast_previous_ordinary_income).to eq(1100)
               expect(xbrl.forecast_previous_net_income).to eq(1000)
               expect(xbrl.forecast_previous_net_income_per_share).to eq(50.95)
+
+#              expect(xbrl.change_forecast_net_sales).to eq(0.037)
+              expect(xbrl.change_forecast_operating_income).to eq(-0.533)
+              expect(xbrl.change_forecast_ordinary_income).to eq(-0.545)
+              expect(xbrl.change_forecast_net_income).to eq(-0.6)
             end
           end
         end

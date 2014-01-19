@@ -5,25 +5,50 @@ module LiteXBRL
     describe AccountItem do
 
       describe '.define_item' do
-        let(:items) { {jp: ['NetSales'], us: ['NetSalesUS']} }
+        let(:items) { {jp: ['NetSales'], if: ['NetSalesIFRS']} }
 
-        it do
-          created = AccountItem.define_item(items) {|item| "Forecast#{item}" }
+        context '文字列' do
+          it do
+            created = AccountItem.define_item(items) {|item| "ChangeIn#{item}" }
 
-          expect(created[:jp].first).to eq('ForecastNetSales')
-          expect(created[:us].first).to eq('ForecastNetSalesUS')
+            expect(created[:jp]).to eq(['ChangeInNetSales'])
+            expect(created[:if]).to eq(['ChangeInNetSalesIFRS'])
+          end
+        end
+
+        context 'ハッシュ' do
+          it do
+            created = AccountItem.define_item(items) do |item|
+              {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]}
+            end
+
+            expect(created[:jp]).to eq(['ChangeInNetSales'])
+            expect(created[:if]).to eq(['ChangeInNetSalesIFRS', 'ChangesInNetSalesIFRS'])
+          end
         end
       end
 
       describe '.define_nested_item' do
-        let(:items) { {jp: [['NetSales'], ['NetSales2']], us: [['NetSalesUS']]} }
+        let(:items) { {jp: [['NetSales'], ['NetSales2']], :if => [['NetSalesIFRS']]} }
 
-        it do
-          created = AccountItem.define_nested_item(items) {|item| "Forecast#{item}" }
+        context '文字列' do
+          it do
+            created = AccountItem.define_nested_item(items) {|item| "ChangeIn#{item}" }
 
-          expect(created[:jp][0][0]).to eq('ForecastNetSales')
-          expect(created[:jp][1][0]).to eq('ForecastNetSales2')
-          expect(created[:us][0][0]).to eq('ForecastNetSalesUS')
+            expect(created[:jp]).to eq([['ChangeInNetSales'], ['ChangeInNetSales2']])
+            expect(created[:if]).to eq([['ChangeInNetSalesIFRS']])
+          end
+        end
+
+        context 'ハッシュ' do
+          it do
+            created = AccountItem.define_nested_item(items) do |item|
+              {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]}
+            end
+
+            expect(created[:jp]).to eq([['ChangeInNetSales'], ['ChangeInNetSales2']])
+            expect(created[:if]).to eq([['ChangeInNetSalesIFRS', 'ChangesInNetSalesIFRS']])
+          end
         end
       end
 
