@@ -8,42 +8,6 @@ module LiteXBRL
 
       let(:dir) { File.expand_path '../../data/tdnet/summary2', __FILE__ }
 
-=begin
-      describe ".find_consolidation" do
-        it "連結" do
-          consolidation = Summary2.send(:find_consolidation, doc("#{dir}/ja-cons-2013-q1.xbrl"))
-          expect(consolidation).to eq("Consolidated")
-        end
-
-        it "非連結" do
-          consolidation = Summary2.send(:find_consolidation, doc("#{dir}/ja-noncons-q1.xbrl"))
-          expect(consolidation).to eq("NonConsolidated")
-        end
-      end
-
-      describe ".find_season" do
-        it "Q1" do
-          season = Summary2.send(:find_season, doc("#{dir}/ja-cons-2013-q1.xbrl"), "Consolidated")
-          expect(season).to eq("AccumulatedQ1")
-        end
-
-        it "Q2" do
-          season = Summary2.send(:find_season, doc("#{dir}/ja-cons-2013-q2.xbrl"), "Consolidated")
-          expect(season).to eq("AccumulatedQ2")
-        end
-
-        it "Q3" do
-          season = Summary2.send(:find_season, doc("#{dir}/ja-cons-2013-q3.xbrl"), "Consolidated")
-          expect(season).to eq("AccumulatedQ3")
-        end
-
-        it "Q4" do
-          season = Summary2.send(:find_season, doc("#{dir}/ja-cons-2013-q4.xbrl"), "Consolidated")
-          expect(season).to eq("Year")
-        end
-      end
-=end
-
       describe ".context_hash" do
         let(:consolidation) { 'Consolidated' }
         let(:season) { 'AccumulatedQ1' }
@@ -93,217 +57,99 @@ module LiteXBRL
           end
         end
       end
-
+=end
       describe ".parse" do
         context '日本会計基準' do
           context "連結・第1四半期" do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-cons-2013-q1.xbrl") }
+            let(:xbrl) { Summary2.parse("#{dir}/jp-cons-2014-q1.htm") }
 
             it do
-              expect(xbrl.code).to eq('4368')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
+              expect(xbrl.code).to eq('3046')
+              expect(xbrl.year).to eq(2014)
+              expect(xbrl.month).to eq(8)
               expect(xbrl.quarter).to eq(1)
 
-              expect(xbrl.net_sales).to eq(6818)
-              expect(xbrl.operating_income).to eq(997)
-              expect(xbrl.ordinary_income).to eq(957)
-              expect(xbrl.net_income).to eq(543)
-              expect(xbrl.net_income_per_share).to eq(86.21)
-              expect(xbrl.forecast_net_sales).to eq(30000)
-              expect(xbrl.forecast_operating_income).to eq(3700)
-              expect(xbrl.forecast_ordinary_income).to eq(3600)
-              expect(xbrl.forecast_net_income).to eq(2000)
-              expect(xbrl.forecast_net_income_per_share).to eq(317.4)
-            end
-          end
+              expect(xbrl.net_sales).to eq(8168)
+              expect(xbrl.operating_income).to eq(249)
+              expect(xbrl.ordinary_income).to eq(219)
+              expect(xbrl.net_income).to eq(70)
+              expect(xbrl.net_income_per_share).to eq(2.92)
 
-          context "連結・第2四半期" do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-cons-2013-q2.xbrl") }
+              expect(xbrl.change_in_net_sales).to eq(0.047)
+              expect(xbrl.change_in_operating_income).to eq(-0.819)
+              expect(xbrl.change_in_ordinary_income).to eq(-0.832)
+              expect(xbrl.change_in_net_income).to eq(-0.909)
 
-            it do
-              expect(xbrl.code).to eq('4368')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(2)
+              expect(xbrl.prior_net_sales).to eq(7799)
+              expect(xbrl.prior_operating_income).to eq(1377)
+              expect(xbrl.prior_ordinary_income).to eq(1301)
+              expect(xbrl.prior_net_income).to eq(766)
+              expect(xbrl.prior_net_income_per_share).to eq(31.95)
 
-              expect(xbrl.net_sales).to eq(13740)
-              expect(xbrl.operating_income).to eq(1863)
-              expect(xbrl.ordinary_income).to eq(1777)
-              expect(xbrl.net_income).to eq(1056)
-              expect(xbrl.net_income_per_share).to eq(167.60)
-              expect(xbrl.forecast_net_sales).to eq(30000)
-              expect(xbrl.forecast_operating_income).to eq(3700)
-              expect(xbrl.forecast_ordinary_income).to eq(3600)
-              expect(xbrl.forecast_net_income).to eq(2000)
-              expect(xbrl.forecast_net_income_per_share).to eq(317.4)
-            end
-          end
+              expect(xbrl.change_in_prior_net_sales).to eq(0.853)
+              expect(xbrl.change_in_prior_operating_income).to eq(6.587)
+              expect(xbrl.change_in_prior_ordinary_income).to eq(6.641)
+              expect(xbrl.change_in_prior_net_income).to be_nil
 
-          context "連結・第3四半期" do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-cons-2013-q3.xbrl") }
+              expect(xbrl.forecast_net_sales).to eq(40600)
+              expect(xbrl.forecast_operating_income).to eq(6800)
+              expect(xbrl.forecast_ordinary_income).to eq(6850)
+              expect(xbrl.forecast_net_income).to eq(3900)
+              expect(xbrl.forecast_net_income_per_share).to eq(162.66)
 
-            it do
-              expect(xbrl.code).to eq('4368')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(3)
-
-              expect(xbrl.net_sales).to eq(20793)
-              expect(xbrl.operating_income).to eq(2772)
-              expect(xbrl.ordinary_income).to eq(2720)
-              expect(xbrl.net_income).to eq(1655)
-              expect(xbrl.net_income_per_share).to eq(262.79)
-              expect(xbrl.forecast_net_sales).to eq(30000)
-              expect(xbrl.forecast_operating_income).to eq(3700)
-              expect(xbrl.forecast_ordinary_income).to eq(3600)
-              expect(xbrl.forecast_net_income).to eq(2000)
-              expect(xbrl.forecast_net_income_per_share).to eq(317.4)
+              expect(xbrl.change_in_forecast_net_sales).to eq(0.111)
+              expect(xbrl.change_in_forecast_operating_income).to eq(0.093)
+              expect(xbrl.change_in_forecast_ordinary_income).to eq(0.167)
+              expect(xbrl.change_in_forecast_net_income).to eq(0.141)
             end
           end
 
           context "連結・第4四半期" do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-cons-2013-q4.xbrl") }
+            let(:xbrl) { Summary2.parse("#{dir}/jp-cons-2013-q4.htm") }
 
             it do
-              expect(xbrl.code).to eq('4368')
+              expect(xbrl.code).to eq('2408')
               expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
+              expect(xbrl.month).to eq(12)
               expect(xbrl.quarter).to eq(4)
 
-              expect(xbrl.net_sales).to eq(27355)
-              expect(xbrl.operating_income).to eq(3223)
-              expect(xbrl.ordinary_income).to eq(3231)
-              expect(xbrl.net_income).to eq(1903)
-              expect(xbrl.net_income_per_share).to eq(302.11)
-              expect(xbrl.forecast_net_sales).to eq(30000)
-              expect(xbrl.forecast_operating_income).to eq(3500)
-              expect(xbrl.forecast_ordinary_income).to eq(3400)
-              expect(xbrl.forecast_net_income).to eq(2000)
-              expect(xbrl.forecast_net_income_per_share).to eq(317.4)
-            end
-          end
+              expect(xbrl.net_sales).to eq(4691)
+              expect(xbrl.operating_income).to eq(759)
+              expect(xbrl.ordinary_income).to eq(821)
+              expect(xbrl.net_income).to eq(493)
+              expect(xbrl.net_income_per_share).to eq(67.03)
 
-          context "業種：銀行" do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-bk-cons-2014-q1.xbrl") }
+              expect(xbrl.change_in_net_sales).to eq(-0.008)
+              expect(xbrl.change_in_operating_income).to eq(-0.206)
+              expect(xbrl.change_in_ordinary_income).to eq(-0.184)
+              expect(xbrl.change_in_net_income).to eq(-0.147)
 
-            it do
-              expect(xbrl.code).to eq('8361')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
+              expect(xbrl.prior_net_sales).to eq(4727)
+              expect(xbrl.prior_operating_income).to eq(956)
+              expect(xbrl.prior_ordinary_income).to eq(1005)
+              expect(xbrl.prior_net_income).to eq(579)
+              expect(xbrl.prior_net_income_per_share).to eq(79.73)
 
-              expect(xbrl.net_sales).to eq(28278)
-              expect(xbrl.operating_income).to eq(5079)
-              expect(xbrl.ordinary_income).to eq(5079)
-              expect(xbrl.net_income).to eq(4521)
-              expect(xbrl.net_income_per_share).to eq(12.82)
-            end
-          end
+              expect(xbrl.change_in_prior_net_sales).to eq(0.008)
+              expect(xbrl.change_in_prior_operating_income).to eq(0.036)
+              expect(xbrl.change_in_prior_ordinary_income).to eq(0.039)
+              expect(xbrl.change_in_prior_net_income).to eq(0.287)
 
-          context '業種：証券' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-se-cons-2014-q1.xbrl") }
+              expect(xbrl.forecast_net_sales).to eq(5064)
+              expect(xbrl.forecast_operating_income).to eq(509)
+              expect(xbrl.forecast_ordinary_income).to eq(530)
+              expect(xbrl.forecast_net_income).to eq(316)
+              expect(xbrl.forecast_net_income_per_share).to eq(42.91)
 
-            it do
-              expect(xbrl.code).to eq('8601')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(183082)
-              expect(xbrl.operating_income).to eq(62307)
-              expect(xbrl.ordinary_income).to eq(65087)
-              expect(xbrl.net_income).to eq(57297)
-              expect(xbrl.net_income_per_share).to eq(33.72)
-            end
-          end
-
-          context '業種：保険' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-in-cons-2014-q1.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('8715')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(4394)
-              expect(xbrl.operating_income).to eq(113)
-              expect(xbrl.ordinary_income).to eq(113)
-              expect(xbrl.net_income).to eq(68)
-              expect(xbrl.net_income_per_share).to eq(3.96)
-            end
-          end
-
-          context '業種：営業収益' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-oprv-cons-2014-q1.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('8289')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(2)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(24866)
-              expect(xbrl.operating_income).to eq(117)
-              expect(xbrl.ordinary_income).to eq(101)
-              expect(xbrl.net_income).to eq(89)
-              expect(xbrl.net_income_per_share).to eq(3.88)
-            end
-          end
-
-          context '業種：営業収入' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-oprvsp-cons-2014-q1.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('9946')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(2)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(33307)
-              expect(xbrl.operating_income).to eq(240)
-              expect(xbrl.ordinary_income).to eq(563)
-              expect(xbrl.net_income).to eq(113)
-              expect(xbrl.net_income_per_share).to eq(3.92)
-            end
-          end
-
-          context '業種：営業総収入' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-goprv-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('8028')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(2)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(334087)
-              expect(xbrl.operating_income).to eq(43107)
-              expect(xbrl.ordinary_income).to eq(45410)
-              expect(xbrl.net_income).to eq(25020)
-              expect(xbrl.net_income_per_share).to eq(263.57)
-            end
-          end
-
-          context '業種：完成工事高' do
-            let(:xbrl) { Summary2.parse("#{dir}/ja-nsco-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('1861')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(260753)
-              expect(xbrl.operating_income).to eq(-1167)
-              expect(xbrl.ordinary_income).to eq(65)
-              expect(xbrl.net_income).to eq(-1083)
-              expect(xbrl.net_income_per_share).to eq(-5.91)
+              expect(xbrl.change_in_forecast_net_sales).to eq(0.079)
+              expect(xbrl.change_in_forecast_operating_income).to eq(-0.329)
+              expect(xbrl.change_in_forecast_ordinary_income).to eq(-0.354)
+              expect(xbrl.change_in_forecast_net_income).to eq(-0.359)
             end
           end
         end
 
+=begin
         context '米国会計基準' do
           context '売上高：NetSales' do
             let(:xbrl) { Summary2.parse("#{dir}/us-cons-2014-q1.xbrl") }
@@ -463,68 +309,53 @@ module LiteXBRL
             end
           end
         end
+=end
 
         context 'IFRS' do
-          context '売上高：NetSalesIFRS' do
-            let(:xbrl) { Summary2.parse("#{dir}/if-cons-2014-q1.xbrl") }
+          let(:xbrl) { Summary2.parse("#{dir}/ifrs-cons-2013-q4.htm") }
 
-            it do
-              expect(xbrl.code).to eq('5202')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
+          it do
+            expect(xbrl.code).to eq('8923')
+            expect(xbrl.year).to eq(2013)
+            expect(xbrl.month).to eq(11)
+            expect(xbrl.quarter).to eq(4)
 
-              expect(xbrl.net_sales).to eq(150690)
-              expect(xbrl.operating_income).to eq(-398)
-              expect(xbrl.ordinary_income).to eq(-5364)
-              expect(xbrl.net_income).to eq(-7112)
-              expect(xbrl.net_income_per_share).to eq(-7.88)
-              expect(xbrl.forecast_net_sales).to eq(600000)
-              expect(xbrl.forecast_operating_income).to eq(3000)
-              expect(xbrl.forecast_ordinary_income).to eq(-15000) # ForecastProfitBeforeIncomeTaxIFRS
-              expect(xbrl.forecast_net_income).to eq(-21000)
-              expect(xbrl.forecast_net_income_per_share).to eq(-23.27)  # ForecastBasicEarningPerShareIFRS
-            end
-          end
+            expect(xbrl.net_sales).to eq(35070)
+            expect(xbrl.operating_income).to eq(3909)
+            expect(xbrl.ordinary_income).to eq(3217)
+            expect(xbrl.net_income).to eq(2003)
+            expect(xbrl.net_income_per_share).to eq(42.99)
 
-          context '売上高：OperatingRevenuesIFRS、営業利益：ProfitBeforeTaxIFRS' do
-            let(:xbrl) { Summary2.parse("#{dir}/if-or-cons-2014-q1.xbrl") }
+            expect(xbrl.change_in_net_sales).to eq(0.449)
+            expect(xbrl.change_in_operating_income).to eq(0.369)
+            expect(xbrl.change_in_ordinary_income).to eq(0.45)
+            expect(xbrl.change_in_net_income).to eq(0.367)
 
-            it do
-              expect(xbrl.code).to eq('8698')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
+            expect(xbrl.prior_net_sales).to eq(24195)
+            expect(xbrl.prior_operating_income).to eq(2856)
+            expect(xbrl.prior_ordinary_income).to eq(2218)
+            expect(xbrl.prior_net_income).to eq(1465)
+            expect(xbrl.prior_net_income_per_share).to eq(32.07)
 
-              expect(xbrl.net_sales).to eq(16866)
-              expect(xbrl.operating_income).to eq(8407)
-              expect(xbrl.ordinary_income).to eq(8407)
-              expect(xbrl.net_income).to eq(5144)
-              expect(xbrl.net_income_per_share).to eq(1751.61)
-              # TODO 業績予想のテスト追加
-            end
-          end
+#            expect(xbrl.change_in_prior_net_sales).to eq(0.008)
+#            expect(xbrl.change_in_prior_operating_income).to eq(0.036)
+#            expect(xbrl.change_in_prior_ordinary_income).to eq(0.039)
+#            expect(xbrl.change_in_prior_net_income).to eq(0.287)
 
-          context '売上高：SalesIFRS' do
-            let(:xbrl) { Summary2.parse("#{dir}/if-sa-cons-2014-q1.xbrl") }
+            expect(xbrl.forecast_net_sales).to eq(41817)
+            expect(xbrl.forecast_operating_income).to eq(4618)
+            expect(xbrl.forecast_ordinary_income).to eq(3800)
+            expect(xbrl.forecast_net_income).to eq(2309)
+            expect(xbrl.forecast_net_income_per_share).to eq(47.82)
 
-            it do
-              expect(xbrl.code).to eq('7741')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(100425)
-              expect(xbrl.operating_income).to eq(20123)
-              expect(xbrl.ordinary_income).to eq(20123)
-              expect(xbrl.net_income).to eq(12302)
-              expect(xbrl.net_income_per_share).to eq(28.51)
-              # TODO 業績予想のテスト追加
-            end
+            expect(xbrl.change_in_forecast_net_sales).to eq(0.192)
+            expect(xbrl.change_in_forecast_operating_income).to eq(0.181)
+            expect(xbrl.change_in_forecast_ordinary_income).to eq(0.181)
+            expect(xbrl.change_in_forecast_net_income).to eq(0.153)
           end
         end
       end
-
+=begin
       describe ".parse_string" do
         let(:xbrl) { Summary2.parse_string(File.read("#{dir}/ja-cons-2013-q1.xbrl")) }
 

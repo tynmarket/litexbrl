@@ -11,14 +11,16 @@ def dir
 end
 
 
+#doc = doc('bin/1.xbrl')
 #doc = doc('bin/1q.htm')
-#elm = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentAccumulatedQ1Instant' and @name='tse-ed-t:SecuritiesCode']")
+#elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='CurrentYearConsolidatedDuration']")
 #elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentAccumulatedQ1Duration_ConsolidatedMember_ResultMember' and @name='tse-ed-t:NetSales']")
 #elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_ConsolidatedMember_ForecastMember' and @name='tse-ed-t:NetSales']")
 #elm = doc.at_xpath("//xbrli:context[@id='CurrentYearDuration']/xbrli:period/xbrli:endDate")
-#p elm.content
+#p elm.attributes
 
-xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
+xbrl = LiteXBRL::TDnet::Summary.parse('bin/1.xbrl')
+#xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
 #xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
 p xbrl
