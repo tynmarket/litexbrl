@@ -19,8 +19,8 @@ end
 #elm = doc.at_xpath("//xbrli:context[@id='CurrentYearDuration']/xbrli:period/xbrli:endDate")
 #p elm.attributes
 
-xbrl = LiteXBRL::TDnet::Summary.parse('bin/1.xbrl')
+#xbrl = LiteXBRL::TDnet::Summary.parse('bin/1.xbrl')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
-#xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
+xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
 p xbrl

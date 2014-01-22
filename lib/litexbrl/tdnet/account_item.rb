@@ -28,7 +28,7 @@ module LiteXBRL
       NET_SALES = {
         jp: ['NetSales', 'OrdinaryRevenuesBK', 'OperatingRevenuesSE', 'OrdinaryRevenuesIN', 'OperatingRevenues',
           'OperatingRevenuesSpecific', 'GrossOperatingRevenues', 'NetSalesOfCompletedConstructionContracts'],
-        us: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS'],
+        us: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS', 'NetSales'],
         :if => ['NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
       }
 
