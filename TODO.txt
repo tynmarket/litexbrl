@@ -24,3 +24,5 @@
 ・NetSales等の要素の重複のチェック
 ・be_nilの項目をなくす
 ・account_itemのブロック共通化
+・results_forecast2のfind_consolidationのテスト・メソッド見やすく
+・summary2のfind_consolidationもresults_forecast2のような処理を書く必要があるか調べる

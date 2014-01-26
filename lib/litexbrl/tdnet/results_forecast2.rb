@@ -39,12 +39,14 @@ module LiteXBRL
       end
 
       def self.find_consolidation(doc, season)
-        cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember")
-        non_cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_NonConsolidatedMember_CurrentMember_ForecastMember")
+        cons_current = present? find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember")
+        cons_prev = present? find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_ConsolidatedMember_PreviousMember_ForecastMember")
+        non_cons_current = present? find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_NonConsolidatedMember_CurrentMember_ForecastMember")
+        non_cons_prev = present? find_value_tse_ed_t(doc, NET_SALES.values.flatten, "CurrentYearDuration_NonConsolidatedMember_PreviousMember_ForecastMember")
 
-        if cons
+        if cons_current || cons_prev
           "Consolidated"
-        elsif non_cons
+        elsif non_cons_current || non_cons_prev
           "NonConsolidated"
         else
           raise Exception.new("連結・非連結ともに該当しません。")
