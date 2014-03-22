@@ -19,10 +19,13 @@
 ・旧TDnetでも前期の値を取得する
 ・season⇒quarter
 ・xbrl.code⇒xbrl[:code]
-・データ修正用のジェネレータ作成
 ・NetSalesを後ろに持ってくる？速度計測
 ・NetSales等の要素の重複のチェック
 ・be_nilの項目をなくす
 ・account_itemのブロック共通化
 ・results_forecast2のfind_consolidationのテスト・メソッド見やすく
 ・summary2のfind_consolidationもresults_forecast2のような処理を書く必要があるか調べる
+・軽量のコメントを外す
+・ドキュメントを保持するメソッドを追加
+・attributeをmodule Attribute化、
+・attributesをattributes_summaryに

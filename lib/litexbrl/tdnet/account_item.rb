@@ -128,6 +128,13 @@ module LiteXBRL
       # 通期予想純利益増減率
       CHANGE_NET_INCOME = define_item(NET_INCOME) {|item| "Change#{item}" }
 
+      # 企業名
+      COMPANY_NAME = {
+        jp: ['CompanyName'],
+        us: ['CompanyName'],
+        :if => ['CompanyName']
+      }
+
     end
   end
 end

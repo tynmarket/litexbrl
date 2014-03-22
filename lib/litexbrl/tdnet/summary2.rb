@@ -1,7 +1,7 @@
 module LiteXBRL
   module TDnet
     class Summary2 < FinancialInformation2
-      include SummaryAttribute
+      include SummaryAttribute, CompanyAttribute
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 売上高
@@ -95,6 +95,16 @@ module LiteXBRL
         else
           raise Exception.new("会計基準を取得出来ません。")
         end
+      end
+
+      def self.parse_company(str)
+        doc = Nokogiri::XML str
+        xbrl, accounting_base, context = find_base_data(doc)
+
+        # 企業名
+        xbrl.company_name = find_value_non_numeric(doc, COMPANY_NAME[accounting_base], context[:context_instant])
+
+        xbrl
       end
 
     end
