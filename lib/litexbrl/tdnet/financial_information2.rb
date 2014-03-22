@@ -83,7 +83,7 @@ module LiteXBRL
           {
             context_duration: "Current#{season}Duration_#{consolidation}Member_ResultMember",
             context_prior_duration: "Prior#{season}Duration_#{consolidation}Member_ResultMember",
-            context_instant: "Current#{season}#{consolidation}Instant",
+            context_instant: "Current#{season}Instant",
             context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
             context_current_forecast: "CurrentYearDuration_#{consolidation}Member_CurrentMember_ForecastMember",
             context_prev_forecast: "CurrentYearDuration_#{consolidation}Member_PreviousMember_ForecastMember",
@@ -119,6 +119,15 @@ module LiteXBRL
         def find_value_tse_ed_t(doc, item, context)
           find_value(doc, item, context) do |item, context|
             "//ix:nonFraction[@contextRef='#{context}' and @name='tse-ed-t:#{item}']"
+          end
+        end
+
+        #
+        # 決算短信サマリの非数値の値を取得します
+        #
+        def find_value_non_numeric(doc, item, context)
+          find_value(doc, item, context) do |item, context|
+            "//ix:nonNumeric[@contextRef='#{context}' and @name='tse-ed-t:#{item}']"
           end
         end
 
