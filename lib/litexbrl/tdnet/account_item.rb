@@ -102,19 +102,19 @@ module LiteXBRL
 
 
       # 修正前通期予想売上高
-      FORECAST_PREVIOUS_NET_SALES = define_item(NET_SALES) {|item| "ForecastPrevious#{item}" }
+      PREVIOUS_FORECAST_NET_SALES = define_item(NET_SALES) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想営業利益
-      FORECAST_PREVIOUS_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "ForecastPrevious#{item}" }
+      PREVIOUS_FORECAST_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想経常利益
-      FORECAST_PREVIOUS_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "ForecastPrevious#{item}" }
+      PREVIOUS_FORECAST_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想純利益
-      FORECAST_PREVIOUS_NET_INCOME = define_item(NET_INCOME) {|item| "ForecastPrevious#{item}" }
+      PREVIOUS_FORECAST_NET_INCOME = define_item(NET_INCOME) {|item| "ForecastPrevious#{item}" }
 
       # 修正前通期予想一株当たり純利益
-      FORECAST_PREVIOUS_NET_INCOME_PER_SHARE = define_item(NET_INCOME_PER_SHARE) {|item| "ForecastPrevious#{item}" }
+      PREVIOUS_FORECAST_NET_INCOME_PER_SHARE = define_item(NET_INCOME_PER_SHARE) {|item| "ForecastPrevious#{item}" }
 
       # 通期予想売上高増減率
       CHANGE_NET_SALES = define_item(NET_SALES) {|item| "Change#{item}" }

@@ -29,3 +29,5 @@
 ・ドキュメントを保持するメソッドを追加
 ・attributeをmodule Attribute化、
 ・attributesをattributes_summaryに
+・EexceptionをStandardErrorに（spiderも）
+・AmountChange?

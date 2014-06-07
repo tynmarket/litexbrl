@@ -6,6 +6,10 @@ def doc(path)
   File.open(path) {|f| Nokogiri::XML(f) }
 end
 
+def read(path)
+  File.open(path) {|f| f.read }
+end
+
 def dir
   File.expand_path '../../spec/data/tdnet/summary', __FILE__
 end
@@ -22,5 +26,6 @@ end
 #xbrl = LiteXBRL::TDnet::Summary.parse('bin/1.xbrl')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
-xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
-p xbrl.attributes
+#xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
+xbrl =  LiteXBRL::TDnet::Summary2.parse_company read('bin/1.htm')
+p xbrl.attributes_company
