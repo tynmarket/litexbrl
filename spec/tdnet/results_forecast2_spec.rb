@@ -8,33 +8,37 @@ module LiteXBRL
 
       let(:dir) { File.expand_path '../../data/tdnet/results_forecast2', __FILE__ }
 
-      describe ".parse" do
+      describe ".read" do
+        context '中間・連結' do
+          # TODO
+        end
+
         context '日本会計基準' do
           context "連結" do
-            let(:xbrl) { ResultsForecast2.parse("#{dir}/jp-cons-2014.htm") }
+            let(:xbrl) { (ResultsForecast2.read doc("#{dir}/jp-cons-2014.htm"))[:results_forecast].first }
 
             it do
-              expect(xbrl.code).to eq('6883')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
+              expect(xbrl[:code]).to eq('6883')
+              expect(xbrl[:year]).to eq(2014)
+              expect(xbrl[:month]).to eq(3)
+              expect(xbrl[:quarter]).to eq(4)
 
-              expect(xbrl.previous_forecast_net_sales).to eq(29000)
-              expect(xbrl.previous_forecast_operating_income).to eq(4150)
-              expect(xbrl.previous_forecast_ordinary_income).to eq(4350)
-              expect(xbrl.previous_forecast_net_income).to eq(3000)
-              expect(xbrl.previous_forecast_net_income_per_share).to eq(45.25)
+              expect(xbrl[:previous_forecast_net_sales]).to eq(29000)
+              expect(xbrl[:previous_forecast_operating_income]).to eq(4150)
+              expect(xbrl[:previous_forecast_ordinary_income]).to eq(4350)
+              expect(xbrl[:previous_forecast_net_income]).to eq(3000)
+              expect(xbrl[:previous_forecast_net_income_per_share]).to eq(45.25)
 
-              expect(xbrl.forecast_net_sales).to eq(30500)
-              expect(xbrl.forecast_operating_income).to eq(5000)
-              expect(xbrl.forecast_ordinary_income).to eq(5200)
-              expect(xbrl.forecast_net_income).to eq(3800)
-              expect(xbrl.forecast_net_income_per_share).to eq(57.31)
+              expect(xbrl[:forecast_net_sales]).to eq(30500)
+              expect(xbrl[:forecast_operating_income]).to eq(5000)
+              expect(xbrl[:forecast_ordinary_income]).to eq(5200)
+              expect(xbrl[:forecast_net_income]).to eq(3800)
+              expect(xbrl[:forecast_net_income_per_share]).to eq(57.31)
 
-              expect(xbrl.change_forecast_net_sales).to eq(0.052)
-              expect(xbrl.change_forecast_operating_income).to eq(0.205)
-              expect(xbrl.change_forecast_ordinary_income).to eq(0.195)
-              expect(xbrl.change_forecast_net_income).to eq(0.267)
+              expect(xbrl[:change_forecast_net_sales]).to eq(0.052)
+              expect(xbrl[:change_forecast_operating_income]).to eq(0.205)
+              expect(xbrl[:change_forecast_ordinary_income]).to eq(0.195)
+              expect(xbrl[:change_forecast_net_income]).to eq(0.267)
             end
           end
         end
@@ -42,7 +46,7 @@ module LiteXBRL
 =begin
         context '米国会計基準' do
           context '連結' do
-            let(:xbrl) { ResultsForecast.parse("#{dir}/us-cons-2014.xbrl") }
+            let(:xbrl) { ResultsForecast.read("#{dir}/us-cons-2014.xbrl") }
 
             it do
               expect(xbrl.code).to eq('6594')
@@ -66,7 +70,7 @@ module LiteXBRL
 
         context 'IFRS' do
           context '連結' do
-            let(:xbrl) { ResultsForecast.parse("#{dir}/ifrs-cons-2014.xbrl") }
+            let(:xbrl) { ResultsForecast.read("#{dir}/ifrs-cons-2014.xbrl") }
 
             it do
               expect(xbrl.code).to eq('6779')

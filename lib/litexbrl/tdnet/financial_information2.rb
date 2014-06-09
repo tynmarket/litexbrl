@@ -39,10 +39,7 @@ module LiteXBRL
           # 四半期
           xbrl.quarter = to_quarter2(season)
 
-          # 会計基準
-          accounting_base = find_accounting_base(doc, context)
-
-          return xbrl, accounting_base, context
+          return xbrl, context
         end
 
         #
