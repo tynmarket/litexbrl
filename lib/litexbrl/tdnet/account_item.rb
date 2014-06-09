@@ -104,11 +104,7 @@ module LiteXBRL
       CHANGE_NET_INCOME = define_item(NET_INCOME) {|item| "Change#{item}" }
 
       # 企業名
-      COMPANY_NAME = {
-        jp: ['CompanyName'],
-        us: ['CompanyName'],
-        :if => ['CompanyName']
-      }
+      COMPANY_NAME = ['CompanyName']
 
     end
   end
