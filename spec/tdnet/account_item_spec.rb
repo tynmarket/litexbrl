@@ -3,7 +3,7 @@ require 'spec_helper'
 module LiteXBRL
   module TDnet
     describe AccountItem do
-
+=begin
       describe '.define_item' do
         let(:items) { {jp: ['NetSales'], if: ['NetSalesIFRS']} }
 
@@ -51,7 +51,7 @@ module LiteXBRL
           end
         end
       end
-
+=end
     end
   end
 end

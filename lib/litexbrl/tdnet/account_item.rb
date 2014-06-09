@@ -2,75 +2,50 @@ module LiteXBRL
   module TDnet
     module AccountItem
 
-      def self.define_item(items)
-        items.each_with_object({}) do |kv, hash|
-          key, values = *kv
-          hash[key] = values.map do |item|
-            decorated = yield item
-            decorated.is_a?(Hash) ? decorated[key] : decorated
-          end.flatten
-        end
+      def self.define_item(items, &block)
+        items.map do |item|
+          block.call item
+        end.flatten
       end
 
-      def self.define_nested_item(items)
-        items.each_with_object({}) do |kv, hash|
-          key, values = *kv
-          hash[key] = values.map do |values2|
-            values2.map do |item|
-              decorated = yield item
-              decorated.is_a?(Hash) ? decorated[key] : decorated
-            end.flatten
-          end
+      def self.define_nested_item(nested_items, &block)
+        nested_items.map do |items|
+          define_item(items, &block)
         end
       end
 
       # 売上高
-      NET_SALES = {
-        jp: ['NetSales', 'OrdinaryRevenuesBK', 'OperatingRevenuesSE', 'OrdinaryRevenuesIN', 'OperatingRevenues',
-          'OperatingRevenuesSpecific', 'GrossOperatingRevenues', 'NetSalesOfCompletedConstructionContracts'],
-        us: ['NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS', 'NetSales'],
-        :if => ['NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
-      }
+      NET_SALES = ['NetSales', 'OrdinaryRevenuesBK', 'OperatingRevenuesSE', 'OrdinaryRevenuesIN', 'OperatingRevenues',
+        'OperatingRevenuesSpecific', 'GrossOperatingRevenues', 'NetSalesOfCompletedConstructionContracts',
+        'NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS',
+        'NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
 
       # 営業利益
-      OPERATING_INCOME = {
-        jp: [['OperatingIncome'], ['OrdinaryIncome']],
-        us: [['OperatingIncomeUS', 'OperatingIncome'], ['IncomeBeforeIncomeTaxesUS']],
-        :if => [['OperatingIncomeIFRS'], ['ProfitBeforeTaxIFRS']]
-      }
+      OPERATING_INCOME = [['OperatingIncome', 'OperatingIncomeUS', 'OperatingIncomeIFRS'],
+        ['OrdinaryIncome', 'IncomeBeforeIncomeTaxesUS', 'ProfitBeforeTaxIFRS']]
 
       # 経常利益
-      ORDINARY_INCOME = {
-        jp: ['OrdinaryIncome'],
-        us: ['IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS'],
-        :if => ['ProfitBeforeTaxIFRS', 'ProfitBeforeIncomeTaxIFRS']
-      }
+      ORDINARY_INCOME = ['OrdinaryIncome', 'IncomeBeforeIncomeTaxesUS', 'IncomeFromContinuingOperationsBeforeIncomeTaxesUS',
+          'ProfitBeforeTaxIFRS', 'ProfitBeforeIncomeTaxIFRS']
 
       # 純利益
-      NET_INCOME = {
-        jp: ['NetIncome'],
-        us: ['NetIncomeUS', 'IncomeBeforeMinorityInterestUS'],
-        :if => ['ProfitAttributableToOwnersOfParentIFRS']
-      }
+      NET_INCOME = ['NetIncome', 'NetIncomeUS', 'IncomeBeforeMinorityInterestUS', 'ProfitAttributableToOwnersOfParentIFRS']
 
       # 一株当たり純利益
-      NET_INCOME_PER_SHARE = {
-        jp: ['NetIncomePerShare'],
-        us: ['NetIncomePerShareUS', 'BasicNetIncomePerShareUS'],
-        :if => ['BasicEarningsPerShareIFRS', 'BasicEarningPerShareIFRS']
-      }
+      NET_INCOME_PER_SHARE = ['NetIncomePerShare', 'NetIncomePerShareUS', 'BasicNetIncomePerShareUS',
+        'BasicEarningsPerShareIFRS', 'BasicEarningPerShareIFRS']
 
       # 売上高前年比/通期予想売上高前年比
-      CHANGE_IN_NET_SALES = define_item(NET_SALES) {|item| {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]} }
+      CHANGE_IN_NET_SALES = define_item(NET_SALES) {|item| ["ChangeIn#{item}", "ChangesIn#{item}"] }
 
       # 営業利益前年比/通期予想営業利益前年比
-      CHANGE_IN_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]} }
+      CHANGE_IN_OPERATING_INCOME = define_nested_item(OPERATING_INCOME) {|item| ["ChangeIn#{item}", "ChangesIn#{item}"] }
 
       # 経常利益前年比/通期予想経常利益前年比
-      CHANGE_IN_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]} }
+      CHANGE_IN_ORDINARY_INCOME = define_item(ORDINARY_INCOME) {|item| ["ChangeIn#{item}", "ChangesIn#{item}"] }
 
       # 純利益前年比/通期予想純利益前年比
-      CHANGE_IN_NET_INCOME = define_item(NET_INCOME) {|item| {jp: "ChangeIn#{item}", us: "ChangeIn#{item}", :if => ["ChangeIn#{item}", "ChangesIn#{item}"]} }
+      CHANGE_IN_NET_INCOME = define_item(NET_INCOME) {|item| ["ChangeIn#{item}", "ChangesIn#{item}"] }
 
 
       # 通期予想売上高

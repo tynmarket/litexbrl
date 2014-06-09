@@ -5,71 +5,71 @@ module LiteXBRL
 
       def self.find_data(doc, xbrl, accounting_base, context)
         # 売上高
-        xbrl.net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_duration]))
+        xbrl.net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES, context[:context_duration]))
         # 営業利益
-        xbrl.operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_duration]))
+        xbrl.operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME, context[:context_duration]))
         # 経常利益
-        xbrl.ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_duration]))
+        xbrl.ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME, context[:context_duration]))
         # 純利益
-        xbrl.net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_duration]))
+        xbrl.net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME, context[:context_duration]))
         # 1株当たり純利益
-        xbrl.net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_duration]))
+        xbrl.net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, context[:context_duration]))
 
         # 売上高前年比
-        xbrl.change_in_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_duration]))
+        xbrl.change_in_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES, context[:context_duration]))
         # 営業利益前年比
-        xbrl.change_in_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_duration]))
+        xbrl.change_in_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME, context[:context_duration]))
         # 経常利益前年比
-        xbrl.change_in_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_duration]))
+        xbrl.change_in_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME, context[:context_duration]))
         # 純利益前年比
-        xbrl.change_in_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_duration]))
+        xbrl.change_in_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME, context[:context_duration]))
 
         # 前期売上高
-        xbrl.prior_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_prior_duration]))
+        xbrl.prior_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES, context[:context_prior_duration]))
         # 前期営業利益
-        xbrl.prior_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.prior_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME, context[:context_prior_duration]))
         # 前期経常利益
-        xbrl.prior_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.prior_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME, context[:context_prior_duration]))
         # 前期純利益
-        xbrl.prior_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.prior_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME, context[:context_prior_duration]))
         # 前期1株当たり純利益
-        xbrl.prior_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_prior_duration]))
+        xbrl.prior_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, context[:context_prior_duration]))
 
         # 前期売上高前年比
-        xbrl.change_in_prior_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_prior_duration]))
+        xbrl.change_in_prior_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES, context[:context_prior_duration]))
         # 前期営業利益前年比
-        xbrl.change_in_prior_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.change_in_prior_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME, context[:context_prior_duration]))
         # 前期経常利益前年比
-        xbrl.change_in_prior_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.change_in_prior_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME, context[:context_prior_duration]))
         # 前期純利益前年比
-        xbrl.change_in_prior_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_prior_duration]))
+        xbrl.change_in_prior_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME, context[:context_prior_duration]))
 
         # 通期予想売上高
-        xbrl.forecast_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_net_sales = to_i(find_value_tse_ed_t(doc, NET_SALES, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想営業利益
-        xbrl.forecast_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_operating_income = to_i(find_value_tse_ed_t(doc, OPERATING_INCOME, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想経常利益
-        xbrl.forecast_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_ordinary_income = to_i(find_value_tse_ed_t(doc, ORDINARY_INCOME, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想純利益
-        xbrl.forecast_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_net_income = to_i(find_value_tse_ed_t(doc, NET_INCOME, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想1株当たり純利益
-        xbrl.forecast_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.forecast_net_income_per_share = to_f(find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, context[:context_forecast].call(xbrl.quarter)))
 
         # 通期予想売上高前年比
-        xbrl.change_in_forecast_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.change_in_forecast_net_sales = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_SALES, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想営業利益前年比
-        xbrl.change_in_forecast_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.change_in_forecast_operating_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_OPERATING_INCOME, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想経常利益前年比
-        xbrl.change_in_forecast_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.change_in_forecast_ordinary_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_ORDINARY_INCOME, context[:context_forecast].call(xbrl.quarter)))
         # 通期予想純利益前年比
-        xbrl.change_in_forecast_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME[accounting_base], context[:context_forecast].call(xbrl.quarter)))
+        xbrl.change_in_forecast_net_income = percent_to_f(find_value_tse_ed_t(doc, CHANGE_IN_NET_INCOME, context[:context_forecast].call(xbrl.quarter)))
 
         xbrl
       end
 
       def self.find_consolidation(doc, season)
-        cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "Current#{season}Duration_ConsolidatedMember_ResultMember")
-        non_cons = find_value_tse_ed_t(doc, NET_SALES.values.flatten, "Current#{season}Duration_NonConsolidatedMember_ResultMember")
+        cons = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_ConsolidatedMember_ResultMember")
+        non_cons = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_NonConsolidatedMember_ResultMember")
 
         if cons
           "Consolidated"
