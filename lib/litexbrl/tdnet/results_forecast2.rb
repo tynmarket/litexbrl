@@ -19,13 +19,14 @@ module LiteXBRL
         data
       end
 
+      private
+
       def self.read_data(doc, season)
         consolidation = find_consolidation(doc, season)
 
         return unless consolidation
 
-        xbrl = find_base_data(doc, season)
-        context = context_hash(consolidation, season)
+        xbrl,context = find_base_data(doc, consolidation, season)
 
         find_data(doc, xbrl, context)
       end
@@ -50,7 +51,8 @@ module LiteXBRL
         }
       end
 
-      def self.find_base_data(doc, season)
+      def self.find_base_data(doc, consolidation, season)
+        context = context_hash(consolidation, season)
         xbrl = new
 
         # 証券コード
@@ -60,7 +62,7 @@ module LiteXBRL
         # 四半期
         xbrl.quarter = season == SEASON_Q2 ? 2 : 4
 
-        xbrl
+        return xbrl, context
       end
 
       def self.find_data(doc, xbrl, context)
