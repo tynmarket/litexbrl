@@ -11,28 +11,28 @@ module LiteXBRL
       context 'Summary' do
         it do
           document = TDnet.send :find_document, doc("#{dir}/summary.xbrl")
-          expect(document.class).to eq(LiteXBRL::TDnet::Summary)
+          expect(document).to eq(LiteXBRL::TDnet::Summary)
         end
       end
 
       context 'Summary2' do
         it do
           document = TDnet.send :find_document, doc("#{dir}/summary2.htm")
-          expect(document.class).to eq(LiteXBRL::TDnet::Summary2)
+          expect(document).to eq(LiteXBRL::TDnet::Summary2)
         end
       end
 
       context 'ResultsForecast' do
         it do
           document = TDnet.send :find_document, doc("#{dir}/results_forecast.xbrl")
-          expect(document.class).to eq(LiteXBRL::TDnet::ResultsForecast)
+          expect(document).to eq(LiteXBRL::TDnet::ResultsForecast)
         end
       end
 
       context 'ResultsForecast2' do
         it do
           document = TDnet.send :find_document, doc("#{dir}/results_forecast2.htm")
-          expect(document.class).to eq(LiteXBRL::TDnet::ResultsForecast2)
+          expect(document).to eq(LiteXBRL::TDnet::ResultsForecast2)
         end
       end
     end

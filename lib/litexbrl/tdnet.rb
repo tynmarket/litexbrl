@@ -37,13 +37,13 @@ module LiteXBRL
 
         # TODO 委嬢する？
         if summary? namespaces
-          Summary.new
+          Summary
         elsif summary2? namespaces
-          Summary2.new
+          Summary2
         elsif results_forecast? namespaces
-          ResultsForecast.new
+          ResultsForecast
         elsif results_forecast2? namespaces
-          ResultsForecast2.new
+          ResultsForecast2
         else
           raise StandardError.new "ドキュメントがありません"
         end
