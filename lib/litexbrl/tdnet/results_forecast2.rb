@@ -66,35 +66,35 @@ module LiteXBRL
       end
 
       def self.find_data(doc, xbrl, context)
-        # 予想売上高
+        # 通期/第2四半期予想売上高
         xbrl.forecast_net_sales = to_i(current_value(doc, NET_SALES, context))
-        # 予想営業利益
+        # 通期/第2四半期予想営業利益
         xbrl.forecast_operating_income = to_i(current_value(doc, OPERATING_INCOME, context))
-        # 予想経常利益
+        # 通期/第2四半期予想経常利益
         xbrl.forecast_ordinary_income = to_i(current_value(doc, ORDINARY_INCOME, context))
-        # 予想純利益
+        # 通期/第2四半期予想純利益
         xbrl.forecast_net_income = to_i(current_value(doc, NET_INCOME, context))
-        # 予想1株当たり純利益
+        # 通期/第2四半期予想1株当たり純利益
         xbrl.forecast_net_income_per_share = to_f(current_value(doc, NET_INCOME_PER_SHARE, context))
 
-        # 修正前予想売上高
+        # 修正前通期/第2四半期予想売上高
         xbrl.previous_forecast_net_sales = to_i(prev_value(doc, NET_SALES, context))
-        # 修正前予想営業利益
+        # 修正前通期/第2四半期予想営業利益
         xbrl.previous_forecast_operating_income = to_i(prev_value(doc, OPERATING_INCOME, context))
-        # 修正前予想経常利益
+        # 修正前通期/第2四半期予想経常利益
         xbrl.previous_forecast_ordinary_income = to_i(prev_value(doc, ORDINARY_INCOME, context))
-        # 修正前予想純利益
+        # 修正前通期/第2四半期予想純利益
         xbrl.previous_forecast_net_income = to_i(prev_value(doc, NET_INCOME, context))
-        # 修正前予想1株当たり純利益
+        # 修正前通期/第2四半期予想1株当たり純利益
         xbrl.previous_forecast_net_income_per_share = to_f(prev_value(doc, NET_INCOME_PER_SHARE, context))
 
-        # 予想売上高増減率
+        # 通期/第2四半期予想売上高増減率
         xbrl.change_forecast_net_sales = percent_to_f(current_value(doc, CHANGE_IN_NET_SALES, context))
-        # 予想営業利益増減率
+        # 通期/第2四半期予想営業利益増減率
         xbrl.change_forecast_operating_income = percent_to_f(current_value(doc, CHANGE_IN_OPERATING_INCOME, context))
-        # 予想経常利益増減率
+        # 通期/第2四半期予想経常利益増減率
         xbrl.change_forecast_ordinary_income = percent_to_f(current_value(doc, CHANGE_IN_ORDINARY_INCOME, context))
-        # 予想純利益増減率
+        # 通期/第2四半期予想純利益増減率
         xbrl.change_forecast_net_income = percent_to_f(current_value(doc, CHANGE_IN_NET_INCOME, context))
 
         xbrl
