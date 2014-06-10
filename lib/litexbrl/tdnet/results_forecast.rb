@@ -35,9 +35,9 @@ module LiteXBRL
       # 連結・非連結を取得します
       #
       def self.find_consolidation(doc, season)
-        cons_current = present? find_value_tse_t_rv(doc, FORECAST_NET_SALES, "Current#{season}ConsolidatedDuration")
+        cons_current = present? find_value_tse_t_ed(doc, FORECAST_NET_SALES, "Current#{season}ConsolidatedDuration")
         cons_prev = present? find_value_tse_t_rv(doc, PREVIOUS_FORECAST_NET_SALES, "Current#{season}ConsolidatedDuration")
-        non_cons_current = present? find_value_tse_t_rv(doc, FORECAST_NET_SALES, "Current#{season}NonConsolidatedDuration")
+        non_cons_current = present? find_value_tse_t_ed(doc, FORECAST_NET_SALES, "Current#{season}NonConsolidatedDuration")
         non_cons_prev = present? find_value_tse_t_rv(doc, PREVIOUS_FORECAST_NET_SALES, "Current#{season}NonConsolidatedDuration")
 
         if cons_current || cons_prev
