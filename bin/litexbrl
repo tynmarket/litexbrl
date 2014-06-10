@@ -33,7 +33,7 @@ require 'benchmark'
 Benchmark.bm do |x|
   x.report do
     100.times do
-      LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
+      LiteXBRL::TDnet.parse('bin/year.htm')
     end
   end
 end

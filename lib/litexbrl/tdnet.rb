@@ -27,9 +27,9 @@ module LiteXBRL
       private
 
       def read(doc)
-        xbrl, accounting_base, context = find_base_data(doc)
+        document = find_document doc
 
-        find_data(doc, xbrl, accounting_base, context)
+        document.read doc
       end
 
       def find_document(doc)
