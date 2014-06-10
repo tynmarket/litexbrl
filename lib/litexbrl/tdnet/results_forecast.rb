@@ -22,32 +22,13 @@ module LiteXBRL
       private
 
       def self.read_data(doc, season)
-        consolidation = find_consolidation(doc, season)
-
-        return unless consolidation
-
-        xbrl, context = find_base_data(doc, consolidation, season)
+        xbrl, context = find_base_data(doc, season)
 
         find_data(doc, xbrl, context)
       end
 
-      #
-      # 連結・非連結を取得します
-      #
-      def self.find_consolidation(doc, season)
-        cons_current = present? find_value_tse_t_ed(doc, FORECAST_NET_SALES, "Current#{season}ConsolidatedDuration")
-        cons_prev = present? find_value_tse_t_rv(doc, PREVIOUS_FORECAST_NET_SALES, "Current#{season}ConsolidatedDuration")
-        non_cons_current = present? find_value_tse_t_ed(doc, FORECAST_NET_SALES, "Current#{season}NonConsolidatedDuration")
-        non_cons_prev = present? find_value_tse_t_rv(doc, PREVIOUS_FORECAST_NET_SALES, "Current#{season}NonConsolidatedDuration")
-
-        if cons_current || cons_prev
-          "Consolidated"
-        elsif non_cons_current || non_cons_prev
-          "NonConsolidated"
-        end
-      end
-
-      def self.find_base_data(doc, consolidation, season)
+      def self.find_base_data(doc, season)
+        consolidation = find_consolidation(doc)
         context = context_hash(consolidation, season)
 
         xbrl = new

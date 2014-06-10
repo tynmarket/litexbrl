@@ -27,13 +27,5 @@ end
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
 #xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
-#xbrl =  LiteXBRL::TDnet::Summary2.parse_company read('bin/1.htm')
-#p xbrl.attributes_company
-require 'benchmark'
-Benchmark.bm do |x|
-  x.report do
-    100.times do
-      LiteXBRL::TDnet.parse('bin/year.htm')
-    end
-  end
-end
+xbrl =  LiteXBRL::TDnet.parse_string read('bin/a.xbrl')
+p xbrl
