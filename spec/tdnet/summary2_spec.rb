@@ -27,7 +27,7 @@ module LiteXBRL
           context "連結・第1四半期" do
             let(:xbrl) { Summary2.read doc("#{dir}/jp-cons-2014-q1.htm") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('3046')
@@ -73,7 +73,7 @@ module LiteXBRL
           context "連結・第4四半期" do
             let(:xbrl) { Summary2.read doc("#{dir}/jp-cons-2013-q4.htm") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('2408')
@@ -282,7 +282,7 @@ module LiteXBRL
         context 'IFRS' do
           let(:xbrl) { Summary2.read doc("#{dir}/ifrs-cons-2013-q4.htm") }
           let(:summary) { xbrl[:summary] }
-          let(:results_forecast) { xbrl[:results_forecast] }
+          let(:results_forecast) { xbrl[:results_forecast].first }
 
           it do
             expect(summary[:code]).to eq('8923')

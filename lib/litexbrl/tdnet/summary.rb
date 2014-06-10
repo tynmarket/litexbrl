@@ -7,7 +7,7 @@ module LiteXBRL
         xbrl = read_data doc
 
         {summary: xbrl.attributes,
-          results_forecast: xbrl.attributes_results_forecast}
+          results_forecast: [xbrl.attributes_results_forecast]}
       end
 
       private

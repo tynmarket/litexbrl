@@ -71,7 +71,7 @@ module LiteXBRL
           context "連結・第1四半期" do
             let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('4368')
@@ -117,7 +117,7 @@ module LiteXBRL
           context "連結・第2四半期" do
             let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q2.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('4368')
@@ -141,7 +141,7 @@ module LiteXBRL
           context "連結・第3四半期" do
             let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q3.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('4368')
@@ -165,7 +165,7 @@ module LiteXBRL
           context "連結・第4四半期" do
             let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q4.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('4368')
@@ -339,7 +339,7 @@ module LiteXBRL
           context '売上高：NetSales' do
             let(:xbrl) { Summary.read doc("#{dir}/us-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('7203')
@@ -531,7 +531,7 @@ module LiteXBRL
           context '売上高：NetSalesIFRS' do
             let(:xbrl) { Summary.read doc("#{dir}/if-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
               expect(summary[:code]).to eq('5202')
