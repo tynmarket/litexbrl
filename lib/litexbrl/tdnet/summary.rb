@@ -3,7 +3,92 @@ module LiteXBRL
     class Summary < FinancialInformation
       include SummaryAttribute
 
-      def self.find_data(doc, xbrl, accounting_base, context)
+      def self.read(doc)
+        xbrl = read_data doc
+
+        {summary: xbrl.attributes,
+          results_forecast: xbrl.attributes_results_forecast}
+      end
+
+      private
+
+      def self.read_data(doc)
+        xbrl, context = find_base_data(doc)
+
+        find_data(doc, xbrl, context)
+      end
+
+      def self.find_base_data(doc)
+        consolidation, season = find_consolidation_and_season(doc)
+        context = context_hash(consolidation, season)
+
+        xbrl = new
+
+        # 証券コード
+        xbrl.code = find_securities_code(doc, consolidation)
+        # 決算年
+        xbrl.year = find_year(doc, consolidation)
+        # 決算月
+        xbrl.month = find_month(doc, consolidation)
+        # 四半期
+        xbrl.quarter = find_quarter(doc, consolidation, context)
+
+        return xbrl, context
+      end
+
+      def self.find_consolidation_and_season(doc)
+        consolidation = find_consolidation(doc)
+        season = find_season(doc, consolidation)
+
+        # 連結で取れない場合、非連結にする
+        unless season
+          consolidation = "NonConsolidated"
+          season = find_season(doc, consolidation)
+        end
+
+        return consolidation, season
+      end
+
+      #
+      # 連結・非連結を取得します
+      #
+      def self.find_consolidation(doc)
+        cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
+        non_cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearNonConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
+
+        if cons
+          "Consolidated"
+        elsif non_cons
+          "NonConsolidated"
+        else
+          raise StandardError.new("連結・非連結ともに該当しません。")
+        end
+      end
+
+      #
+      # 通期・四半期を取得します
+      #
+      def self.find_season(doc, consolidation)
+        year = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+        quarter = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentQuarter#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+        q1 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ1#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+        q2 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ2#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+        q3 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ3#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
+
+        if year
+          "Year"
+        elsif quarter
+          "Quarter"
+        elsif q1
+          "AccumulatedQ1"
+        elsif q2
+          "AccumulatedQ2"
+        elsif q3
+          "AccumulatedQ3"
+        end
+      end
+
+      def self.find_data(doc, xbrl, context)
         # 売上高
         xbrl.net_sales = to_mill(find_value_tse_t_ed(doc, NET_SALES, context[:context_duration]))
         # 営業利益
@@ -65,21 +150,6 @@ module LiteXBRL
         xbrl.change_in_forecast_net_income = to_f(find_value_tse_t_ed(doc, CHANGE_FORECAST_NET_INCOME, context[:context_forecast].call(xbrl.quarter)))
 
         xbrl
-      end
-
-      def self.find_accounting_base(doc, context, quarter)
-        namespace = doc.namespaces.keys.find {|ns| ns.start_with? 'xmlns:tdnet' }
-
-        case namespace
-        when /.+jpsm.+/
-          :jp
-        when /.+ussm.+/
-          :us
-        when /.+ifsm.+/
-          :if
-        else
-          :jp
-        end
       end
 
     end
