@@ -6,13 +6,6 @@ module LiteXBRL
 
       attr_accessor :code, :year, :month, :quarter
 
-      # 名前空間
-      NS = {
-        'xbrli' => 'http://www.xbrl.org/2003/instance',
-        'tse-t-ed' => 'http://www.xbrl.tdnet.info/jp/br/tdnet/t/ed/2007-06-30'
-      }
-
-
       class << self
 
         private
@@ -43,7 +36,7 @@ module LiteXBRL
         # 証券コードを取得します
         #
         def find_securities_code(doc, consolidation)
-          elm_code = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:entity/xbrli:identifier", NS)
+          elm_code = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:entity/xbrli:identifier")
           to_securities_code(elm_code)
         end
 
@@ -51,7 +44,7 @@ module LiteXBRL
         # 決算年を取得します
         #
         def find_year(doc, consolidation)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
+          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate")
           to_year(elm_end)
         end
 
@@ -59,7 +52,7 @@ module LiteXBRL
         # 決算月を取得します
         #
         def find_month(doc, consolidation)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
+          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate")
           to_month(elm_end)
         end
 
@@ -67,8 +60,8 @@ module LiteXBRL
         # 四半期を取得します
         #
         def find_quarter(doc, consolidation, context)
-          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
-          elm_instant = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='#{context[:context_instant]}']/xbrli:period/xbrli:instant", NS)
+          elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate")
+          elm_instant = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='#{context[:context_instant]}']/xbrli:period/xbrli:instant")
           to_quarter(elm_end, elm_instant)
         end
 
