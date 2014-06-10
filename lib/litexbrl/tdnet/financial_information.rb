@@ -14,15 +14,6 @@ module LiteXBRL
 
 
       class << self
-        def parse(path)
-          doc = File.open(path) {|f| Nokogiri::XML f }
-          read doc
-        end
-
-        def parse_string(str)
-          doc = Nokogiri::XML str
-          read doc
-        end
 
         private
 
@@ -30,83 +21,6 @@ module LiteXBRL
           xbrl, accounting_base, context = find_base_data(doc)
 
           find_data(doc, xbrl, accounting_base, context)
-        end
-
-        def find_base_data(doc)
-          consolidation, season = find_consolidation_and_season(doc)
-          context = context_hash(consolidation, season)
-
-          xbrl = new
-
-          # 証券コード
-          xbrl.code = find_securities_code(doc, consolidation)
-          # 決算年
-          xbrl.year = find_year(doc, consolidation)
-          # 決算月
-          xbrl.month = find_month(doc, consolidation)
-          # 四半期
-          xbrl.quarter = find_quarter(doc, consolidation, context)
-
-          # 会計基準
-          accounting_base = find_accounting_base(doc, context, xbrl.quarter)
-
-          return xbrl, accounting_base, context
-        end
-
-        def find_data(doc, xbrl, accounting_base, context)
-          raise Exception.new "Override !"
-        end
-
-        def find_consolidation_and_season(doc)
-          consolidation = find_consolidation(doc)
-          season = find_season(doc, consolidation)
-
-          # 連結で取れない場合、非連結にする
-          unless season
-            consolidation = "NonConsolidated"
-            season = find_season(doc, consolidation)
-          end
-
-          return consolidation, season
-        end
-
-        #
-        # 連結・非連結を取得します
-        #
-        def find_consolidation(doc)
-          cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
-          non_cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearNonConsolidatedDuration']/xbrli:entity/xbrli:identifier", NS)
-
-          if cons
-            "Consolidated"
-          elsif non_cons
-            "NonConsolidated"
-          else
-            raise StandardError.new("連結・非連結ともに該当しません。")
-          end
-        end
-
-        #
-        # 通期・四半期を取得します
-        #
-        def find_season(doc, consolidation)
-          year = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          quarter = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentQuarter#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q1 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ1#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q2 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ2#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-          q3 = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentAccumulatedQ3#{consolidation}Instant']/xbrli:entity/xbrli:identifier", NS)
-
-          if year
-            "Year"
-          elsif quarter
-            "Quarter"
-          elsif q1
-            "AccumulatedQ1"
-          elsif q2
-            "AccumulatedQ2"
-          elsif q3
-            "AccumulatedQ3"
-          end
         end
 
         #
@@ -156,13 +70,6 @@ module LiteXBRL
           elm_end = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYear#{consolidation}Duration']/xbrli:period/xbrli:endDate", NS)
           elm_instant = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='#{context[:context_instant]}']/xbrli:period/xbrli:instant", NS)
           to_quarter(elm_end, elm_instant)
-        end
-
-        #
-        # 会計基準を取得します
-        #
-        def find_accounting_base(doc, context, quarter)
-          raise Exception.new "Override !"
         end
 
         #
