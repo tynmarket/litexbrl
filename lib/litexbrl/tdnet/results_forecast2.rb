@@ -23,7 +23,6 @@ module LiteXBRL
 
       def self.read_data(doc, season)
         consolidation = find_consolidation(doc, season)
-        p "consolidation : #{consolidation}"
 
         return unless consolidation
 
