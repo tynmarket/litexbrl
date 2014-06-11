@@ -22,7 +22,8 @@ module LiteXBRL
       private
 
       def self.read_data(doc, season)
-        consolidation = find_consolidation(doc, season)
+        consolidation = find_consolidation(doc, season, NET_SALES)
+        consolidation = find_consolidation(doc, season, NET_INCOME_PER_SHARE) unless consolidation
 
         return unless consolidation
 
@@ -31,11 +32,11 @@ module LiteXBRL
         find_data(doc, xbrl, context)
       end
 
-      def self.find_consolidation(doc, season)
-        cons_current = present? find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, "Current#{season}Duration_ConsolidatedMember_CurrentMember_ForecastMember")
-        cons_prev = present? find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, "Current#{season}Duration_ConsolidatedMember_PreviousMember_ForecastMember")
-        non_cons_current = present? find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, "Current#{season}Duration_NonConsolidatedMember_CurrentMember_ForecastMember")
-        non_cons_prev = present? find_value_tse_ed_t(doc, NET_INCOME_PER_SHARE, "Current#{season}Duration_NonConsolidatedMember_PreviousMember_ForecastMember")
+      def self.find_consolidation(doc, season, item)
+        cons_current = present? find_value_tse_ed_t(doc, item, "Current#{season}Duration_ConsolidatedMember_CurrentMember_ForecastMember")
+        cons_prev = present? find_value_tse_ed_t(doc, item, "Current#{season}Duration_ConsolidatedMember_PreviousMember_ForecastMember")
+        non_cons_current = present? find_value_tse_ed_t(doc, item, "Current#{season}Duration_NonConsolidatedMember_CurrentMember_ForecastMember")
+        non_cons_prev = present? find_value_tse_ed_t(doc, item, "Current#{season}Duration_NonConsolidatedMember_PreviousMember_ForecastMember")
 
         if cons_current || cons_prev
           "Consolidated"
