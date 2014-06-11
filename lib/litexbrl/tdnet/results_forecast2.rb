@@ -56,7 +56,7 @@ module LiteXBRL
         xbrl = new
 
         # 証券コード
-        xbrl.code = find_securities_code(doc, season)
+        xbrl.code = find_securities_code(doc, SEASON_Q4)
         # 決算年・決算月
         xbrl.year, xbrl.month = find_year_and_month(doc)
         # 四半期

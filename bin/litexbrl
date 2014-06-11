@@ -27,5 +27,5 @@ end
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
 #xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
 #xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
-xbrl =  LiteXBRL::TDnet.parse_string read('bin/a.xbrl')
+xbrl =  LiteXBRL::TDnet.parse_string read('bin/a.htm')
 p xbrl
