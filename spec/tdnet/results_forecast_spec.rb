@@ -11,9 +11,10 @@ module LiteXBRL
       describe ".read" do
         context '日本会計基準' do
           context "連結" do
-            let(:xbrl) { (ResultsForecast.read doc("#{dir}/jp-cons-2012.xbrl"))[:results_forecast].first }
+            let(:xbrl) { (ResultsForecast.read doc("#{dir}/jp-cons-2012.xbrl"))[:results_forecast][1] }
 
             it do
+              p xbrl
               expect(xbrl[:code]).to eq('4368')
               expect(xbrl[:year]).to eq(2012)
               expect(xbrl[:month]).to eq(3)
@@ -41,7 +42,7 @@ module LiteXBRL
 
         context '米国会計基準' do
           context '連結' do
-            let(:xbrl) { (ResultsForecast.read doc("#{dir}/us-cons-2014.xbrl"))[:results_forecast].first }
+            let(:xbrl) { (ResultsForecast.read doc("#{dir}/us-cons-2014.xbrl"))[:results_forecast][1] }
 
             it do
               expect(xbrl[:code]).to eq('6594')
@@ -71,7 +72,7 @@ module LiteXBRL
 
         context 'IFRS' do
           context '連結' do
-            let(:xbrl) { (ResultsForecast.read doc("#{dir}/ifrs-cons-2014.xbrl"))[:results_forecast].first }
+            let(:xbrl) { (ResultsForecast.read doc("#{dir}/ifrs-cons-2014.xbrl"))[:results_forecast][1] }
 
             it do
               expect(xbrl[:code]).to eq('6779')
