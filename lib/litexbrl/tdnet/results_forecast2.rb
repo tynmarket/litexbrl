@@ -32,6 +32,9 @@ module LiteXBRL
 
       def self.read_data(doc, season)
         consolidation = find_consolidation(doc, season, NET_SALES)
+        consolidation = find_consolidation(doc, season, OPERATING_INCOME) unless consolidation
+        consolidation = find_consolidation(doc, season, ORDINARY_INCOME) unless consolidation
+        consolidation = find_consolidation(doc, season, NET_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, NET_INCOME_PER_SHARE) unless consolidation
         consolidation = find_consolidation_range(doc, season, NET_SALES) unless consolidation
         consolidation = find_consolidation_range(doc, season, NET_INCOME_PER_SHARE) unless consolidation
