@@ -37,6 +37,9 @@ module LiteXBRL
         consolidation = find_consolidation(doc, season, NET_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, NET_INCOME_PER_SHARE) unless consolidation
         consolidation = find_consolidation_range(doc, season, NET_SALES) unless consolidation
+        consolidation = find_consolidation_range(doc, season, OPERATING_INCOME) unless consolidation
+        consolidation = find_consolidation_range(doc, season, ORDINARY_INCOME) unless consolidation
+        consolidation = find_consolidation_range(doc, season, NET_INCOME) unless consolidation
         consolidation = find_consolidation_range(doc, season, NET_INCOME_PER_SHARE) unless consolidation
 
         return unless consolidation
