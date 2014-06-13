@@ -3,17 +3,26 @@ module LiteXBRL
     class ResultsForecast2 < FinancialInformation2
       include ResultsForecastAttribute
 
+      SEASON_Q1 = 'AccumulatedQ1'
       SEASON_Q2 = 'AccumulatedQ2'
+      SEASON_Q3 = 'AccumulatedQ3'
       SEASON_Q4 = 'Year'
 
       def self.read(doc)
         xbrl_q2 = read_data doc, SEASON_Q2
         xbrl_q4 = read_data doc, SEASON_Q4
 
-        raise StandardError.new "業績予想の修正を取得できません。" unless xbrl_q2 || xbrl_q4
+        unless xbrl_q2 || xbrl_q4
+          xbrl_q1 = read_data doc, SEASON_Q1
+          xbrl_q3 = read_data doc, SEASON_Q3 unless xbrl_q1
+
+          raise StandardError.new "業績予想の修正を取得できません。" unless xbrl_q1 || xbrl_q3
+        end
 
         data = {results_forecast: []}
+        data[:results_forecast] << xbrl_q1.attributes if xbrl_q1
         data[:results_forecast] << xbrl_q2.attributes if xbrl_q2
+        data[:results_forecast] << xbrl_q3.attributes if xbrl_q3
         data[:results_forecast] << xbrl_q4.attributes if xbrl_q4
 
         data
@@ -61,7 +70,7 @@ module LiteXBRL
         # 決算年・決算月
         xbrl.year, xbrl.month = find_year_and_month(doc)
         # 四半期
-        xbrl.quarter = season == SEASON_Q2 ? 2 : 4
+        xbrl.quarter = season_to_quarter season
 
         return xbrl, context
       end
@@ -99,6 +108,19 @@ module LiteXBRL
         xbrl.change_forecast_net_income = percent_to_f(current_value(doc, CHANGE_IN_NET_INCOME, context))
 
         xbrl
+      end
+
+      def self.season_to_quarter(season)
+        case season
+        when SEASON_Q1
+          1
+        when SEASON_Q2
+          2
+        when SEASON_Q3
+          3
+        when SEASON_Q4
+          4
+        end
       end
 
       def self.current_value(doc, item, context)

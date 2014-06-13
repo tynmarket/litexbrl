@@ -15,30 +15,31 @@ module LiteXBRL
 
         context '日本会計基準' do
           context "連結" do
-            let(:xbrl) { (ResultsForecast2.read doc("#{dir}/jp-cons-2014.htm"))[:results_forecast].first }
+            let(:xbrl) { ResultsForecast2.read doc("#{dir}/jp-cons-2014.htm") }
+            let(:forecast) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 4 } }
 
             it do
-              expect(xbrl[:code]).to eq('6883')
-              expect(xbrl[:year]).to eq(2014)
-              expect(xbrl[:month]).to eq(3)
-              expect(xbrl[:quarter]).to eq(4)
+              expect(forecast[:code]).to eq('6883')
+              expect(forecast[:year]).to eq(2014)
+              expect(forecast[:month]).to eq(3)
+              expect(forecast[:quarter]).to eq(4)
 
-              expect(xbrl[:previous_forecast_net_sales]).to eq(29000)
-              expect(xbrl[:previous_forecast_operating_income]).to eq(4150)
-              expect(xbrl[:previous_forecast_ordinary_income]).to eq(4350)
-              expect(xbrl[:previous_forecast_net_income]).to eq(3000)
-              expect(xbrl[:previous_forecast_net_income_per_share]).to eq(45.25)
+              expect(forecast[:previous_forecast_net_sales]).to eq(29000)
+              expect(forecast[:previous_forecast_operating_income]).to eq(4150)
+              expect(forecast[:previous_forecast_ordinary_income]).to eq(4350)
+              expect(forecast[:previous_forecast_net_income]).to eq(3000)
+              expect(forecast[:previous_forecast_net_income_per_share]).to eq(45.25)
 
-              expect(xbrl[:forecast_net_sales]).to eq(30500)
-              expect(xbrl[:forecast_operating_income]).to eq(5000)
-              expect(xbrl[:forecast_ordinary_income]).to eq(5200)
-              expect(xbrl[:forecast_net_income]).to eq(3800)
-              expect(xbrl[:forecast_net_income_per_share]).to eq(57.31)
+              expect(forecast[:forecast_net_sales]).to eq(30500)
+              expect(forecast[:forecast_operating_income]).to eq(5000)
+              expect(forecast[:forecast_ordinary_income]).to eq(5200)
+              expect(forecast[:forecast_net_income]).to eq(3800)
+              expect(forecast[:forecast_net_income_per_share]).to eq(57.31)
 
-              expect(xbrl[:change_forecast_net_sales]).to eq(0.052)
-              expect(xbrl[:change_forecast_operating_income]).to eq(0.205)
-              expect(xbrl[:change_forecast_ordinary_income]).to eq(0.195)
-              expect(xbrl[:change_forecast_net_income]).to eq(0.267)
+              expect(forecast[:change_forecast_net_sales]).to eq(0.052)
+              expect(forecast[:change_forecast_operating_income]).to eq(0.205)
+              expect(forecast[:change_forecast_ordinary_income]).to eq(0.195)
+              expect(forecast[:change_forecast_net_income]).to eq(0.267)
             end
           end
         end
@@ -92,6 +93,64 @@ module LiteXBRL
           end
         end
 =end
+
+        context '1Q予想' do
+          let(:xbrl) { ResultsForecast2.read doc("#{dir}/1q.htm") }
+          let(:forecast) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 1 } }
+
+          it do
+            expect(forecast[:code]).to eq('3656')
+            expect(forecast[:year]).to eq(2014)
+            expect(forecast[:month]).to eq(12)
+            expect(forecast[:quarter]).to eq(1)
+
+            expect(forecast[:previous_forecast_net_sales]).to eq(4050)
+            expect(forecast[:previous_forecast_operating_income]).to eq(-90)
+            expect(forecast[:previous_forecast_ordinary_income]).to eq(-86)
+            expect(forecast[:previous_forecast_net_income]).to eq(-86)
+            expect(forecast[:previous_forecast_net_income_per_share]).to eq(-2.61)
+
+            expect(forecast[:forecast_net_sales]).to eq(4425)
+            expect(forecast[:forecast_operating_income]).to eq(96)
+            expect(forecast[:forecast_ordinary_income]).to eq(106)
+            expect(forecast[:forecast_net_income]).to eq(51)
+            expect(forecast[:forecast_net_income_per_share]).to eq(1.56)
+
+            expect(forecast[:change_forecast_net_sales]).to eq(0.093)
+            expect(forecast[:change_forecast_operating_income]).to be_nil
+            expect(forecast[:change_forecast_ordinary_income]).to be_nil
+            expect(forecast[:change_forecast_net_income]).to be_nil
+          end
+        end
+
+        context '3Q予想' do
+          let(:xbrl) { ResultsForecast2.read doc("#{dir}/3q.htm") }
+          let(:forecast) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 3 } }
+
+          it do
+            expect(forecast[:code]).to eq('8742')
+            expect(forecast[:year]).to eq(2014)
+            expect(forecast[:month]).to eq(3)
+            expect(forecast[:quarter]).to eq(3)
+
+            expect(forecast[:previous_forecast_net_sales]).to be_nil
+            expect(forecast[:previous_forecast_operating_income]).to be_nil
+            expect(forecast[:previous_forecast_ordinary_income]).to be_nil
+            expect(forecast[:previous_forecast_net_income]).to be_nil
+            expect(forecast[:previous_forecast_net_income_per_share]).to be_nil
+
+            expect(forecast[:forecast_net_sales]).to eq 2332
+            expect(forecast[:forecast_operating_income]).to eq -470
+            expect(forecast[:forecast_ordinary_income]).to eq -389
+            expect(forecast[:forecast_net_income]).to eq -86
+            expect(forecast[:forecast_net_income_per_share]).to be_nil
+
+            expect(forecast[:change_forecast_net_sales]).to be_nil
+            expect(forecast[:change_forecast_operating_income]).to be_nil
+            expect(forecast[:change_forecast_ordinary_income]).to be_nil
+            expect(forecast[:change_forecast_net_income]).to be_nil
+          end
+        end
       end
 
       describe "#attributes" do
