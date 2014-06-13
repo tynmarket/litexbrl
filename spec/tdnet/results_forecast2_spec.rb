@@ -151,6 +151,35 @@ module LiteXBRL
             expect(forecast[:change_forecast_net_income]).to be_nil
           end
         end
+
+        context 'レンジ予想' do
+          let(:xbrl) { ResultsForecast2.read doc("#{dir}/range.htm") }
+          let(:forecast) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 4 } }
+
+          it do
+            expect(forecast[:code]).to eq('4918')
+            expect(forecast[:year]).to eq(2014)
+            expect(forecast[:month]).to eq(3)
+            expect(forecast[:quarter]).to eq(4)
+
+            expect(forecast[:previous_forecast_net_sales]).to be_nil
+            expect(forecast[:previous_forecast_operating_income]).to be_nil
+            expect(forecast[:previous_forecast_ordinary_income]).to be_nil
+            expect(forecast[:previous_forecast_net_income]).to be_nil
+            expect(forecast[:previous_forecast_net_income_per_share]).to be_nil
+
+            expect(forecast[:forecast_net_sales]).to be_nil
+            expect(forecast[:forecast_operating_income]).to be_nil
+            expect(forecast[:forecast_ordinary_income]).to be_nil
+            expect(forecast[:forecast_net_income]).to be_nil
+            expect(forecast[:forecast_net_income_per_share]).to be_nil
+
+            expect(forecast[:change_forecast_net_sales]).to be_nil
+            expect(forecast[:change_forecast_operating_income]).to be_nil
+            expect(forecast[:change_forecast_ordinary_income]).to be_nil
+            expect(forecast[:change_forecast_net_income]).to be_nil
+          end
+        end
       end
 
       describe "#attributes" do
