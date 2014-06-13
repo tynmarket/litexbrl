@@ -14,7 +14,6 @@ module LiteXBRL
             let(:xbrl) { (ResultsForecast.read doc("#{dir}/jp-cons-2012.xbrl"))[:results_forecast][1] }
 
             it do
-              p xbrl
               expect(xbrl[:code]).to eq('4368')
               expect(xbrl[:year]).to eq(2012)
               expect(xbrl[:month]).to eq(3)
