@@ -41,7 +41,7 @@ module LiteXBRL
           code: code,
           year: quarter == 4 ? year + 1 : year,
           month: month,
-          quarter: quarter,
+          quarter: 4,
           forecast_net_sales: forecast_net_sales,
           forecast_operating_income: forecast_operating_income,
           forecast_ordinary_income: forecast_ordinary_income,
