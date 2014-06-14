@@ -35,6 +35,11 @@ module LiteXBRL
         let(:val) { "2.2" }
         it { expect(self.class.percent_to_f val).to eq(0.022) }
       end
+
+      context 'val == "1,982.4"' do
+        let(:val) { "1,982.4" }
+        it { expect(self.class.percent_to_f val).to eq 19.824 }
+      end
     end
 
     describe '#present?' do
