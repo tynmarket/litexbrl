@@ -672,7 +672,7 @@ module LiteXBRL
 
             expect(attr[:code]).to eq(1111)
             expect(attr[:year]).to eq(2013)
-            expect(attr[:quarter]).to eq(1)
+            expect(attr[:quarter]).to eq(4)
             expect(attr[:forecast_net_sales]).to eq(100)
             expect(attr[:forecast_operating_income]).to eq(10)
             expect(attr[:forecast_ordinary_income]).to eq(11)
