@@ -49,5 +49,16 @@ module LiteXBRL
       end
     end
 
+    describe '#to_securities_code' do
+      context '全角数字' do
+        let(:code) { "９６８５０" }
+
+        it "半角数字に直す" do
+          code.stub(:content) { code }
+          expect(self.class.to_securities_code code).to eq "9685"
+        end
+      end
+    end
+
   end
 end
