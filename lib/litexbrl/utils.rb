@@ -102,7 +102,7 @@ module LiteXBRL
       end
 
       def to_f(val)
-        val.to_f if present? val
+        val.delete(',').to_f if present? val
       end
 
       def percent_to_f(val)

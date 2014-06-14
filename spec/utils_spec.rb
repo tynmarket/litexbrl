@@ -23,6 +23,11 @@ module LiteXBRL
         let(:val) { "0.02" }
         it { expect(self.class.to_f val).to eq(0.02) }
       end
+
+      context 'val == "1,000.1"' do
+        let(:val) { "1,000.1" }
+        it { expect(self.class.to_f val).to eq 1000.1 }
+      end
     end
 
     describe '.perc_to_f' do
