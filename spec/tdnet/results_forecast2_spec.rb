@@ -9,8 +9,56 @@ module LiteXBRL
       let(:dir) { File.expand_path '../../data/tdnet/results_forecast2', __FILE__ }
 
       describe ".read" do
-        context '中間・連結' do
-          # TODO
+        context '第2四半期・通期' do
+          let(:xbrl) { ResultsForecast2.read doc("#{dir}/2q-4q.htm") }
+          let(:forecast_q2) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 2 } }
+          let(:forecast_q4) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 4 } }
+
+          it do
+            expect(forecast_q2[:code]).to eq "2379"
+            expect(forecast_q2[:year]).to eq 2015
+            expect(forecast_q2[:month]).to eq 2
+            expect(forecast_q2[:quarter]).to eq 2
+
+            expect(forecast_q2[:previous_forecast_net_sales]).to eq 7320
+            expect(forecast_q2[:previous_forecast_operating_income]).to eq 467
+            expect(forecast_q2[:previous_forecast_ordinary_income]).to eq 462
+            expect(forecast_q2[:previous_forecast_net_income]).to eq 237
+            expect(forecast_q2[:previous_forecast_net_income_per_share]).to eq 21.43
+
+            expect(forecast_q2[:forecast_net_sales]).to eq 8000
+            expect(forecast_q2[:forecast_operating_income]).to eq 746
+            expect(forecast_q2[:forecast_ordinary_income]).to eq 744
+            expect(forecast_q2[:forecast_net_income]).to eq 392
+            expect(forecast_q2[:forecast_net_income_per_share]).to eq 35.49
+
+            expect(forecast_q2[:change_forecast_net_sales]).to eq 0.093
+            expect(forecast_q2[:change_forecast_operating_income]).to eq 0.598
+            expect(forecast_q2[:change_forecast_ordinary_income]).to eq 0.61
+            expect(forecast_q2[:change_forecast_net_income]).to eq 0.658
+
+            expect(forecast_q4[:code]).to eq "2379"
+            expect(forecast_q4[:year]).to eq 2015
+            expect(forecast_q4[:month]).to eq 2
+            expect(forecast_q4[:quarter]).to eq 4
+
+            expect(forecast_q4[:previous_forecast_net_sales]).to eq 15500
+            expect(forecast_q4[:previous_forecast_operating_income]).to eq 2250
+            expect(forecast_q4[:previous_forecast_ordinary_income]).to eq 2240
+            expect(forecast_q4[:previous_forecast_net_income]).to eq 1240
+            expect(forecast_q4[:previous_forecast_net_income_per_share]).to eq 112.13
+
+            expect(forecast_q4[:forecast_net_sales]).to eq 16180
+            expect(forecast_q4[:forecast_operating_income]).to eq 2529
+            expect(forecast_q4[:forecast_ordinary_income]).to eq 2521
+            expect(forecast_q4[:forecast_net_income]).to eq 1387
+            expect(forecast_q4[:forecast_net_income_per_share]).to eq 125.30
+
+            expect(forecast_q4[:change_forecast_net_sales]).to eq 0.044
+            expect(forecast_q4[:change_forecast_operating_income]).to eq 0.124
+            expect(forecast_q4[:change_forecast_ordinary_income]).to eq 0.126
+            expect(forecast_q4[:change_forecast_net_income]).to eq 0.119
+          end
         end
 
         context '日本会計基準' do
