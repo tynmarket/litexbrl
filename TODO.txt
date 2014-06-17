@@ -7,7 +7,6 @@
 ・REITの取得
 ・be_nilの項目をなくす
 ・results_forecast2のfind_consolidationのテスト
-・軽量のコメントを外す
 ・ドキュメントを保持するメソッドを追加
 ・attributeをmodule Attribute化、
 ・attributesをattributes_summaryに

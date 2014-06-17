@@ -117,167 +117,53 @@ module LiteXBRL
           end
         end
 
-=begin
         context '米国会計基準' do
-          context '売上高：NetSales' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-cons-2014-q1.xbrl") }
+          context "連結・第4四半期" do
+            let(:xbrl) { Summary2.read doc("#{dir}/us-cons-2014-q4.htm") }
+            let(:summary) { xbrl[:summary] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
 
             it do
-              expect(xbrl.code).to eq('7203')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
+              expect(summary[:code]).to eq '7203'
+              expect(summary[:year]).to eq 2014
+              expect(summary[:month]).to eq 3
+              expect(summary[:quarter]).to eq 4
 
-              expect(xbrl.net_sales).to eq(6255319)
-              expect(xbrl.operating_income).to eq(663383)
-              expect(xbrl.ordinary_income).to eq(724163)
-              expect(xbrl.net_income).to eq(562194)
-              expect(xbrl.net_income_per_share).to eq(177.45)
-              expect(xbrl.forecast_net_sales).to eq(24000000)
-              expect(xbrl.forecast_operating_income).to eq(1940000)
-              expect(xbrl.forecast_ordinary_income).to eq(2030000)
-              expect(xbrl.forecast_net_income).to eq(1480000)
-              expect(xbrl.forecast_net_income_per_share).to eq(467.09)
-            end
-          end
+              expect(summary[:net_sales]).to eq 25691911
+              expect(summary[:operating_income]).to eq 2292112
+              expect(summary[:ordinary_income]).to eq 2441080
+              expect(summary[:net_income]).to eq 1823119
+              expect(summary[:net_income_per_share]).to eq 575.30
 
-          context '売上高：OperatingRevenues' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-oprv-cons-2014-q1.xbrl") }
+              expect(summary[:change_in_net_sales]).to eq 0.164
+              expect(summary[:change_in_operating_income]).to eq 0.735
+              expect(summary[:change_in_ordinary_income]).to eq 0.739
+              expect(summary[:change_in_net_income]).to eq 0.895
 
-            it do
-              expect(xbrl.code).to eq('9432')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
+              expect(summary[:prior_net_sales]).to eq 22064192
+              expect(summary[:prior_operating_income]).to eq 1320888
+              expect(summary[:prior_ordinary_income]).to eq 1403649
+              expect(summary[:prior_net_income]).to eq 962163
+              expect(summary[:prior_net_income_per_share]).to eq 303.82
 
-              expect(xbrl.net_sales).to eq(2609117)
-              expect(xbrl.operating_income).to eq(348926)
-              expect(xbrl.ordinary_income).to eq(356084)
-              expect(xbrl.net_income).to eq(166717)
-              expect(xbrl.net_income_per_share).to eq(141.29)
-            end
-          end
+              expect(summary[:change_in_prior_net_sales]).to eq 0.187
+              expect(summary[:change_in_prior_operating_income]).to eq 2.714
+              expect(summary[:change_in_prior_ordinary_income]).to eq 2.243
+              expect(summary[:change_in_prior_net_income]).to eq 2.393
 
-          context '売上高：NetSalesAndOperatingRevenuesUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-nsoprv-cons-2014-q1.xbrl") }
+              expect(results_forecast[:forecast_net_sales]).to eq 25700000
+              expect(results_forecast[:forecast_operating_income]).to eq 2300000
+              expect(results_forecast[:forecast_ordinary_income]).to eq 2390000
+              expect(results_forecast[:forecast_net_income]).to eq 1780000
+              expect(results_forecast[:forecast_net_income_per_share]).to eq 561.56
 
-            it do
-              expect(xbrl.code).to eq('6758')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(1712712)
-              expect(xbrl.operating_income).to eq(36357)
-              expect(xbrl.ordinary_income).to eq(46253)
-              expect(xbrl.net_income).to eq(3480)
-              expect(xbrl.net_income_per_share).to eq(3.44)
-            end
-          end
-
-          context '売上高：TotalRevenuesUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-tr-ibit-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('8604')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(2079943)
-              expect(xbrl.operating_income).to eq(237730)
-              expect(xbrl.ordinary_income).to eq(237730)
-              expect(xbrl.net_income).to eq(107234)
-              expect(xbrl.net_income_per_share).to eq(29.04)
-            end
-          end
-
-          context '営業利益：OperatingIncome' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-oi-cons-2014-q1.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('6752')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(1824515)
-              expect(xbrl.operating_income).to eq(64201)
-              expect(xbrl.ordinary_income).to eq(122612)
-              expect(xbrl.net_income).to eq(107831)
-              expect(xbrl.net_income_per_share).to eq(46.65)
-            end
-          end
-
-          context '営業利益：BasicNetIncomePerShareUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-bnip-cons-2014-q1.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('7267')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(1)
-
-              expect(xbrl.net_sales).to eq(2834095)
-              expect(xbrl.operating_income).to eq(184963)
-              expect(xbrl.ordinary_income).to eq(172035)
-              expect(xbrl.net_income).to eq(122499)
-              expect(xbrl.net_income_per_share).to eq(67.97)
-            end
-          end
-
-          context '営業利益：IncomeBeforeIncomeTaxesUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-tr-ibit-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('8604')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(2079943)
-              expect(xbrl.operating_income).to eq(237730)
-              expect(xbrl.ordinary_income).to eq(237730)
-              expect(xbrl.net_income).to eq(107234)
-              expect(xbrl.net_income_per_share).to eq(29.04)
-            end
-          end
-
-          context '経常利益：IncomeFromContinuingOperationsBeforeIncomeTaxesUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-ifco-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('6502')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(5800281)
-              expect(xbrl.operating_income).to eq(194316)
-              expect(xbrl.ordinary_income).to eq(155553)
-              expect(xbrl.net_income).to eq(77533)
-              expect(xbrl.net_income_per_share).to eq(18.31)
-            end
-          end
-
-          context '純利益：IncomeBeforeMinorityInterestUS' do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-ibmi-cons-2013-q4.xbrl") }
-
-            it do
-              expect(xbrl.code).to eq('6981')
-              expect(xbrl.year).to eq(2013)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
-
-              expect(xbrl.net_sales).to eq(681021)
-              expect(xbrl.operating_income).to eq(58636)
-              expect(xbrl.ordinary_income).to eq(59534)
-              expect(xbrl.net_income).to eq(42386)
-              expect(xbrl.net_income_per_share).to eq(200.81)
+              expect(results_forecast[:change_in_forecast_net_sales]).to eq 0.0
+              expect(results_forecast[:change_in_forecast_operating_income]).to eq 0.003
+              expect(results_forecast[:change_in_forecast_ordinary_income]).to eq -0.021
+              expect(results_forecast[:change_in_forecast_net_income]).to eq -0.024
             end
           end
         end
-=end
 
         context 'IFRS' do
           let(:xbrl) { Summary2.read doc("#{dir}/ifrs-cons-2013-q4.htm") }
