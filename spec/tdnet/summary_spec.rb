@@ -10,34 +10,34 @@ module LiteXBRL
 
       describe ".find_consolidation" do
         it "連結" do
-          consolidation = Summary.send(:find_consolidation, doc("#{dir}/ja-cons-2013-q1.xbrl"))
+          consolidation = Summary.send(:find_consolidation, doc("#{dir}/jp-cons-2013-q1.xbrl"))
           expect(consolidation).to eq("Consolidated")
         end
 
         it "非連結" do
-          consolidation = Summary.send(:find_consolidation, doc("#{dir}/ja-noncons-q1.xbrl"))
+          consolidation = Summary.send(:find_consolidation, doc("#{dir}/jp-noncons-q1.xbrl"))
           expect(consolidation).to eq("NonConsolidated")
         end
       end
 
       describe ".find_season" do
         it "Q1" do
-          season = Summary.send(:find_season, doc("#{dir}/ja-cons-2013-q1.xbrl"), "Consolidated")
+          season = Summary.send(:find_season, doc("#{dir}/jp-cons-2013-q1.xbrl"), "Consolidated")
           expect(season).to eq("AccumulatedQ1")
         end
 
         it "Q2" do
-          season = Summary.send(:find_season, doc("#{dir}/ja-cons-2013-q2.xbrl"), "Consolidated")
+          season = Summary.send(:find_season, doc("#{dir}/jp-cons-2013-q2.xbrl"), "Consolidated")
           expect(season).to eq("AccumulatedQ2")
         end
 
         it "Q3" do
-          season = Summary.send(:find_season, doc("#{dir}/ja-cons-2013-q3.xbrl"), "Consolidated")
+          season = Summary.send(:find_season, doc("#{dir}/jp-cons-2013-q3.xbrl"), "Consolidated")
           expect(season).to eq("AccumulatedQ3")
         end
 
         it "Q4" do
-          season = Summary.send(:find_season, doc("#{dir}/ja-cons-2013-q4.xbrl"), "Consolidated")
+          season = Summary.send(:find_season, doc("#{dir}/jp-cons-2013-q4.xbrl"), "Consolidated")
           expect(season).to eq("Year")
         end
       end
@@ -69,7 +69,7 @@ module LiteXBRL
       describe ".read doc" do
         context '日本会計基準' do
           context "連結・第1四半期" do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-cons-2013-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
 
@@ -115,7 +115,7 @@ module LiteXBRL
           end
 
           context "連結・第2四半期" do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q2.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-cons-2013-q2.xbrl") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
 
@@ -139,7 +139,7 @@ module LiteXBRL
           end
 
           context "連結・第3四半期" do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q3.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-cons-2013-q3.xbrl") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
 
@@ -163,7 +163,7 @@ module LiteXBRL
           end
 
           context "連結・第4四半期" do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-cons-2013-q4.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-cons-2013-q4.xbrl") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
 
@@ -209,7 +209,7 @@ module LiteXBRL
           end
 
           context "業種：銀行" do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-bk-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-bk-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -227,7 +227,7 @@ module LiteXBRL
           end
 
           context '業種：証券' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-se-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-se-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -245,7 +245,7 @@ module LiteXBRL
           end
 
           context '業種：保険' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-in-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-in-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -263,7 +263,7 @@ module LiteXBRL
           end
 
           context '業種：営業収益' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-oprv-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-oprv-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -281,7 +281,7 @@ module LiteXBRL
           end
 
           context '業種：営業収入' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-oprvsp-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-oprvsp-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -299,7 +299,7 @@ module LiteXBRL
           end
 
           context '業種：営業総収入' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-goprv-cons-2013-q4.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-goprv-cons-2013-q4.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -317,7 +317,7 @@ module LiteXBRL
           end
 
           context '業種：完成工事高' do
-            let(:xbrl) { Summary.read doc("#{dir}/ja-nsco-cons-2013-q4.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/jp-nsco-cons-2013-q4.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -529,7 +529,7 @@ module LiteXBRL
 
         context 'IFRS' do
           context '売上高：NetSalesIFRS' do
-            let(:xbrl) { Summary.read doc("#{dir}/if-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/ifrs-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
 
@@ -575,7 +575,7 @@ module LiteXBRL
           end
 
           context '売上高：OperatingRevenuesIFRS、営業利益：ProfitBeforeTaxIFRS' do
-            let(:xbrl) { Summary.read doc("#{dir}/if-or-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/ifrs-or-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
@@ -594,7 +594,7 @@ module LiteXBRL
           end
 
           context '売上高：SalesIFRS' do
-            let(:xbrl) { Summary.read doc("#{dir}/if-sa-cons-2014-q1.xbrl") }
+            let(:xbrl) { Summary.read doc("#{dir}/ifrs-sa-cons-2014-q1.xbrl") }
             let(:summary) { xbrl[:summary] }
 
             it do
