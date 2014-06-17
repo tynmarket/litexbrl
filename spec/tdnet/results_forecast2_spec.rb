@@ -8,6 +8,16 @@ module LiteXBRL
 
       let(:dir) { File.expand_path '../../data/tdnet/results_forecast2', __FILE__ }
 
+      describe ".find_consolidation" do
+        it "非連結" do
+          consolidation = ResultsForecast2.send(:find_consolidation,
+            doc("#{dir}/jp-noncons-2014.htm"),
+            ResultsForecast2::SEASON_Q4,
+            ResultsForecast2::NET_SALES)
+          expect(consolidation).to eq "NonConsolidated"
+        end
+      end
+
       describe ".read" do
         context '第2四半期・通期' do
           let(:xbrl) { ResultsForecast2.read doc("#{dir}/2q-4q.htm") }
