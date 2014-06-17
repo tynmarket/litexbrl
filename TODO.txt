@@ -1,6 +1,4 @@
 ・find_valueとto_milを合わせる
-・ja⇒jp, if⇒ifrs
-・nilが渡された場合
 ・GEMにHP付ける
 ・RSPECのバージョン
 ・contextのローカル変数化
