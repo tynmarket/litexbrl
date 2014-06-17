@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module LiteXBRL
   describe Utils do
-    include Utils
+    extend Utils
 
     describe '.to_mill' do
       context 'val == "1000000"' do

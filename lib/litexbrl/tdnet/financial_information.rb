@@ -1,7 +1,7 @@
 module LiteXBRL
   module TDnet
     class FinancialInformation
-      include Utils
+      extend Utils
       include AccountItem
 
       class << self
