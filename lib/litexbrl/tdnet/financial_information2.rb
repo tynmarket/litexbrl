@@ -4,6 +4,11 @@ module LiteXBRL
       extend Utils
       include AccountItem
 
+      SEASON_Q1 = 'AccumulatedQ1'
+      SEASON_Q2 = 'AccumulatedQ2'
+      SEASON_Q3 = 'AccumulatedQ3'
+      SEASON_Q4 = 'Year'
+
       class << self
 
         private

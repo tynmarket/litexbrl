@@ -45,13 +45,13 @@ module LiteXBRL
         year = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentYearInstant' and @name='tse-ed-t:SecuritiesCode']")
 
         if q1
-          "AccumulatedQ1"
+          SEASON_Q1
         elsif q2
-          "AccumulatedQ2"
+          SEASON_Q2
         elsif q3
-          "AccumulatedQ3"
+          SEASON_Q3
         elsif year
-          "Year"
+          SEASON_Q4
         else
           raise StandardError.new("通期・四半期を取得出来ません。")
         end
@@ -92,13 +92,13 @@ module LiteXBRL
       #
       def self.to_quarter(season)
         case season
-        when "AccumulatedQ1"
+        when SEASON_Q1
           1
-        when "AccumulatedQ2"
+        when SEASON_Q2
           2
-        when "AccumulatedQ3"
+        when SEASON_Q3
           3
-        when "Year"
+        when SEASON_Q4
           4
         end
       end

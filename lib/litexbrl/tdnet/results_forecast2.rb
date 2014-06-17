@@ -3,11 +3,6 @@ module LiteXBRL
     class ResultsForecast2 < FinancialInformation2
       include ResultsForecastAttribute
 
-      SEASON_Q1 = 'AccumulatedQ1'
-      SEASON_Q2 = 'AccumulatedQ2'
-      SEASON_Q3 = 'AccumulatedQ3'
-      SEASON_Q4 = 'Year'
-
       def self.read(doc)
         xbrl_q2 = read_data doc, SEASON_Q2
         xbrl_q4 = read_data doc, SEASON_Q4
