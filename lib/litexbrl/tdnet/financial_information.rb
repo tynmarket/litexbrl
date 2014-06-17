@@ -80,6 +80,42 @@ module LiteXBRL
         end
 
         #
+        # 四半期を取得します
+        #
+        def to_quarter(elm_end, elm_instant)
+          raise StandardError.new("四半期を取得できません。") unless elm_end || elm_instant
+
+          month_end = elm_end.content.split('-')[1].to_i
+          month = elm_instant.content.split('-')[1].to_i
+
+          if month <= month_end
+            diff = month_end - month
+
+            if diff < 3
+              4
+            elsif diff < 6
+              3
+            elsif diff < 9
+              2
+            else
+              1
+            end
+          else
+            diff = month - month_end
+
+            if diff <= 3
+              1
+            elsif diff <= 6
+              2
+            elsif diff <= 9
+              3
+            else
+              4
+            end
+          end
+        end
+
+        #
         # 決算短信サマリの勘定科目の値を取得します
         #
         def find_value_tse_t_ed(doc, item, context)

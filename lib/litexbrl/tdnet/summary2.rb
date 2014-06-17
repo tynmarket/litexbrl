@@ -30,7 +30,7 @@ module LiteXBRL
         # 決算年・決算月
         xbrl.year, xbrl.month = find_year_and_month(doc)
         # 四半期
-        xbrl.quarter = to_quarter2(season)
+        xbrl.quarter = to_quarter(season)
 
         return xbrl, context
       end
@@ -85,6 +85,22 @@ module LiteXBRL
           context_instant: "Current#{season}Instant",
           context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
         }
+      end
+
+      #
+      # 四半期を取得します
+      #
+      def self.to_quarter(season)
+        case season
+        when "AccumulatedQ1"
+          1
+        when "AccumulatedQ2"
+          2
+        when "AccumulatedQ3"
+          3
+        when "Year"
+          4
+        end
       end
 
       def self.find_data(doc, xbrl, context)

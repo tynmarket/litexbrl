@@ -39,58 +39,6 @@ module LiteXBRL
       end
 
       #
-      # 四半期を取得します
-      #
-      def to_quarter(elm_end, elm_instant)
-        raise StandardError.new("四半期を取得できません。") unless elm_end || elm_instant
-
-        month_end = elm_end.content.split('-')[1].to_i
-        month = elm_instant.content.split('-')[1].to_i
-
-        if month <= month_end
-          diff = month_end - month
-
-          if diff < 3
-            4
-          elsif diff < 6
-            3
-          elsif diff < 9
-            2
-          else
-            1
-          end
-        else
-          diff = month - month_end
-
-          if diff <= 3
-            1
-          elsif diff <= 6
-            2
-          elsif diff <= 9
-            3
-          else
-            4
-          end
-        end
-      end
-
-      #
-      # 四半期を取得します
-      #
-      def to_quarter2(season)
-        case season
-        when "AccumulatedQ1"
-          1
-        when "AccumulatedQ2"
-          2
-        when "AccumulatedQ3"
-          3
-        when "Year"
-          4
-        end
-      end
-
-      #
       # 単位を100万円にします
       #
       def to_mill(val)
