@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Litexbrl::VERSION
   spec.authors       = ["Takehiko Shinkura"]
   spec.email         = ["tynmarket@gmail.com"]
-  spec.description   = %q{Lightweight XBRL parser}
-  spec.summary       = %q{Lightweight XBRL parser}
-  spec.homepage      = ""
+  spec.description   = %q{XBRL parser for Ruby}
+  spec.summary       = %q{XBRL parser for Ruby}
+  spec.homepage      = "https://github.com/tyn-iMarket/litexbrl"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
