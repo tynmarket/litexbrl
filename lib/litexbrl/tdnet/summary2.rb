@@ -87,22 +87,6 @@ module LiteXBRL
         }
       end
 
-      #
-      # 四半期を取得します
-      #
-      def self.to_quarter(season)
-        case season
-        when SEASON_Q1
-          1
-        when SEASON_Q2
-          2
-        when SEASON_Q3
-          3
-        when SEASON_Q4
-          4
-        end
-      end
-
       def self.find_data(doc, xbrl, context)
         # 売上高
         xbrl.net_sales = find_value_to_i(doc, NET_SALES, context[:context_duration])

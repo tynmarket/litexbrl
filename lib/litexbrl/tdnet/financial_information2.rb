@@ -30,6 +30,22 @@ module LiteXBRL
         end
 
         #
+        # 四半期を取得します
+        #
+        def to_quarter(season)
+          case season
+          when SEASON_Q1
+            1
+          when SEASON_Q2
+            2
+          when SEASON_Q3
+            3
+          when SEASON_Q4
+            4
+          end
+        end
+
+        #
         # 決算短信サマリの勘定科目の値を取得します
         #
         def find_value_tse_ed_t(doc, item, context)

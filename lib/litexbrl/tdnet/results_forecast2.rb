@@ -86,7 +86,7 @@ module LiteXBRL
         # 決算年・決算月
         xbrl.year, xbrl.month = find_year_and_month(doc)
         # 四半期
-        xbrl.quarter = season_to_quarter season
+        xbrl.quarter = to_quarter season
 
         return xbrl, context
       end
@@ -124,19 +124,6 @@ module LiteXBRL
         xbrl.change_forecast_net_income = percent_to_f current_value(doc, CHANGE_IN_NET_INCOME, context)
 
         xbrl
-      end
-
-      def self.season_to_quarter(season)
-        case season
-        when SEASON_Q1
-          1
-        when SEASON_Q2
-          2
-        when SEASON_Q3
-          3
-        when SEASON_Q4
-          4
-        end
       end
 
       def self.current_value(doc, item, context)
