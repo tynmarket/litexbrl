@@ -1,6 +1,6 @@
 # LiteXBRL
 
-LiteXBRLは軽量のXBRLパーサです。
+LiteXBRLはXBRLパーサです。
 
 #### サポート
 - TDnet

@@ -6,11 +6,8 @@
 ・非連結のテスト
 ・REITの取得
 ・be_nilの項目をなくす
-・results_forecast2のfind_consolidationのテスト・メソッド見やすく
+・results_forecast2のfind_consolidationのテスト
 ・軽量のコメントを外す
 ・ドキュメントを保持するメソッドを追加
 ・attributeをmodule Attribute化、
 ・attributesをattributes_summaryに
-・EexceptionをStandardErrorに（spiderも）
-・AmountChange?
-・新旧TDnet・短信と業績予想の自動判別
