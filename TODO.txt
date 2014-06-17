@@ -5,7 +5,7 @@
 ・短信の業績予想の修正の有無
 ・非連結のテスト
 ・REITの取得
-・be_nilの項目をなくす
+・Summary2のIFRSのテスト
 ・results_forecast2のfind_consolidationのテスト
 ・ドキュメントを保持するメソッドを追加
 ・attributeをmodule Attribute化、

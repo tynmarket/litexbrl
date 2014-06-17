@@ -8,6 +8,13 @@ module LiteXBRL
 
       let(:dir) { File.expand_path '../../data/tdnet/summary2', __FILE__ }
 
+      describe ".find_consolidation" do
+        it "非連結" do
+          consolidation = Summary2.send(:find_consolidation, doc("#{dir}/jp-noncons-2014-q4.htm"), Summary2::SEASON_Q4)
+          expect(consolidation).to eq "NonConsolidated"
+        end
+      end
+
       describe ".context_hash" do
         let(:consolidation) { 'Consolidated' }
         let(:season) { 'AccumulatedQ1' }
