@@ -53,7 +53,7 @@ module LiteXBRL
         elsif year
           "Year"
         else
-          raise Exception.new("通期・四半期を取得出来ません。")
+          raise StandardError.new("通期・四半期を取得出来ません。")
         end
       end
 
@@ -69,7 +69,7 @@ module LiteXBRL
         elsif non_cons
           "NonConsolidated"
         else
-          raise Exception.new("連結・非連結ともに該当しません。")
+          raise StandardError.new("連結・非連結ともに該当しません。")
         end
       end
 

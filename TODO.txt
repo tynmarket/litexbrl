@@ -5,14 +5,8 @@
 ・短信の業績予想の修正の有無
 ・非連結のテスト
 ・REITの取得
-・season⇒quarter
-・xbrl.code⇒xbrl[:code]
-・NetSalesを後ろに持ってくる？速度計測
-・NetSales等の要素の重複のチェック
 ・be_nilの項目をなくす
-・account_itemのブロック共通化
 ・results_forecast2のfind_consolidationのテスト・メソッド見やすく
-・summary2のfind_consolidationもresults_forecast2のような処理を書く必要があるか調べる
 ・軽量のコメントを外す
 ・ドキュメントを保持するメソッドを追加
 ・attributeをmodule Attribute化、
