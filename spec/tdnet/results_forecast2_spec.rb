@@ -92,31 +92,38 @@ module LiteXBRL
           end
         end
 
-=begin
         context '米国会計基準' do
           context '連結' do
-            let(:xbrl) { ResultsForecast.read("#{dir}/us-cons-2014.xbrl") }
+            let(:xbrl) { ResultsForecast2.read doc("#{dir}/us-cons-2014.htm") }
+            let(:forecast) { xbrl[:results_forecast].find {|forecast| forecast[:quarter] == 4 } }
 
             it do
-              expect(xbrl.code).to eq('6594')
-              expect(xbrl.year).to eq(2014)
-              expect(xbrl.month).to eq(3)
-              expect(xbrl.quarter).to eq(4)
+              expect(forecast[:code]).to eq '6586'
+              expect(forecast[:year]).to eq 2014
+              expect(forecast[:month]).to eq 3
+              expect(forecast[:quarter]).to eq 4
 
-              expect(xbrl.forecast_net_sales).to eq(850000)
-              expect(xbrl.forecast_operating_income).to eq(80000)
-              expect(xbrl.forecast_ordinary_income).to eq(78000)
-              expect(xbrl.forecast_net_income).to eq(55000)
-              expect(xbrl.forecast_net_income_per_share).to eq(404.26)
-              expect(xbrl.previous_forecast_net_sales).to eq(820000)
-              expect(xbrl.previous_forecast_operating_income).to eq(75000)
-              expect(xbrl.previous_forecast_ordinary_income).to eq(73000)
-              expect(xbrl.previous_forecast_net_income).to eq(53500)
-              expect(xbrl.previous_forecast_net_income_per_share).to eq(398.72)
+              expect(forecast[:previous_forecast_net_sales]).to eq 360000
+              expect(forecast[:previous_forecast_operating_income]).to eq 49000
+              expect(forecast[:previous_forecast_ordinary_income]).to eq 50400
+              expect(forecast[:previous_forecast_net_income]).to eq 35700
+              expect(forecast[:previous_forecast_net_income_per_share]).to eq 263.0
+
+              expect(forecast[:forecast_net_sales]).to eq 370000
+              expect(forecast[:forecast_operating_income]).to eq 53000
+              expect(forecast[:forecast_ordinary_income]).to eq 55500
+              expect(forecast[:forecast_net_income]).to eq 39000
+              expect(forecast[:forecast_net_income_per_share]).to eq 287.31
+
+              expect(forecast[:change_forecast_net_sales]).to eq 0.028
+              expect(forecast[:change_forecast_operating_income]).to eq 0.082
+              expect(forecast[:change_forecast_ordinary_income]).to eq 0.101
+              expect(forecast[:change_forecast_net_income]).to eq 0.092
             end
           end
         end
 
+=begin
         context 'IFRS' do
           context '連結' do
             let(:xbrl) { ResultsForecast.read("#{dir}/ifrs-cons-2014.xbrl") }
