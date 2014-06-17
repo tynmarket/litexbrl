@@ -4,8 +4,6 @@ module LiteXBRL
       include Utils
       include AccountItem
 
-      attr_accessor :code, :year, :month, :quarter
-
       class << self
 
         private

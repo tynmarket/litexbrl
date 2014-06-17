@@ -4,8 +4,6 @@ module LiteXBRL
       include Utils
       include AccountItem
 
-      attr_accessor :code, :year, :month, :quarter
-
       class << self
 
         private
@@ -110,15 +108,6 @@ module LiteXBRL
             nil # 該当なし
           end
         end
-      end
-
-      def attributes
-        {
-          code: code,
-          year: year,
-          month: month,
-          quarter: quarter,
-        }
       end
 
     end

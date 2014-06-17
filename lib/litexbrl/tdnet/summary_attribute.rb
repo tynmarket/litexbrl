@@ -2,7 +2,8 @@ module LiteXBRL
   module TDnet
     module SummaryAttribute
 
-      attr_accessor :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share,
+      attr_accessor :code, :year, :month, :quarter,
+        :net_sales, :operating_income, :ordinary_income, :net_income, :net_income_per_share,
         :change_in_net_sales, :change_in_operating_income, :change_in_ordinary_income, :change_in_net_income,
         :prior_net_sales, :prior_operating_income, :prior_ordinary_income, :prior_net_income, :prior_net_income_per_share,
         :change_in_prior_net_sales, :change_in_prior_operating_income, :change_in_prior_ordinary_income, :change_in_prior_net_income,
