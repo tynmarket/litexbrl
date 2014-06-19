@@ -53,7 +53,7 @@ module LiteXBRL
     end
 
     def present?(val)
-      val && val != ""
+      !!(val && val != "")
     end
 
   end
