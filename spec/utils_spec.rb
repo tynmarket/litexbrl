@@ -45,17 +45,17 @@ module LiteXBRL
     describe '#present?' do
       context 'val == nil' do
         let(:val) { nil }
-        it { expect(self.class.present? val).to be_false }
+        it { expect(self.class.present? val).to eq false }
       end
 
       context 'val == 空文字' do
         let(:val) { "" }
-        it { expect(self.class.present? val).to be_false }
+        it { expect(self.class.present? val).to eq false }
       end
 
       context 'val == 2.2' do
         let(:val) { "2.2" }
-        it { expect(self.class.present? val).to be_true }
+        it { expect(self.class.present? val).to eq true }
       end
     end
 
@@ -64,7 +64,7 @@ module LiteXBRL
         let(:code) { "９６８５０" }
 
         it "半角数字に直す" do
-          code.stub(:content) { code }
+          allow(code).to receive(:content) { code }
           expect(self.class.to_securities_code code).to eq "9685"
         end
       end
