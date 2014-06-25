@@ -9,13 +9,13 @@ module LiteXBRL
         it do
           self.code = "1111"
           self.company_name = "Aaa"
-          self.consolidation = Utils::CONSOLIDATED
+          self.consolidation = 1
 
           attr = attributes_company
 
           expect(attr[:code]).to eq "1111"
           expect(attr[:company_name]).to eq "Aaa"
-          expect(attr[:consolidation]).to eq Utils::CONSOLIDATED
+          expect(attr[:consolidation]).to eq 1
         end
       end
 

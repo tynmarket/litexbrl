@@ -25,6 +25,7 @@ module LiteXBRL
               expect(xbrl[:year]).to eq(2012)
               expect(xbrl[:month]).to eq(3)
               expect(xbrl[:quarter]).to eq(4)
+              expect(xbrl[:consolidation]).to eq(1)
 
               expect(xbrl[:forecast_net_sales]).to eq(28300)
               expect(xbrl[:forecast_operating_income]).to eq(3850)
@@ -55,6 +56,7 @@ module LiteXBRL
               expect(xbrl[:year]).to eq(2014)
               expect(xbrl[:month]).to eq(3)
               expect(xbrl[:quarter]).to eq(4)
+              expect(xbrl[:consolidation]).to eq(1)
 
               expect(xbrl[:forecast_net_sales]).to eq(850000)
               expect(xbrl[:forecast_operating_income]).to eq(80000)
@@ -85,6 +87,7 @@ module LiteXBRL
               expect(xbrl[:year]).to eq(2014)
               expect(xbrl[:month]).to eq(3)
               expect(xbrl[:quarter]).to eq(4)
+              expect(xbrl[:consolidation]).to eq(1)
 
               expect(xbrl[:forecast_net_sales]).to eq(51000)
               expect(xbrl[:forecast_operating_income]).to eq(700)

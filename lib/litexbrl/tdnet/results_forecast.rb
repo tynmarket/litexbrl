@@ -41,6 +41,8 @@ module LiteXBRL
         xbrl.month = find_month(doc, consolidation)
         # 四半期
         xbrl.quarter = season == SEASON_Q2 ? 2 : 4
+        # 連結・非連結
+        xbrl.consolidation = to_consolidation(consolidation)
 
         return xbrl, context
       end

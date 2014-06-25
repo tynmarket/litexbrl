@@ -11,6 +11,7 @@ module LiteXBRL
           self.year = 2013
           self.month = 3
           self.quarter = 1
+          self.consolidation = 1
           self.net_sales = 100
           self.operating_income = 10
           self.ordinary_income = 11
@@ -26,6 +27,7 @@ module LiteXBRL
           expect(attr[:code]).to eq(1111)
           expect(attr[:year]).to eq(2013)
           expect(attr[:quarter]).to eq(1)
+          expect(attr[:consolidation]).to eq 1
           expect(attr[:net_sales]).to eq(100)
           expect(attr[:operating_income]).to eq(10)
           expect(attr[:ordinary_income]).to eq(11)
@@ -47,6 +49,7 @@ module LiteXBRL
             self.year = 2013
             self.month = 3
             self.quarter = quarter
+            self.consolidation = 1
             self.forecast_net_sales = 100
             self.forecast_operating_income = 10
             self.forecast_ordinary_income = 11
@@ -62,6 +65,7 @@ module LiteXBRL
             expect(attr[:code]).to eq(1111)
             expect(attr[:year]).to eq(2013)
             expect(attr[:quarter]).to eq(4)
+            expect(attr[:consolidation]).to eq 1
             expect(attr[:forecast_net_sales]).to eq(100)
             expect(attr[:forecast_operating_income]).to eq(10)
             expect(attr[:forecast_ordinary_income]).to eq(11)

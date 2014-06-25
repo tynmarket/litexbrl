@@ -87,6 +87,8 @@ module LiteXBRL
         xbrl.year, xbrl.month = find_year_and_month(doc)
         # 四半期
         xbrl.quarter = to_quarter season
+        # 連結・非連結
+        xbrl.consolidation = to_consolidation(consolidation)
 
         return xbrl, context
       end

@@ -3,7 +3,7 @@ require 'support/nokogiri_helper'
 
 module LiteXBRL
   module TDnet
-    describe ResultsForecast do
+    describe ResultsForecast2 do
       include NokogiriHelper
 
       let(:dir) { File.expand_path '../../data/tdnet/results_forecast2', __FILE__ }
@@ -29,6 +29,7 @@ module LiteXBRL
             expect(forecast_q2[:year]).to eq 2015
             expect(forecast_q2[:month]).to eq 2
             expect(forecast_q2[:quarter]).to eq 2
+            expect(forecast_q2[:consolidation]).to eq 0
 
             expect(forecast_q2[:previous_forecast_net_sales]).to eq 7320
             expect(forecast_q2[:previous_forecast_operating_income]).to eq 467
@@ -81,6 +82,7 @@ module LiteXBRL
               expect(forecast[:year]).to eq(2014)
               expect(forecast[:month]).to eq(3)
               expect(forecast[:quarter]).to eq(4)
+              expect(forecast[:consolidation]).to eq(1)
 
               expect(forecast[:previous_forecast_net_sales]).to eq(29000)
               expect(forecast[:previous_forecast_operating_income]).to eq(4150)
@@ -112,6 +114,7 @@ module LiteXBRL
               expect(forecast[:year]).to eq 2014
               expect(forecast[:month]).to eq 3
               expect(forecast[:quarter]).to eq 4
+              expect(forecast[:consolidation]).to eq(1)
 
               expect(forecast[:previous_forecast_net_sales]).to eq 360000
               expect(forecast[:previous_forecast_operating_income]).to eq 49000
@@ -143,6 +146,7 @@ module LiteXBRL
               expect(forecast[:year]).to eq 2014
               expect(forecast[:month]).to eq 3
               expect(forecast[:quarter]).to eq 4
+              expect(forecast[:consolidation]).to eq 1
 
               expect(forecast[:previous_forecast_net_sales]).to eq 51000
               expect(forecast[:previous_forecast_operating_income]).to eq 700
@@ -173,6 +177,7 @@ module LiteXBRL
             expect(forecast[:year]).to eq(2014)
             expect(forecast[:month]).to eq(12)
             expect(forecast[:quarter]).to eq(1)
+            expect(forecast[:consolidation]).to eq(1)
 
             expect(forecast[:previous_forecast_net_sales]).to eq(4050)
             expect(forecast[:previous_forecast_operating_income]).to eq(-90)
@@ -202,6 +207,7 @@ module LiteXBRL
             expect(forecast[:year]).to eq(2014)
             expect(forecast[:month]).to eq(3)
             expect(forecast[:quarter]).to eq(3)
+            expect(forecast[:consolidation]).to eq(1)
 
             expect(forecast[:previous_forecast_net_sales]).to be_nil
             expect(forecast[:previous_forecast_operating_income]).to be_nil
@@ -231,6 +237,7 @@ module LiteXBRL
             expect(forecast[:year]).to eq(2014)
             expect(forecast[:month]).to eq(3)
             expect(forecast[:quarter]).to eq(4)
+            expect(forecast[:consolidation]).to eq(1)
 
             expect(forecast[:previous_forecast_net_sales]).to be_nil
             expect(forecast[:previous_forecast_operating_income]).to be_nil

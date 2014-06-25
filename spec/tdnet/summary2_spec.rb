@@ -41,6 +41,7 @@ module LiteXBRL
               expect(summary[:year]).to eq(2014)
               expect(summary[:month]).to eq(8)
               expect(summary[:quarter]).to eq(1)
+              expect(summary[:consolidation]).to eq(1)
 
               expect(summary[:net_sales]).to eq(8168)
               expect(summary[:operating_income]).to eq(249)
@@ -87,6 +88,7 @@ module LiteXBRL
               expect(summary[:year]).to eq(2013)
               expect(summary[:month]).to eq(12)
               expect(summary[:quarter]).to eq(4)
+              expect(summary[:consolidation]).to eq(1)
 
               expect(summary[:net_sales]).to eq(4691)
               expect(summary[:operating_income]).to eq(759)
@@ -135,6 +137,7 @@ module LiteXBRL
               expect(summary[:year]).to eq 2014
               expect(summary[:month]).to eq 3
               expect(summary[:quarter]).to eq 4
+              expect(summary[:consolidation]).to eq(1)
 
               expect(summary[:net_sales]).to eq 25691911
               expect(summary[:operating_income]).to eq 2292112
@@ -182,6 +185,7 @@ module LiteXBRL
             expect(summary[:year]).to eq(2013)
             expect(summary[:month]).to eq(11)
             expect(summary[:quarter]).to eq(4)
+              expect(summary[:consolidation]).to eq(1)
 
             expect(summary[:net_sales]).to eq(35070)
             expect(summary[:operating_income]).to eq(3909)
