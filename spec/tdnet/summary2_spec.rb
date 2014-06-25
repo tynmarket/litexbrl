@@ -219,26 +219,15 @@ module LiteXBRL
         end
       end
 
-      describe '.read_company' do
+      describe '.parse_company' do
         context '日本会計基準' do
           let(:xbrl) { Summary2.parse_company str("#{dir}/jp-cons-2014-q1.htm") }
 
           it do
-            expect(xbrl.company_name).to eq("株式会社 ジェイアイエヌ")
+            expect(xbrl.code).to eq "3046"
+            expect(xbrl.company_name).to eq "株式会社 ジェイアイエヌ"
+            expect(xbrl.consolidation).to eq 1
           end
-        end
-      end
-
-      describe "#attributes_company" do
-        it do
-          summary = Summary2.new
-          summary.code = "1111"
-          summary.company_name = "aaa"
-
-          attr = summary.attributes_company
-
-          expect(attr[:code]).to eq("1111")
-          expect(attr[:company_name]).to eq("aaa")
         end
       end
 

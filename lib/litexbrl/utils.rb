@@ -1,6 +1,9 @@
 module LiteXBRL
   module Utils
 
+    CONSOLIDATED = "Consolidated"
+    NON_CONSOLIDATED = "NonConsolidated"
+
     def hash_with_default(default, hash)
       hash.default = default
       hash
@@ -31,6 +34,20 @@ module LiteXBRL
       raise StandardError.new("決算月を取得できません。") unless elm_end
 
       elm_end.content.split('-')[1].to_i
+    end
+
+    #
+    # 連結・非連結を取得します
+    #
+    def to_consolidation(consolidation)
+      case consolidation
+      when CONSOLIDATED
+        1
+      when NON_CONSOLIDATED
+        0
+      else
+        raise StandardError.new("連結・非連結を取得できません。")
+      end
     end
 
     #

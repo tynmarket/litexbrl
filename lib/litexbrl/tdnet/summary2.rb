@@ -80,6 +80,7 @@ module LiteXBRL
         year_duration = "YearDuration_#{consolidation}Member_ForecastMember"
 
         {
+          consolidation: consolidation,
           context_duration: "Current#{season}Duration_#{consolidation}Member_ResultMember",
           context_prior_duration: "Prior#{season}Duration_#{consolidation}Member_ResultMember",
           context_instant: "Current#{season}Instant",
@@ -169,6 +170,8 @@ module LiteXBRL
 
         # 企業名
         xbrl.company_name = find_value_non_numeric(doc, COMPANY_NAME, context[:context_instant])
+        # 連結・非連結
+        xbrl.consolidation = to_consolidation(context[:consolidation])
 
         xbrl
       end
