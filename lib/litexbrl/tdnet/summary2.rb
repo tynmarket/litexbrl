@@ -20,11 +20,14 @@ module LiteXBRL
 
       def self.find_base_data(doc)
         season = find_season(doc)
+
         consolidation = find_consolidation(doc, season, NET_SALES)
         consolidation = find_consolidation(doc, season, OPERATING_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, ORDINARY_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, NET_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, NET_INCOME_PER_SHARE) unless consolidation
+        raise StandardError.new("連結・非連結ともに該当しません。") unless consolidation
+
         context = context_hash(consolidation, season)
 
         xbrl = new
@@ -76,8 +79,6 @@ module LiteXBRL
           "Consolidated"
         elsif non_cons_current || non_cons_prev
           "NonConsolidated"
-        else
-          raise StandardError.new("連結・非連結ともに該当しません。")
         end
       end
 

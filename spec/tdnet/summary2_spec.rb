@@ -229,6 +229,14 @@ module LiteXBRL
             expect { xbrl }.not_to raise_error
           end
         end
+
+        context 'NetSalesがない' do
+          let(:xbrl) { Summary2.read doc("#{dir}/no-net_sales.htm") }
+
+          it do
+            expect { xbrl }.not_to raise_error
+          end
+        end
       end
 
       describe '.parse_company' do
