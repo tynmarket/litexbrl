@@ -10,7 +10,7 @@ module LiteXBRL
 
       describe ".find_consolidation" do
         it "非連結" do
-          consolidation = Summary2.send(:find_consolidation, doc("#{dir}/jp-noncons-2014-q4.htm"), Summary2::SEASON_Q4)
+          consolidation = Summary2.send(:find_consolidation, doc("#{dir}/jp-noncons-2014-q4.htm"), Summary2::SEASON_Q4, AccountItem::NET_SALES)
           expect(consolidation).to eq "NonConsolidated"
         end
       end
