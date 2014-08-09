@@ -185,7 +185,7 @@ module LiteXBRL
             expect(summary[:year]).to eq(2013)
             expect(summary[:month]).to eq(11)
             expect(summary[:quarter]).to eq(4)
-              expect(summary[:consolidation]).to eq(1)
+            expect(summary[:consolidation]).to eq(1)
 
             expect(summary[:net_sales]).to eq(35070)
             expect(summary[:operating_income]).to eq(3909)
@@ -219,6 +219,14 @@ module LiteXBRL
             expect(results_forecast[:change_in_forecast_operating_income]).to eq(0.181)
             expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(0.181)
             expect(results_forecast[:change_in_forecast_net_income]).to eq(0.153)
+          end
+        end
+
+        context 'Current-NetSalesで連結・非連結が取得できない' do
+          let(:xbrl) { Summary2.read doc("#{dir}/current-net_sales-error.htm") }
+
+          it do
+            expect { xbrl }.not_to raise_error
           end
         end
       end

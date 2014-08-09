@@ -63,12 +63,14 @@ module LiteXBRL
       # 連結・非連結を取得します
       #
       def self.find_consolidation(doc, season)
-        cons = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_ConsolidatedMember_ResultMember")
-        non_cons = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_NonConsolidatedMember_ResultMember")
+        cons_current = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_ConsolidatedMember_ResultMember")
+        cons_prev = find_value_tse_ed_t(doc, NET_SALES, "Prior#{season}Duration_ConsolidatedMember_ResultMember")
+        non_cons_current = find_value_tse_ed_t(doc, NET_SALES, "Current#{season}Duration_NonConsolidatedMember_ResultMember")
+        non_cons_prev = find_value_tse_ed_t(doc, NET_SALES, "Prior#{season}Duration_NonConsolidatedMember_ResultMember")
 
-        if cons
+        if cons_current || cons_prev
           "Consolidated"
-        elsif non_cons
+        elsif non_cons_current || non_cons_prev
           "NonConsolidated"
         else
           raise StandardError.new("連結・非連結ともに該当しません。")
