@@ -18,7 +18,7 @@ module LiteXBRL
       NET_SALES = ['NetSales', 'OrdinaryRevenuesBK', 'OperatingRevenuesSE', 'OrdinaryRevenuesIN', 'OperatingRevenues',
         'OperatingRevenuesSpecific', 'GrossOperatingRevenues', 'NetSalesOfCompletedConstructionContracts',
         'NetSalesUS', 'OperatingRevenuesUS', 'NetSalesAndOperatingRevenuesUS', 'TotalRevenuesUS',
-        'NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS']
+        'NetSalesIFRS', 'OperatingRevenuesIFRS', 'SalesIFRS', 'RevenueIFRS']
 
       # 営業利益
       OPERATING_INCOME = [['OperatingIncome', 'OperatingIncomeUS', 'OperatingIncomeIFRS'],

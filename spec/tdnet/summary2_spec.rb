@@ -237,6 +237,15 @@ module LiteXBRL
             expect { xbrl }.not_to raise_error
           end
         end
+
+        context 'RevenueIFRS' do
+          let(:xbrl) { Summary2.read doc("#{dir}/revenue_ifrs.htm") }
+          let(:summary) { xbrl[:summary] }
+
+          it do
+            expect(summary[:net_sales]).to eq 1894465
+          end
+        end
       end
 
       describe '.parse_company' do
