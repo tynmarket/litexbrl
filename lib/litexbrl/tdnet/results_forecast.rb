@@ -28,7 +28,18 @@ module LiteXBRL
       end
 
       def self.find_base_data(doc, season)
-        consolidation = find_consolidation(doc)
+        consolidation = find_consolidation(doc, season, FORECAST_NET_SALES)
+        consolidation = find_consolidation(doc, season, FORECAST_OPERATING_INCOME) unless consolidation
+        consolidation = find_consolidation(doc, season, FORECAST_ORDINARY_INCOME) unless consolidation
+        consolidation = find_consolidation(doc, season, FORECAST_NET_INCOME) unless consolidation
+        consolidation = find_consolidation(doc, season, FORECAST_NET_INCOME_PER_SHARE) unless consolidation
+        consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_NET_SALES) unless consolidation
+        consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_OPERATING_INCOME) unless consolidation
+        consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_ORDINARY_INCOME) unless consolidation
+        consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_NET_INCOME) unless consolidation
+        consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_NET_INCOME_PER_SHARE) unless consolidation
+        consolidation = "Consolidated" unless consolidation
+
         context = context_hash(consolidation, season)
 
         xbrl = new
@@ -45,6 +56,34 @@ module LiteXBRL
         xbrl.consolidation = to_consolidation(consolidation)
 
         return xbrl, context
+      end
+
+      #
+      # 連結・非連結を取得します
+      #
+      def self.find_consolidation(doc, season, item)
+        cons = present? find_value_tse_t_ed(doc, item, "Current#{season}ConsolidatedDuration")
+        non_cons = present? find_value_tse_t_ed(doc, item, "Current#{season}NonConsolidatedDuration")
+
+        if cons
+          "Consolidated"
+        elsif non_cons
+          "NonConsolidated"
+        end
+      end
+
+      #
+      # 連結・非連結を取得します
+      #
+      def self.find_consolidation_prev(doc, season, item)
+        cons = present? find_value_tse_t_rv(doc, item, "Current#{season}ConsolidatedDuration")
+        non_cons = present? find_value_tse_t_rv(doc, item, "Current#{season}NonConsolidatedDuration")
+
+        if cons
+          "Consolidated"
+        elsif non_cons
+          "NonConsolidated"
+        end
       end
 
       def self.find_data(doc, xbrl, context)
