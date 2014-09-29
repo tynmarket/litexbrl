@@ -52,22 +52,6 @@ module LiteXBRL
       end
 
       #
-      # 連結・非連結を取得します
-      #
-      def self.find_consolidation(doc)
-        cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearConsolidatedDuration']/xbrli:entity/xbrli:identifier")
-        non_cons = doc.at_xpath("//xbrli:xbrl/xbrli:context[@id='CurrentYearNonConsolidatedDuration']/xbrli:entity/xbrli:identifier")
-
-        if cons
-          "Consolidated"
-        elsif non_cons
-          "NonConsolidated"
-        else
-          raise StandardError.new("連結・非連結ともに該当しません。")
-        end
-      end
-
-      #
       # 通期・四半期を取得します
       #
       def self.find_season(doc, consolidation)

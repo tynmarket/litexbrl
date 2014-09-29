@@ -28,6 +28,7 @@ module LiteXBRL
       end
 
       def self.find_base_data(doc, season)
+        # TODO 先に連結のみ試す？
         consolidation = find_consolidation(doc, season, FORECAST_NET_SALES)
         consolidation = find_consolidation(doc, season, FORECAST_OPERATING_INCOME) unless consolidation
         consolidation = find_consolidation(doc, season, FORECAST_ORDINARY_INCOME) unless consolidation
@@ -38,18 +39,20 @@ module LiteXBRL
         consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_ORDINARY_INCOME) unless consolidation
         consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_NET_INCOME) unless consolidation
         consolidation = find_consolidation_prev(doc, season, PREVIOUS_FORECAST_NET_INCOME_PER_SHARE) unless consolidation
-        consolidation = "Consolidated" unless consolidation
+
+        consolidation_base_data = FinancialInformation.send(:find_consolidation, doc)
+        consolidation = consolidation_base_data unless consolidation
 
         context = context_hash(consolidation, season)
 
         xbrl = new
 
         # 証券コード
-        xbrl.code = find_securities_code(doc, consolidation)
+        xbrl.code = find_securities_code(doc, consolidation_base_data)
         # 決算年
-        xbrl.year = find_year(doc, consolidation)
+        xbrl.year = find_year(doc, consolidation_base_data)
         # 決算月
-        xbrl.month = find_month(doc, consolidation)
+        xbrl.month = find_month(doc, consolidation_base_data)
         # 四半期
         xbrl.quarter = season == SEASON_Q2 ? 2 : 4
         # 連結・非連結

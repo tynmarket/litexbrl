@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'litexbrl'
+require 'pry'
 
 def doc(path)
   File.open(path) {|f| Nokogiri::XML(f) }

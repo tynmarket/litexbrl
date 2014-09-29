@@ -68,6 +68,64 @@ module LiteXBRL
             end
           end
 
+          context '連結銘柄の個別予想' do
+            let(:xbrl) { (ResultsForecast.read doc("#{dir}/jp-noncons-cons.xbrl"))[:results_forecast][0] }
+
+            it do
+              expect(xbrl[:code]).to eq "6856"
+              expect(xbrl[:year]).to eq 2011
+              expect(xbrl[:month]).to eq 12
+              expect(xbrl[:quarter]).to eq 2
+              expect(xbrl[:consolidation]).to eq 0
+
+              expect(xbrl[:forecast_net_sales]).to eq 24500
+              expect(xbrl[:forecast_operating_income]).to eq 2200
+              expect(xbrl[:forecast_ordinary_income]).to eq 4600
+              expect(xbrl[:forecast_net_income]).to eq 3700
+              expect(xbrl[:forecast_net_income_per_share]).to eq 87.49
+
+              expect(xbrl[:previous_forecast_net_sales]).to eq 24000
+              expect(xbrl[:previous_forecast_operating_income]).to eq 800
+              expect(xbrl[:previous_forecast_ordinary_income]).to eq 3000
+              expect(xbrl[:previous_forecast_net_income]).to eq 2500
+              expect(xbrl[:previous_forecast_net_income_per_share]).to eq 59.12
+
+              expect(xbrl[:change_forecast_net_sales]).to eq 0.021
+              expect(xbrl[:change_forecast_operating_income]).to eq 1.75
+              expect(xbrl[:change_forecast_ordinary_income]).to eq 0.533
+              expect(xbrl[:change_forecast_net_income]).to eq 0.48
+            end
+          end
+
+          context '第2四半期' do
+            let(:xbrl) { (ResultsForecast.read doc("#{dir}/jp-noncons-q2.xbrl"))[:results_forecast][0] }
+
+            it do
+              expect(xbrl[:code]).to eq "7501"
+              expect(xbrl[:year]).to eq 2011
+              expect(xbrl[:month]).to eq 11
+              expect(xbrl[:quarter]).to eq 2
+              expect(xbrl[:consolidation]).to eq 0
+
+              expect(xbrl[:forecast_net_sales]).to eq 1410
+              expect(xbrl[:forecast_operating_income]).to eq 39
+              expect(xbrl[:forecast_ordinary_income]).to eq 45
+              expect(xbrl[:forecast_net_income]).to eq 4
+              expect(xbrl[:forecast_net_income_per_share]).to eq 1.68
+
+              expect(xbrl[:previous_forecast_net_sales]).to eq 1470
+              expect(xbrl[:previous_forecast_operating_income]).to eq 52
+              expect(xbrl[:previous_forecast_ordinary_income]).to eq 55
+              expect(xbrl[:previous_forecast_net_income]).to eq 10
+              expect(xbrl[:previous_forecast_net_income_per_share]).to eq 3.87
+
+              expect(xbrl[:change_forecast_net_sales]).to eq -0.041
+              expect(xbrl[:change_forecast_operating_income]).to eq -0.237
+              expect(xbrl[:change_forecast_ordinary_income]).to eq -0.174
+              expect(xbrl[:change_forecast_net_income]).to eq -0.566
+            end
+          end
+
           context 'find_consolidation修正' do
             let(:xbrl) { (ResultsForecast.read doc("#{dir}/find_consolidation.xbrl"))[:results_forecast][1] }
 
