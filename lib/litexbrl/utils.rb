@@ -15,7 +15,7 @@ module LiteXBRL
     def to_securities_code(elm_code)
       raise StandardError.new("証券コードを取得できません。") unless elm_code
 
-      elm_code.content.slice(0, 4).tr("０-９", "0-9")
+      elm_code.content.delete(" 　").slice(0, 4).tr("０-９", "0-9")
     end
 
     #

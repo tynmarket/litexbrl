@@ -4,21 +4,37 @@ module LiteXBRL
   describe Utils do
     include Utils
 
-    describe '.to_mill' do
+    describe '#to_securities_code' do
+      let(:code) { to_securities_code elm_code }
+
+      context '半角スペース' do
+        let(:elm_code) { double("elm_code", content: " 1111") }
+
+        it { expect(code).to eq "1111" }
+      end
+
+      context '全角スペース' do
+        let(:elm_code) { double("elm_code", content: "　1111") }
+
+        it { expect(code).to eq "1111" }
+      end
+    end
+
+    describe '#to_mill' do
       context 'val == "1000000"' do
         let(:val) { "1000000" }
         it { expect(to_mill val).to eq(1) }
       end
     end
 
-    describe '.to_i' do
+    describe '#to_i' do
       context 'val == "54,074"' do
         let(:val) { "54,074" }
         it { expect(to_i val).to eq(54074) }
       end
     end
 
-    describe '.to_f' do
+    describe '#to_f' do
       context 'val == "0.02"' do
         let(:val) { "0.02" }
         it { expect(to_f val).to eq(0.02) }
@@ -30,7 +46,7 @@ module LiteXBRL
       end
     end
 
-    describe '.perc_to_f' do
+    describe '#perc_to_f' do
       context 'val == "2.2"' do
         let(:val) { "2.2" }
         it { expect(percent_to_f val).to eq(0.022) }
