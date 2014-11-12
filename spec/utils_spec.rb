@@ -7,14 +7,20 @@ module LiteXBRL
     describe '#to_securities_code' do
       let(:code) { to_securities_code elm_code }
 
-      context '半角スペース' do
-        let(:elm_code) { double("elm_code", content: " 1111") }
+      context '5桁の数字' do
+        let(:elm_code) { double("elm_code", content: "11110") }
 
         it { expect(code).to eq "1111" }
       end
 
-      context '全角スペース' do
-        let(:elm_code) { double("elm_code", content: "　1111") }
+      context '全角' do
+        let(:elm_code) { double("elm_code", content: "１１１１") }
+
+        it { expect(code).to eq "1111" }
+      end
+
+      context '特殊文字' do
+        let(:elm_code) { double("elm_code", content: "       1111") }
 
         it { expect(code).to eq "1111" }
       end

@@ -1,6 +1,7 @@
 module LiteXBRL
   module Utils
 
+    SECURITIES_CODE = /([\d|０-９]{4})/
     CONSOLIDATED = "Consolidated"
     NON_CONSOLIDATED = "NonConsolidated"
 
@@ -15,7 +16,7 @@ module LiteXBRL
     def to_securities_code(elm_code)
       raise StandardError.new("証券コードを取得できません。") unless elm_code
 
-      elm_code.content.delete(" 　").slice(0, 4).tr("０-９", "0-9")
+      SECURITIES_CODE =~ elm_code.content && $1.tr("０-９", "0-9")
     end
 
     #
