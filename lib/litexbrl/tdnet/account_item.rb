@@ -29,7 +29,8 @@ module LiteXBRL
           'ProfitBeforeTaxIFRS', 'ProfitBeforeIncomeTaxIFRS']
 
       # 純利益
-      NET_INCOME = ['NetIncome', 'NetIncomeUS', 'IncomeBeforeMinorityInterestUS', 'ProfitAttributableToOwnersOfParentIFRS']
+      NET_INCOME = ['NetIncome', 'ProfitAttributableToOwnersOfParent', 'NetIncomeUS',
+        'IncomeBeforeMinorityInterestUS', 'ProfitAttributableToOwnersOfParentIFRS']
 
       # 一株当たり純利益
       NET_INCOME_PER_SHARE = ['NetIncomePerShare', 'NetIncomePerShareUS', 'BasicNetIncomePerShareUS',

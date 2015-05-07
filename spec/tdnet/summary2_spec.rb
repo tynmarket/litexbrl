@@ -246,6 +246,13 @@ module LiteXBRL
             expect(summary[:net_sales]).to eq 1894465
           end
         end
+
+        context 'ProfitAttributableToOwnersOfParent' do
+          let(:xbrl) { Summary2.read doc("#{dir}/profit_attributable_to_owners_of_parent.htm") }
+          let(:forecast) { xbrl[:results_forecast].first }
+
+          it { expect(forecast[:forecast_net_income]).to eq 1700 }
+        end
       end
 
       describe '.parse_company' do
