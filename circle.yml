@@ -1,3 +1,6 @@
 dependencies:
-    pre:
-      - gem update bundler
+  pre:
+    - gem update bundler
+machine:
+  ruby:
+    version: 2.2.1
