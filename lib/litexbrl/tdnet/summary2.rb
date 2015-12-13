@@ -138,6 +138,8 @@ module LiteXBRL
         # 前期純利益前年比
         xbrl.change_in_prior_net_income = find_value_percent_to_f(doc, CHANGE_IN_NET_INCOME, context[:context_prior_duration])
 
+        # 純資産
+        xbrl.net_assets = find_value_to_f(doc, NET_ASSETS, context[:context_instant_consolidation])
         # 1株当たり純資産
         xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
 

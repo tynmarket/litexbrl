@@ -105,6 +105,9 @@ module LiteXBRL
       CHANGE_NET_INCOME = define_item(NET_INCOME) {|item| "Change#{item}" }
 
 
+      # 純資産
+      NET_ASSETS = ["NetAssets", "EquityAttributableToOwnersOfParentIFRS", "ShareholdersEquityUS"]
+
       # 1株当たり純資産
       NET_ASSETS_PER_SHARE = ["NetAssetsPerShare", "EquityAttributableToOwnersOfParentPerShareIFRS", "ShareholdersEquityPerShareUS"]
 
