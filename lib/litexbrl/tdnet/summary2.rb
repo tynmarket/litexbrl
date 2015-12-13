@@ -92,6 +92,7 @@ module LiteXBRL
           context_duration: "Current#{season}Duration_#{consolidation}Member_ResultMember",
           context_prior_duration: "Prior#{season}Duration_#{consolidation}Member_ResultMember",
           context_instant: "Current#{season}Instant",
+          context_instant_consolidation: "Current#{season}Instant_#{consolidation}Member_ResultMember",
           context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
         }
       end
@@ -136,6 +137,10 @@ module LiteXBRL
         xbrl.change_in_prior_ordinary_income = find_value_percent_to_f(doc, CHANGE_IN_ORDINARY_INCOME, context[:context_prior_duration])
         # 前期純利益前年比
         xbrl.change_in_prior_net_income = find_value_percent_to_f(doc, CHANGE_IN_NET_INCOME, context[:context_prior_duration])
+
+        # 1株当たり純資産
+        xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
+
 
         # 通期予想売上高
         xbrl.forecast_net_sales = find_value_to_i(doc, NET_SALES, context[:context_forecast].call(xbrl.quarter))

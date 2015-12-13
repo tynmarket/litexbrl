@@ -104,6 +104,11 @@ module LiteXBRL
       # 通期/第2四半期予想純利益増減率
       CHANGE_NET_INCOME = define_item(NET_INCOME) {|item| "Change#{item}" }
 
+
+      # 1株当たり純資産
+      NET_ASSETS_PER_SHARE = ["NetAssetsPerShare", "EquityAttributableToOwnersOfParentPerShareIFRS", "ShareholdersEquityPerShareUS"]
+
+
       # 企業名
       COMPANY_NAME = ['CompanyName']
 

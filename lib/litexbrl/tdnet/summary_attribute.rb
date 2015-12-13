@@ -8,7 +8,8 @@ module LiteXBRL
         :prior_net_sales, :prior_operating_income, :prior_ordinary_income, :prior_net_income, :prior_net_income_per_share,
         :change_in_prior_net_sales, :change_in_prior_operating_income, :change_in_prior_ordinary_income, :change_in_prior_net_income,
         :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share,
-        :change_in_forecast_net_sales, :change_in_forecast_operating_income, :change_in_forecast_ordinary_income, :change_in_forecast_net_income
+        :change_in_forecast_net_sales, :change_in_forecast_operating_income, :change_in_forecast_ordinary_income, :change_in_forecast_net_income,
+        :net_assets_per_share
 
       def attributes
         {
@@ -35,6 +36,7 @@ module LiteXBRL
           change_in_prior_operating_income: change_in_prior_operating_income,
           change_in_prior_ordinary_income: change_in_prior_ordinary_income,
           change_in_prior_net_income: change_in_prior_net_income,
+          net_assets_per_share: net_assets_per_share,
         }
       end
 
