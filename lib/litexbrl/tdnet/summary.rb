@@ -115,6 +115,23 @@ module LiteXBRL
         # 前期純利益前年比
         xbrl.change_in_prior_net_income = find_value_to_f(doc, CHANGE_IN_NET_INCOME, context[:context_prior_duration])
 
+        # 株主資本
+        xbrl.owners_equity = find_value_to_mill(doc, OWNERS_EQUITY, context[:context_instant])
+        # 期末発行済株式数
+        xbrl.number_of_shares = find_value_to_i(doc, NUMBER_OF_SHARES, context[:context_instant])
+        # 期末自己株式数
+        xbrl.number_of_treasury_stock = find_value_to_i(doc, NUMBER_OF_TREASURY_STOCK, context[:context_instant])
+        # 1株当たり純資産
+        xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant])
+
+        # 1株当たり純資産がない場合、以下の計算式で計算する
+        # 1株当たり純資産 = 株主資本 / (期末発行済株式数 - 期末自己株式数)
+        if xbrl.net_assets_per_share.nil? && xbrl.owners_equity && xbrl.number_of_shares
+          xbrl.net_assets_per_share = (
+            xbrl.owners_equity.to_f * 1000 * 1000 / (xbrl.number_of_shares - xbrl.number_of_treasury_stock.to_i)
+          ).round 2
+        end
+
         # 通期予想売上高
         xbrl.forecast_net_sales = find_value_to_mill(doc, FORECAST_NET_SALES, context[:context_forecast].call(xbrl.quarter))
         # 通期予想営業利益
@@ -140,6 +157,10 @@ module LiteXBRL
 
       def self.find_value_to_mill(doc, item, context)
         to_mill find_value_tse_t_ed(doc, item, context)
+      end
+
+      def self.find_value_to_i(doc, item, context)
+        to_i find_value_tse_t_ed(doc, item, context)
       end
 
       def self.find_value_to_f(doc, item, context)

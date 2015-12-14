@@ -97,6 +97,11 @@ module LiteXBRL
               expect(summary[:change_in_prior_ordinary_income]).to eq(0.186)
               expect(summary[:change_in_prior_net_income]).to eq 0.947
 
+              expect(summary[:owners_equity]).to eq(20890)
+              expect(summary[:number_of_shares]).to eq(6302200)
+              expect(summary[:number_of_treasury_stock]).to eq(1086)
+              expect(summary[:net_assets_per_share]).to eq(3315.31)
+
               expect(results_forecast[:forecast_net_sales]).to eq(30000)
               expect(results_forecast[:forecast_operating_income]).to eq(3700)
               expect(results_forecast[:forecast_ordinary_income]).to eq(3600)
@@ -108,6 +113,14 @@ module LiteXBRL
               expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(-0.059)
               expect(results_forecast[:change_in_forecast_net_income]).to eq(-0.203)
             end
+          end
+
+          context '1株当たり純資産なし' do
+            let(:xbrl) { Summary.read doc("#{dir}/no-net_assets_per_share.xbrl") }
+            let(:summary) { xbrl[:summary] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
+
+            it { expect(summary[:net_assets_per_share]).to eq(3315.29) }
           end
 
           context "連結・第2四半期" do
@@ -193,6 +206,11 @@ module LiteXBRL
               expect(summary[:change_in_prior_operating_income]).to eq -0.157
               expect(summary[:change_in_prior_ordinary_income]).to eq -0.122
               expect(summary[:change_in_prior_net_income]).to eq 0.076
+
+              expect(summary[:owners_equity]).to eq(23361)
+              expect(summary[:number_of_shares]).to eq(6302200)
+              expect(summary[:number_of_treasury_stock]).to eq(1154)
+              expect(summary[:net_assets_per_share]).to eq(3707.58)
 
               expect(results_forecast[:forecast_net_sales]).to eq(30000)
               expect(results_forecast[:forecast_operating_income]).to eq(3500)
@@ -540,6 +558,18 @@ module LiteXBRL
               expect(summary[:net_income_per_share]).to eq(200.81)
             end
           end
+
+          context '株主資本〜1株当たり株主資本' do
+            let(:xbrl) { Summary.read doc("#{dir}/us-cons-2013-q4.xbrl") }
+            let(:summary) { xbrl[:summary] }
+
+            it do
+              expect(summary[:owners_equity]).to eq(12148035)
+              expect(summary[:number_of_shares]).to eq(3447997492)
+              expect(summary[:number_of_treasury_stock]).to eq(280568824)
+              expect(summary[:net_assets_per_share]).to eq(3835.30)
+            end
+          end
         end
 
         context 'IFRS' do
@@ -627,6 +657,18 @@ module LiteXBRL
               expect(summary[:net_income]).to eq(12302)
               expect(summary[:net_income_per_share]).to eq(28.51)
               # TODO 業績予想のテスト追加
+            end
+          end
+
+          context '株主資本〜1株当たり株主資本' do
+            let(:xbrl) { Summary.read doc("#{dir}/ifrs-cons-2013-q4.xbrl") }
+            let(:summary) { xbrl[:summary] }
+
+            it do
+              expect(summary[:owners_equity]).to eq(145031)
+              expect(summary[:number_of_shares]).to eq(903550999)
+              expect(summary[:number_of_treasury_stock]).to eq(963765)
+              expect(summary[:net_assets_per_share]).to eq(160.68)
             end
           end
         end
