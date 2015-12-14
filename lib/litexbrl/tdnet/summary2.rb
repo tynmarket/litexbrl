@@ -140,11 +140,11 @@ module LiteXBRL
         xbrl.change_in_prior_net_income = find_value_percent_to_f(doc, CHANGE_IN_NET_INCOME, context[:context_prior_duration])
 
         # 株主資本
-        xbrl.owners_equity = find_value_to_f(doc, OWNERS_EQUITY, context[:context_instant_consolidation])
+        xbrl.owners_equity = find_value_to_i(doc, OWNERS_EQUITY, context[:context_instant_consolidation])
         # 期末発行済株式数
-        xbrl.number_of_shares = find_value_to_f(doc, NUMBER_OF_SHARES, context[:context_instant_non_consolidated])
+        xbrl.number_of_shares = find_value_to_i(doc, NUMBER_OF_SHARES, context[:context_instant_non_consolidated])
         # 期末自己株式数
-        xbrl.number_of_treasury_stock = find_value_to_f(doc, NUMBER_OF_TREASURY_STOCK, context[:context_instant_non_consolidated])
+        xbrl.number_of_treasury_stock = find_value_to_i(doc, NUMBER_OF_TREASURY_STOCK, context[:context_instant_non_consolidated])
         # 1株当たり純資産
         xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
 
