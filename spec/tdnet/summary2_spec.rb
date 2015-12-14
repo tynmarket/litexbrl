@@ -65,7 +65,6 @@ module LiteXBRL
               expect(summary[:change_in_prior_ordinary_income]).to eq(6.641)
               expect(summary[:change_in_prior_net_income]).to be_nil
 
-              expect(summary[:net_assets]).to eq(11243)
               expect(summary[:owners_equity]).to eq(11243)
               expect(summary[:number_of_shares]).to eq(23980000)
               expect(summary[:number_of_treasury_stock]).to eq(3491)
@@ -117,7 +116,6 @@ module LiteXBRL
               expect(summary[:change_in_prior_ordinary_income]).to eq(0.039)
               expect(summary[:change_in_prior_net_income]).to eq(0.287)
 
-              expect(summary[:net_assets]).to eq(6889)
               expect(summary[:owners_equity]).to eq(6889)
               expect(summary[:number_of_shares]).to eq(7398000)
               expect(summary[:number_of_treasury_stock]).to eq(22945)
@@ -172,7 +170,6 @@ module LiteXBRL
               expect(summary[:change_in_prior_ordinary_income]).to eq 2.243
               expect(summary[:change_in_prior_net_income]).to eq 2.393
 
-              expect(summary[:net_assets]).to eq 15218987
               expect(summary[:owners_equity]).to eq 14469148
               expect(summary[:number_of_shares]).to eq 3447997492
               expect(summary[:number_of_treasury_stock]).to eq 278231473
@@ -226,7 +223,6 @@ module LiteXBRL
 #            expect(xbrl.change_in_prior_ordinary_income).to eq(0.039)
 #            expect(xbrl.change_in_prior_net_income).to eq(0.287)
 
-            expect(summary[:net_assets]).to eq (30102)
             expect(summary[:owners_equity]).to eq (30102)
             expect(summary[:number_of_shares]).to eq (48284000)
             expect(summary[:number_of_treasury_stock]).to be_nil
