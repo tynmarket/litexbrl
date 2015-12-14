@@ -148,6 +148,14 @@ module LiteXBRL
         # 1株当たり純資産
         xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
 
+        # 1株当たり純資産がない場合、以下の計算式で計算する
+        # 1株当たり純資産 = 株主資本 / (期末発行済株式数 - 期末自己株式数)
+        if xbrl.net_assets_per_share.nil? && xbrl.owners_equity && xbrl.number_of_shares
+          xbrl.net_assets_per_share = (
+            xbrl.owners_equity.to_f * 1000 * 1000 / (xbrl.number_of_shares - xbrl.number_of_treasury_stock.to_i)
+          ).round 2
+        end
+
         # 通期予想売上高
         xbrl.forecast_net_sales = find_value_to_i(doc, NET_SALES, context[:context_forecast].call(xbrl.quarter))
         # 通期予想営業利益

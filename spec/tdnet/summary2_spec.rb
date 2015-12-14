@@ -68,6 +68,7 @@ module LiteXBRL
               expect(summary[:owners_equity]).to eq(11243)
               expect(summary[:number_of_shares]).to eq(23980000)
               expect(summary[:number_of_treasury_stock]).to eq(3491)
+              expect(summary[:net_assets_per_share]).to eq(468.92)
 
               expect(results_forecast[:forecast_net_sales]).to eq(40600)
               expect(results_forecast[:forecast_operating_income]).to eq(6800)
@@ -80,6 +81,14 @@ module LiteXBRL
               expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(0.167)
               expect(results_forecast[:change_in_forecast_net_income]).to eq(0.141)
             end
+          end
+
+          context '1株当たり純資産・自己株式なし' do
+            let(:xbrl) { Summary2.read doc("#{dir}/no-treasury_stock.htm") }
+            let(:summary) { xbrl[:summary] }
+            let(:results_forecast) { xbrl[:results_forecast].first }
+
+            it { expect(summary[:net_assets_per_share]).to eq(468.85) }
           end
 
           context "連結・第4四半期" do
