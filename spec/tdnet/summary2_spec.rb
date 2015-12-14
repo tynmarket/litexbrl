@@ -66,6 +66,7 @@ module LiteXBRL
               expect(summary[:change_in_prior_net_income]).to be_nil
 
               expect(summary[:net_assets]).to eq(11243)
+              expect(summary[:owners_equity]).to eq(11243)
 
               expect(results_forecast[:forecast_net_sales]).to eq(40600)
               expect(results_forecast[:forecast_operating_income]).to eq(6800)
@@ -115,6 +116,7 @@ module LiteXBRL
               expect(summary[:change_in_prior_net_income]).to eq(0.287)
 
               expect(summary[:net_assets]).to eq(6889)
+              expect(summary[:owners_equity]).to eq(6889)
               expect(summary[:net_assets_per_share]).to eq(934.21)
 
               expect(results_forecast[:forecast_net_sales]).to eq(5064)
@@ -167,6 +169,7 @@ module LiteXBRL
               expect(summary[:change_in_prior_net_income]).to eq 2.393
 
               expect(summary[:net_assets]).to eq 15218987
+              expect(summary[:owners_equity]).to eq 14469148
               expect(summary[:net_assets_per_share]).to eq 4564.74
 
               expect(results_forecast[:forecast_net_sales]).to eq 25700000
@@ -218,6 +221,7 @@ module LiteXBRL
 #            expect(xbrl.change_in_prior_net_income).to eq(0.287)
 
             expect(summary[:net_assets]).to eq (30102)
+            expect(summary[:owners_equity]).to eq (30102)
             expect(summary[:net_assets_per_share]).to eq(623.45)
 
             expect(results_forecast[:forecast_net_sales]).to eq(41817)
