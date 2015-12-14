@@ -93,6 +93,7 @@ module LiteXBRL
           context_prior_duration: "Prior#{season}Duration_#{consolidation}Member_ResultMember",
           context_instant: "Current#{season}Instant",
           context_instant_consolidation: "Current#{season}Instant_#{consolidation}Member_ResultMember",
+          context_instant_non_consolidated: "Current#{season}Instant_NonConsolidatedMember_ResultMember",
           context_forecast: ->(quarter) { quarter == 4 ? "Next#{year_duration}" : "Current#{year_duration}"},
         }
       end
@@ -142,6 +143,8 @@ module LiteXBRL
         xbrl.net_assets = find_value_to_f(doc, NET_ASSETS, context[:context_instant_consolidation])
         # 株主資本
         xbrl.owners_equity = find_value_to_f(doc, OWNERS_EQUITY, context[:context_instant_consolidation])
+        # 期末発行済株式数
+        xbrl.number_of_shares = find_value_to_f(doc, NUMBER_OF_SHARES, context[:context_instant_non_consolidated])
         # 1株当たり純資産
         xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
 

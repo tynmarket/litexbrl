@@ -107,10 +107,10 @@ module LiteXBRL
 
       # 純資産
       NET_ASSETS = ["NetAssets", "TotalEquityIFRS", "NetAssetsUS"]
-
       # 株主資本
       OWNERS_EQUITY = ["OwnersEquity", "EquityAttributableToOwnersOfParentIFRS", "ShareholdersEquityUS"]
-
+      # 期末発行済株式数
+      NUMBER_OF_SHARES = ["NumberOfIssuedAndOutstandingSharesAtTheEndOfFiscalYearIncludingTreasuryStock"]
       # 1株当たり純資産
       NET_ASSETS_PER_SHARE = ["NetAssetsPerShare", "EquityAttributableToOwnersOfParentPerShareIFRS", "ShareholdersEquityPerShareUS"]
 
