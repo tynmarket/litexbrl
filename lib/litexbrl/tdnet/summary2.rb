@@ -145,6 +145,8 @@ module LiteXBRL
         xbrl.owners_equity = find_value_to_f(doc, OWNERS_EQUITY, context[:context_instant_consolidation])
         # 期末発行済株式数
         xbrl.number_of_shares = find_value_to_f(doc, NUMBER_OF_SHARES, context[:context_instant_non_consolidated])
+        # 期末自己株式数
+        xbrl.number_of_treasury_stock = find_value_to_f(doc, NUMBER_OF_TREASURY_STOCK, context[:context_instant_non_consolidated])
         # 1株当たり純資産
         xbrl.net_assets_per_share = find_value_to_f(doc, NET_ASSETS_PER_SHARE, context[:context_instant_consolidation])
 
