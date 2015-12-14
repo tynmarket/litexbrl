@@ -166,7 +166,7 @@ module LiteXBRL
               expect(summary[:change_in_prior_ordinary_income]).to eq 2.243
               expect(summary[:change_in_prior_net_income]).to eq 2.393
 
-              expect(summary[:net_assets]).to eq 14469148
+              expect(summary[:net_assets]).to eq 15218987
               expect(summary[:net_assets_per_share]).to eq 4564.74
 
               expect(results_forecast[:forecast_net_sales]).to eq 25700000
