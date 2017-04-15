@@ -25,7 +25,7 @@ module LiteXBRL
         # 決算年・決算月を取得します
         #
         def find_year_and_month(doc)
-          elm_end = doc.at_xpath("//xbrli:context[@id='CurrentYearDuration']/xbrli:period/xbrli:endDate")
+          elm_end = doc.at_xpath("//ix:nonNumeric[@contextRef='CurrentYearInstant' and @name='tse-ed-t:FiscalYearEnd']")
           return to_year(elm_end), to_month(elm_end)
         end
 
