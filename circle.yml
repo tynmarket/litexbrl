@@ -1,7 +1,6 @@
 dependencies:
   pre:
-    - gem update bundler
-    - aws ec2 authorize-security-group-ingress --group-name test1-WebServerSecurityGroup-11WZOL3NS2BS9 --protocol tcp --port 80 --cidr `curl -s ifconfig.me`/32
+    - AWS_DEFAULT_REGION=ap-northeast-1 aws ec2 authorize-security-group-ingress --group-name test1-WebServerSecurityGroup-11WZOL3NS2BS9 --protocol tcp --port 80 --cidr `curl -s ifconfig.me`/32
 machine:
   ruby:
     version: 2.2.2
