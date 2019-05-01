@@ -27,12 +27,12 @@ module LiteXBRL
       private
 
       def read(doc)
-        document = find_document doc
+        document = find_reader doc
 
         document.read doc
       end
 
-      def find_document(doc)
+      def find_reader(doc)
         namespaces = doc.namespaces
 
         # TODO 委嬢する？
