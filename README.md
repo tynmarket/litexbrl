@@ -4,7 +4,7 @@ LiteXBRLはXBRLパーサです。
 
 #### サポート
 - TDnet
- - 短信サマリ（日本会計基準・米国会計基準・IFRS）
+  - 短信サマリ（日本会計基準・米国会計基準・IFRS）
 
 ## Installation
 
