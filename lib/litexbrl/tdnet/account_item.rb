@@ -117,6 +117,17 @@ module LiteXBRL
       # 1株当たり純資産
       NET_ASSETS_PER_SHARE = ["NetAssetsPerShare", "EquityAttributableToOwnersOfParentPerShareIFRS", "ShareholdersEquityPerShareUS"]
 
+      # 営業キャッシュフロー
+      CASH_FLOWS_FROM_OPERATING_ACTIVITIES = ["CashFlowsFromOperatingActivities", "CashFlowsFromOperatingActivitiesIFRS", "CashFlowsFromOperatingActivitiesUS"]
+
+      # 投資キャッシュフロー
+      CASH_FLOWS_FROM_INVESTING_ACTIVITIES = ["CashFlowsFromInvestingActivities", "CashFlowsFromInvestingActivitiesIFRS", "CashFlowsFromInvestingActivitiesUS"]
+
+      # 財務キャッシュフロー
+      CASH_FLOWS_FROM_FINANCING_ACTIVITIES = ["CashFlowsFromFinancingActivities", "CashFlowsFromFinancingActivitiesIFRS", "CashFlowsFromFinancingActivitiesUS"]
+
+      # 現金及び現金同等物の期末残高
+      CASH_AND_EQUIVALENTS_END_OF_PERIOD = ["CashAndEquivalentsEndOfPeriod", "CashAndEquivalentsEndOfPeriodIFRS", "CashAndEquivalentsEndOfPeriodUS"]
 
       # 企業名
       COMPANY_NAME = ['CompanyName']

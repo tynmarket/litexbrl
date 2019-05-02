@@ -9,7 +9,9 @@ module LiteXBRL
         :change_in_prior_net_sales, :change_in_prior_operating_income, :change_in_prior_ordinary_income, :change_in_prior_net_income,
         :forecast_net_sales, :forecast_operating_income, :forecast_ordinary_income, :forecast_net_income, :forecast_net_income_per_share,
         :change_in_forecast_net_sales, :change_in_forecast_operating_income, :change_in_forecast_ordinary_income, :change_in_forecast_net_income,
-        :owners_equity, :number_of_shares, :number_of_treasury_stock, :net_assets_per_share
+        :owners_equity, :number_of_shares, :number_of_treasury_stock, :net_assets_per_share,
+        :cash_flows_from_operating_activities, :cash_flows_from_investing_activities,
+        :cash_flows_from_financing_activities, :cash_and_equivalents_end_of_period
 
       def attributes
         {
@@ -40,6 +42,10 @@ module LiteXBRL
           number_of_shares: number_of_shares,
           number_of_treasury_stock: number_of_treasury_stock,
           net_assets_per_share: net_assets_per_share,
+          cash_flows_from_operating_activities: cash_flows_from_operating_activities,
+          cash_flows_from_investing_activities: cash_flows_from_investing_activities,
+          cash_flows_from_financing_activities: cash_flows_from_financing_activities,
+          cash_and_equivalents_end_of_period: cash_and_equivalents_end_of_period,
         }
       end
 
