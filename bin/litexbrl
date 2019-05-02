@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
 require 'litexbrl'
 require 'pry'
+require "awesome_print"
 
 def doc(path)
   File.open(path) {|f| Nokogiri::XML(f) }
@@ -15,18 +17,5 @@ def dir
   File.expand_path '../../spec/data/tdnet/summary', __FILE__
 end
 
-
-#doc = doc('bin/1.xbrl')
-#doc = doc('bin/a.htm')
-#elm = doc.at_xpath("//xbrli:xbrl/tse-t-ed:NetSales[@contextRef='CurrentYearConsolidatedDuration']")
-#elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_NonConsolidatedMember_ForecastMember' and @name='tse-ed-t:NetIncomePerShare']")
-#elm = doc.at_xpath("//ix:nonFraction[@contextRef='CurrentYearDuration_ConsolidatedMember_ForecastMember' and @name='tse-ed-t:NetSales']")
-#elm = doc.at_xpath("//xbrli:context[@id='CurrentYearDuration']/xbrli:period/xbrli:endDate")
-#p elm.content
-
-#xbrl = LiteXBRL::TDnet::Summary.parse('bin/1.xbrl')
-#xbrl = LiteXBRL::TDnet::Summary2.parse('bin/1q.htm')
-#xbrl = LiteXBRL::TDnet::Summary2.parse('bin/year.htm')
-#xbrl = LiteXBRL::TDnet::ResultsForecast2.parse('bin/1.htm')
-xbrl =  LiteXBRL::TDnet.parse_string read('bin/a.htm')
-p xbrl
+xbrl =  LiteXBRL::TDnet.parse_cash_flow read(ARGV[0])
+ap xbrl

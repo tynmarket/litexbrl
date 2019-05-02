@@ -88,7 +88,6 @@ module LiteXBRL
         # マイナスが設定されていれば付加します
         #
         def add_sign(elm)
-          return unless elm
           elm.attribute('sign') ? elm.attribute('sign').content + elm.content : elm.content
         end
       end
