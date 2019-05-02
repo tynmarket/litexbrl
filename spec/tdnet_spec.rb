@@ -7,31 +7,31 @@ module LiteXBRL
 
     let(:dir) { File.expand_path '../data/tdnet', __FILE__ }
 
-    describe '.find_document' do
+    describe '.find_reader' do
       context 'Summary' do
         it do
-          document = TDnet.send :find_document, doc("#{dir}/summary.xbrl")
+          document = TDnet.send :find_reader, doc("#{dir}/summary.xbrl")
           expect(document).to eq(LiteXBRL::TDnet::Summary)
         end
       end
 
       context 'Summary2' do
         it do
-          document = TDnet.send :find_document, doc("#{dir}/summary2.htm")
+          document = TDnet.send :find_reader, doc("#{dir}/summary2.htm")
           expect(document).to eq(LiteXBRL::TDnet::Summary2)
         end
       end
 
       context 'ResultsForecast' do
         it do
-          document = TDnet.send :find_document, doc("#{dir}/results_forecast.xbrl")
+          document = TDnet.send :find_reader, doc("#{dir}/results_forecast.xbrl")
           expect(document).to eq(LiteXBRL::TDnet::ResultsForecast)
         end
       end
 
       context 'ResultsForecast2' do
         it do
-          document = TDnet.send :find_document, doc("#{dir}/results_forecast2.htm")
+          document = TDnet.send :find_reader, doc("#{dir}/results_forecast2.htm")
           expect(document).to eq(LiteXBRL::TDnet::ResultsForecast2)
         end
       end
