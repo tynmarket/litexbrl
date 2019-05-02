@@ -8,6 +8,7 @@ require 'litexbrl/tdnet/results_forecast'
 require 'litexbrl/tdnet/financial_information2'
 require 'litexbrl/tdnet/summary2'
 require 'litexbrl/tdnet/results_forecast2'
+require 'litexbrl/tdnet/cash_flow2'
 
 module LiteXBRL
   module TDnet
@@ -22,6 +23,11 @@ module LiteXBRL
       def parse_string(str)
         doc = Nokogiri::XML str
         read doc
+      end
+
+      def parse_cash_flow(str)
+        doc = Nokogiri::XML str
+        CashFlow2.read doc
       end
 
       private
