@@ -30,11 +30,14 @@ module LiteXBRL
       end
 
       describe ".read" do
+        let(:xbrl) { Summary2.read doc("#{dir}/#{file}") }
+        let(:summary) { xbrl[:summary] }
+        let(:results_forecast) { xbrl[:results_forecast].first }
+        let(:cash_flow) { xbrl[:cash_flow] }
+
         context '日本会計基準' do
           context "連結・第1四半期" do
-            let(:xbrl) { Summary2.read doc("#{dir}/jp-cons-2014-q1.htm") }
-            let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast].first }
+            let(:file) { "jp-cons-2014-q1.htm" }
 
             it do
               expect(summary[:code]).to eq('3046')
@@ -84,9 +87,7 @@ module LiteXBRL
           end
 
           context '1株当たり純資産・自己株式なし' do
-            let(:xbrl) { Summary2.read doc("#{dir}/no-treasury_stock.htm") }
-            let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast].first }
+            let(:file) { "no-treasury_stock.htm" }
 
             it { expect(summary[:net_assets_per_share]).to eq(468.85) }
           end
@@ -95,6 +96,7 @@ module LiteXBRL
             let(:xbrl) { Summary2.read doc("#{dir}/jp-cons-2013-q4.htm") }
             let(:summary) { xbrl[:summary] }
             let(:results_forecast) { xbrl[:results_forecast].first }
+            let(:cash_flow) { xbrl[:cash_flow] }
 
             it do
               expect(summary[:code]).to eq('2408')
@@ -140,15 +142,29 @@ module LiteXBRL
               expect(results_forecast[:change_in_forecast_operating_income]).to eq(-0.329)
               expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(-0.354)
               expect(results_forecast[:change_in_forecast_net_income]).to eq(-0.359)
+
+              expect(cash_flow[:cash_flows_from_operating_activities]).to eq 616
+              expect(cash_flow[:cash_flows_from_investing_activities]).to eq -135
+              expect(cash_flow[:cash_flows_from_financing_activities]).to eq -64
+              expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 4832
+            end
+          end
+
+          context "非連結・第4四半期" do
+            let(:file) { "jp-noncons-2014-q4.htm" }
+
+            it do
+              expect(cash_flow[:cash_flows_from_operating_activities]).to eq 6882
+              expect(cash_flow[:cash_flows_from_investing_activities]).to eq 828
+              expect(cash_flow[:cash_flows_from_financing_activities]).to eq -5361
+              expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 7863
             end
           end
         end
 
         context '米国会計基準' do
           context "連結・第4四半期" do
-            let(:xbrl) { Summary2.read doc("#{dir}/us-cons-2014-q4.htm") }
-            let(:summary) { xbrl[:summary] }
-            let(:results_forecast) { xbrl[:results_forecast].first }
+            let(:file) { "us-cons-2014-q4.htm" }
 
             it do
               expect(summary[:code]).to eq '7203'
@@ -194,59 +210,69 @@ module LiteXBRL
               expect(results_forecast[:change_in_forecast_operating_income]).to eq 0.003
               expect(results_forecast[:change_in_forecast_ordinary_income]).to eq -0.021
               expect(results_forecast[:change_in_forecast_net_income]).to eq -0.024
+
+              expect(cash_flow[:cash_flows_from_operating_activities]).to eq 3646035
+              expect(cash_flow[:cash_flows_from_investing_activities]).to eq -4336248
+              expect(cash_flow[:cash_flows_from_financing_activities]).to eq 919480
+              expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 2041170
             end
           end
         end
 
         context 'IFRS' do
-          let(:xbrl) { Summary2.read doc("#{dir}/ifrs-cons-2013-q4.htm") }
-          let(:summary) { xbrl[:summary] }
-          let(:results_forecast) { xbrl[:results_forecast].first }
+          context "連結・第4四半期" do
+            let(:file) { "ifrs-cons-2013-q4.htm" }
 
-          it do
-            expect(summary[:code]).to eq('8923')
-            expect(summary[:year]).to eq(2013)
-            expect(summary[:month]).to eq(11)
-            expect(summary[:quarter]).to eq(4)
-            expect(summary[:consolidation]).to eq(1)
+            it do
+              expect(summary[:code]).to eq('8923')
+              expect(summary[:year]).to eq(2013)
+              expect(summary[:month]).to eq(11)
+              expect(summary[:quarter]).to eq(4)
+              expect(summary[:consolidation]).to eq(1)
 
-            expect(summary[:net_sales]).to eq(35070)
-            expect(summary[:operating_income]).to eq(3909)
-            expect(summary[:ordinary_income]).to eq(3217)
-            expect(summary[:net_income]).to eq(2003)
-            expect(summary[:net_income_per_share]).to eq(42.99)
+              expect(summary[:net_sales]).to eq(35070)
+              expect(summary[:operating_income]).to eq(3909)
+              expect(summary[:ordinary_income]).to eq(3217)
+              expect(summary[:net_income]).to eq(2003)
+              expect(summary[:net_income_per_share]).to eq(42.99)
 
-            expect(summary[:change_in_net_sales]).to eq(0.449)
-            expect(summary[:change_in_operating_income]).to eq(0.369)
-            expect(summary[:change_in_ordinary_income]).to eq(0.45)
-            expect(summary[:change_in_net_income]).to eq(0.367)
+              expect(summary[:change_in_net_sales]).to eq(0.449)
+              expect(summary[:change_in_operating_income]).to eq(0.369)
+              expect(summary[:change_in_ordinary_income]).to eq(0.45)
+              expect(summary[:change_in_net_income]).to eq(0.367)
 
-            expect(summary[:prior_net_sales]).to eq(24195)
-            expect(summary[:prior_operating_income]).to eq(2856)
-            expect(summary[:prior_ordinary_income]).to eq(2218)
-            expect(summary[:prior_net_income]).to eq(1465)
-            expect(summary[:prior_net_income_per_share]).to eq(32.07)
+              expect(summary[:prior_net_sales]).to eq(24195)
+              expect(summary[:prior_operating_income]).to eq(2856)
+              expect(summary[:prior_ordinary_income]).to eq(2218)
+              expect(summary[:prior_net_income]).to eq(1465)
+              expect(summary[:prior_net_income_per_share]).to eq(32.07)
 
-#            expect(xbrl.change_in_prior_net_sales).to eq(0.008)
-#            expect(xbrl.change_in_prior_operating_income).to eq(0.036)
-#            expect(xbrl.change_in_prior_ordinary_income).to eq(0.039)
-#            expect(xbrl.change_in_prior_net_income).to eq(0.287)
+  #            expect(xbrl.change_in_prior_net_sales).to eq(0.008)
+  #            expect(xbrl.change_in_prior_operating_income).to eq(0.036)
+  #            expect(xbrl.change_in_prior_ordinary_income).to eq(0.039)
+  #            expect(xbrl.change_in_prior_net_income).to eq(0.287)
 
-            expect(summary[:owners_equity]).to eq (30102)
-            expect(summary[:number_of_shares]).to eq (48284000)
-            expect(summary[:number_of_treasury_stock]).to be_nil
-            expect(summary[:net_assets_per_share]).to eq(623.45)
+              expect(summary[:owners_equity]).to eq (30102)
+              expect(summary[:number_of_shares]).to eq (48284000)
+              expect(summary[:number_of_treasury_stock]).to be_nil
+              expect(summary[:net_assets_per_share]).to eq(623.45)
 
-            expect(results_forecast[:forecast_net_sales]).to eq(41817)
-            expect(results_forecast[:forecast_operating_income]).to eq(4618)
-            expect(results_forecast[:forecast_ordinary_income]).to eq(3800)
-            expect(results_forecast[:forecast_net_income]).to eq(2309)
-            expect(results_forecast[:forecast_net_income_per_share]).to eq(47.82)
+              expect(results_forecast[:forecast_net_sales]).to eq(41817)
+              expect(results_forecast[:forecast_operating_income]).to eq(4618)
+              expect(results_forecast[:forecast_ordinary_income]).to eq(3800)
+              expect(results_forecast[:forecast_net_income]).to eq(2309)
+              expect(results_forecast[:forecast_net_income_per_share]).to eq(47.82)
 
-            expect(results_forecast[:change_in_forecast_net_sales]).to eq(0.192)
-            expect(results_forecast[:change_in_forecast_operating_income]).to eq(0.181)
-            expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(0.181)
-            expect(results_forecast[:change_in_forecast_net_income]).to eq(0.153)
+              expect(results_forecast[:change_in_forecast_net_sales]).to eq(0.192)
+              expect(results_forecast[:change_in_forecast_operating_income]).to eq(0.181)
+              expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(0.181)
+              expect(results_forecast[:change_in_forecast_net_income]).to eq(0.153)
+
+              expect(cash_flow[:cash_flows_from_operating_activities]).to eq 2772
+              expect(cash_flow[:cash_flows_from_investing_activities]).to eq -940
+              expect(cash_flow[:cash_flows_from_financing_activities]).to eq 3456
+              expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 14711
+            end
           end
         end
 

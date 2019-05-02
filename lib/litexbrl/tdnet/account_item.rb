@@ -127,7 +127,7 @@ module LiteXBRL
       CASH_FLOWS_FROM_FINANCING_ACTIVITIES = ["CashFlowsFromFinancingActivities", "CashFlowsFromFinancingActivitiesIFRS", "CashFlowsFromFinancingActivitiesUS"]
 
       # 現金及び現金同等物の期末残高
-      CASH_AND_EQUIVALENTS_END_OF_PERIOD = ["CashAndEquivalentsEndOfPeriod", "CashAndEquivalentsEndOfPeriodIFRS", "CashAndEquivalentsEndOfPeriodUS"]
+      CASH_AND_EQUIVALENTS_END_OF_PERIOD = ["CashAndEquivalentsEndOfPeriod", "CashAndCashEquivalentsAtEndOfPeriodIFRS", "CashAndEquivalentsEndOfPeriodUS"]
 
       # 企業名
       COMPANY_NAME = ['CompanyName']
