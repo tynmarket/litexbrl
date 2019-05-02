@@ -1,0 +1,40 @@
+# https://circleci.com/docs/2.0/language-ruby/
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/ruby:2.5
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - litexbrl-bundle-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: bundle install
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: litexbrl-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run rspec
+          command: |
+            bundle exec rspec --format progress \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml
+
+      # collect reports
+      - store_test_results:
+          path: test_results
+      - store_artifacts:
+          path: test_results
+          destination: test_results
