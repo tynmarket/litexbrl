@@ -8,6 +8,7 @@ require 'litexbrl/tdnet/results_forecast'
 require 'litexbrl/tdnet/financial_information2'
 require 'litexbrl/tdnet/summary2'
 require 'litexbrl/tdnet/results_forecast2'
+require 'litexbrl/tdnet/cash_flow2'
 
 module LiteXBRL
   module TDnet
@@ -24,15 +25,20 @@ module LiteXBRL
         read doc
       end
 
+      def parse_cash_flow(str)
+        doc = Nokogiri::XML str
+        CashFlow2.read doc
+      end
+
       private
 
       def read(doc)
-        document = find_document doc
+        document = find_reader doc
 
         document.read doc
       end
 
-      def find_document(doc)
+      def find_reader(doc)
         namespaces = doc.namespaces
 
         # TODO 委嬢する？

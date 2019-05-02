@@ -6,8 +6,11 @@ module LiteXBRL
       def self.read(doc)
         xbrl = read_data doc
 
-        {summary: xbrl.attributes,
-          results_forecast: [xbrl.attributes_results_forecast]}
+        {
+          summary: xbrl.attributes,
+          results_forecast: [xbrl.attributes_results_forecast],
+          cash_flow: xbrl.cash_flow_attributes
+        }
       end
 
       private
@@ -175,6 +178,18 @@ module LiteXBRL
         xbrl.change_in_forecast_ordinary_income = find_value_percent_to_f(doc, CHANGE_IN_ORDINARY_INCOME, context[:context_forecast].call(xbrl.quarter))
         # 通期予想純利益前年比
         xbrl.change_in_forecast_net_income = find_value_percent_to_f(doc, CHANGE_IN_NET_INCOME, context[:context_forecast].call(xbrl.quarter))
+
+        # 営業キャッシュフロー
+        xbrl.cash_flows_from_operating_activities = find_value_to_i(doc, CASH_FLOWS_FROM_OPERATING_ACTIVITIES, context[:context_duration])
+
+        # 投資キャッシュフロー
+        xbrl.cash_flows_from_investing_activities = find_value_to_i(doc, CASH_FLOWS_FROM_INVESTING_ACTIVITIES, context[:context_duration])
+
+        # 財務キャッシュフロー
+        xbrl.cash_flows_from_financing_activities = find_value_to_i(doc, CASH_FLOWS_FROM_FINANCING_ACTIVITIES, context[:context_duration])
+
+        # 現金及び現金同等物の期末残高
+        xbrl.cash_and_equivalents_end_of_period = find_value_to_i(doc, CASH_AND_EQUIVALENTS_END_OF_PERIOD, context[:context_instant_consolidation])
 
         xbrl
       end
