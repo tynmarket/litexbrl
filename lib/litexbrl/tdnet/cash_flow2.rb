@@ -66,13 +66,10 @@ module LiteXBRL
         end
 
         def find_value(doc, accountings, context, item)
-          #item = item_name(accountings, item)
-
           xpath = item_to_xpath(accountings, context, item)
           elm = doc.at_xpath xpath
 
           return unless elm
-          p elm.content
 
           value = to_i elm.content
           scale = elm.attribute("scale").content
