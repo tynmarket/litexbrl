@@ -72,7 +72,7 @@ module LiteXBRL
           return unless elm
 
           value = to_i elm.content
-          scale = elm.attribute("scale").content
+          scale = elm.attribute("scale")&.content # 取得できない場合は百万円と仮定
           sign = elm.attribute('sign')&.content
 
           value /= 1000 if scale == "3"
