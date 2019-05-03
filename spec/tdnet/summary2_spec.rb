@@ -217,6 +217,12 @@ module LiteXBRL
               expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 2041170
             end
           end
+
+          context "CashAndEquivalentsEndOfPeriod1US" do
+            let(:file) { "us-cashflow.htm" }
+
+            it { expect(cash_flow[:cash_and_equivalents_end_of_period]).to eq 335174 }
+          end
         end
 
         context 'IFRS' do
