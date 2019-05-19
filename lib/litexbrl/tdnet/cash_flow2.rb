@@ -1,5 +1,11 @@
 module LiteXBRL
   module TDnet
+    class NoAccountingStandardError < StandardError
+      def initialize
+        super "会計基準・Contextが見つかりません。"
+      end
+    end
+
     class CashFlow2 < FinancialInformation2
       # 日本会計基準, IFRS（通期のみ）, 米国会計基準はSummaryのみ
       ACCOUNTING_STANDARDS = [
@@ -58,7 +64,7 @@ module LiteXBRL
             return [accountings, context] if value
           end
 
-          raise StandardError.new("会計基準・Contextが見つかりません。")
+          raise NoAccountingStandardError.new
         end
 
         def find_context_instant(context)
