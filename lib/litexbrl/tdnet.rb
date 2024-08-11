@@ -60,7 +60,7 @@ module LiteXBRL
       end
 
       def summary2?(namespaces)
-        namespaces.keys.any? {|ns| /tse-.+(jpsm|ussm|ifsm)/ =~ ns }
+        namespaces.keys.any? {|ns| /tse-.+(jpsm|ussm|ifsm|jpsy|ussy|ifsy)/ =~ ns }
       end
 
       def results_forecast?(namespaces)

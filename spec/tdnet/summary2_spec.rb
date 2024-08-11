@@ -86,6 +86,56 @@ module LiteXBRL
             end
           end
 
+          context "非連結・中間期" do
+            let(:file) { "jp-noncons-2014-q2.htm" }
+
+            it do
+              expect(summary[:code]).to eq('7849')
+              expect(summary[:year]).to eq(2024)
+              expect(summary[:month]).to eq(12)
+              expect(summary[:quarter]).to eq(2)
+              expect(summary[:consolidation]).to eq(0)
+
+              expect(summary[:net_sales]).to eq(4280)
+              expect(summary[:operating_income]).to eq(1176)
+              expect(summary[:ordinary_income]).to eq(1258)
+              expect(summary[:net_income]).to eq(962)
+              expect(summary[:net_income_per_share]).to eq(250.66)
+
+              expect(summary[:change_in_net_sales]).to eq(0.076)
+              expect(summary[:change_in_operating_income]).to eq(0.087)
+              expect(summary[:change_in_ordinary_income]).to eq(0.087)
+              expect(summary[:change_in_net_income]).to eq(0.071)
+
+              expect(summary[:prior_net_sales]).to eq(3978)
+              expect(summary[:prior_operating_income]).to eq(1082)
+              expect(summary[:prior_ordinary_income]).to eq(1158)
+              expect(summary[:prior_net_income]).to eq(898)
+              expect(summary[:prior_net_income_per_share]).to eq(233.94)
+
+              expect(summary[:change_in_prior_net_sales]).to eq(0.306)
+              expect(summary[:change_in_prior_operating_income]).to eq(0.786)
+              expect(summary[:change_in_prior_ordinary_income]).to eq(0.65)
+              expect(summary[:change_in_prior_net_income]).to eq(1.04)
+
+              expect(summary[:owners_equity]).to eq(8991)
+              expect(summary[:number_of_shares]).to eq(3840000)
+              expect(summary[:number_of_treasury_stock]).to eq(383)
+              expect(summary[:net_assets_per_share]).to eq(2341.76)
+
+              expect(results_forecast[:forecast_net_sales]).to eq(8500)
+              expect(results_forecast[:forecast_operating_income]).to eq(2400)
+              expect(results_forecast[:forecast_ordinary_income]).to eq(2500)
+              expect(results_forecast[:forecast_net_income]).to eq(1820)
+              expect(results_forecast[:forecast_net_income_per_share]).to eq(474.0)
+
+              expect(results_forecast[:change_in_forecast_net_sales]).to eq(0.019)
+              expect(results_forecast[:change_in_forecast_operating_income]).to eq(0.056)
+              expect(results_forecast[:change_in_forecast_ordinary_income]).to eq(0.056)
+              expect(results_forecast[:change_in_forecast_net_income]).to eq(0.024)
+            end
+          end
+
           context '1株当たり純資産・自己株式なし' do
             let(:file) { "no-treasury_stock.htm" }
 
