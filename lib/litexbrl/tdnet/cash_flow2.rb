@@ -14,7 +14,8 @@ module LiteXBRL
       ]
 
       CONTEXT_FINAL = "CurrentYearDuration"
-      CONTEXTS = [CONTEXT_FINAL, "CurrentYTDDuration"]
+      CONTEXT_INTERIM = "InterimDuration"
+      CONTEXTS = [CONTEXT_FINAL, CONTEXT_INTERIM, "CurrentYTDDuration"]
 
       class << self
         def read(doc)
@@ -68,7 +69,14 @@ module LiteXBRL
         end
 
         def find_context_instant(context)
-          context == CONTEXT_FINAL ? "CurrentYearInstant" : "CurrentQuarterInstant"
+          case context
+          when CONTEXT_FINAL
+            "CurrentYearInstant"
+          when CONTEXT_INTERIM
+            "InterimInstant"
+          else
+            "CurrentQuarterInstant"
+          end
         end
 
         def find_value(doc, accountings, context, item)

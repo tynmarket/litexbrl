@@ -37,6 +37,19 @@ module LiteXBRL
               expect(xbrl[:cash_and_cash_equivalents]).to eq 20140
             end
           end
+
+          context "第2四半期" do
+            let(:file) { "jp_q2.htm" }
+
+            it do
+              expect(xbrl[:net_cash_provided_by_used_in_operating_activities]).to eq 11598
+              expect(xbrl[:net_cash_provided_by_used_in_investment_activities]).to eq -6827
+              expect(xbrl[:net_cash_provided_by_used_in_financing_activities]).to eq -2448
+              expect(xbrl[:net_increase_decrease_in_cash_and_cash_equivalents]).to eq 2357
+              expect(xbrl[:prior_cash_and_cash_equivalents]).to eq 29237
+              expect(xbrl[:cash_and_cash_equivalents]).to eq 31594
+            end
+          end
         end
 
         context 'IFRS' do
